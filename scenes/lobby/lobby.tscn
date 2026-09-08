@@ -1,0 +1,361 @@
+[gd_scene format=3 uid="uid://bww08l7tfp4w6"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://bb5so3jt70dys" path="res://assets/models/style_tests/forge_beacon.glb" id="2_beacon"]
+[ext_resource type="Material" path="res://assets/lookdev/ochre.tres" id="3_ochre"]
+[ext_resource type="Material" path="res://assets/lookdev/starbone.tres" id="4_starbone"]
+[ext_resource type="PackedScene" uid="uid://b0g1paaauq2nh" path="res://assets/models/style_tests/forge_monument.glb" id="5_monument"]
+[ext_resource type="Material" path="res://assets/lookdev/world_globe_hologram.tres" id="6_globe"]
+[ext_resource type="PackedScene" uid="uid://bnl41h46vjo5o" path="res://assets/models/outpost_kit/outpost_wall_bay.glb" id="7_wall"]
+[ext_resource type="PackedScene" uid="uid://buli5i60gedr0" path="res://assets/models/outpost_kit/outpost_crate.glb" id="8_crate"]
+[ext_resource type="PackedScene" uid="uid://cux7kwpnfwrn7" path="res://assets/models/outpost_kit/outpost_planter.glb" id="9_planter"]
+[ext_resource type="Script" uid="uid://cgwrlgs5kmb7c" path="res://scenes/style_lab/outpost_collision.gd" id="11_collision"]
+
+[sub_resource type="Environment" id="Environment_lobby"]
+background_mode = 1
+background_color = Color(0.08, 0.12, 0.18, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.28, 0.42, 0.52, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.28
+tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 1.4
+ssao_intensity = 1.8
+glow_enabled = true
+glow_intensity = 0.7
+fog_enabled = true
+fog_light_color = Color(0.55, 0.68, 0.7, 1)
+fog_light_energy = 0.4
+fog_density = 0.0035
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(40, 2, 34)
+
+[sub_resource type="StandardMaterial3D" id="TealMaterial"]
+albedo_color = Color(0.04, 0.4, 0.45, 1)
+metallic = 0.25
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.02, 0.45, 0.6, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="ConsoleMesh"]
+size = Vector3(1.2, 0.95, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="AmberMaterial"]
+albedo_color = Color(1, 0.38, 0.08, 1)
+metallic = 0.25
+roughness = 0.35
+emission_enabled = true
+emission = Color(1, 0.15, 0.02, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="StandardMaterial3D" id="VioletMaterial"]
+albedo_color = Color(0.18, 0.08, 0.45, 1)
+metallic = 0.2
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.35, 0.08, 1, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="CylinderMesh" id="PlinthMesh"]
+top_radius = 1.65
+bottom_radius = 1.9
+height = 0.5
+radial_segments = 32
+
+[sub_resource type="CylinderShape3D" id="PlinthShape"]
+height = 0.5
+radius = 1.9
+
+[sub_resource type="SphereMesh" id="GlobeMesh"]
+radius = 1.15
+height = 2.3
+radial_segments = 48
+rings = 24
+
+[sub_resource type="StandardMaterial3D" id="GlobeRingMaterial"]
+transparency = 1
+albedo_color = Color(0.05, 0.55, 0.6, 1)
+metallic = 0.1
+roughness = 0.25
+emission_enabled = true
+emission = Color(0.1, 0.9, 0.95, 1)
+emission_energy_multiplier = 4.5
+
+[sub_resource type="TorusMesh" id="GlobeRingMesh"]
+inner_radius = 1.28
+outer_radius = 1.34
+rings = 48
+
+[node name="StarforgeLobby" type="Node3D" unique_id=1166291153]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1072290732]
+environment = SubResource("Environment_lobby")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=623926590]
+transform = Transform3D(0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5, -0.612372, 0.612372, 0, 12, 0)
+light_color = Color(1, 0.93, 0.82, 1)
+light_energy = 0.35
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_max_distance = 80.0
+
+[node name="HangarKey" type="SpotLight3D" parent="." unique_id=796555286]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.5, 0)
+light_color = Color(0.92, 0.96, 1, 1)
+light_energy = 6.5
+light_specular = 0.4
+shadow_enabled = true
+spot_range = 28.0
+spot_attenuation = 0.8
+spot_angle = 55.0
+spot_angle_attenuation = 0.6
+
+[node name="HangarFillA" type="SpotLight3D" parent="." unique_id=980611154]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -8, 11.5, -4)
+light_color = Color(0.75, 0.88, 1, 1)
+light_energy = 3.2
+shadow_enabled = true
+spot_range = 18.0
+spot_angle = 40.0
+
+[node name="HangarFillB" type="SpotLight3D" parent="." unique_id=1918130576]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 8, 11.5, -4)
+light_color = Color(0.75, 0.88, 1, 1)
+light_energy = 3.2
+shadow_enabled = true
+spot_range = 18.0
+spot_angle = 40.0
+
+[node name="HangarFillC" type="SpotLight3D" parent="." unique_id=1996185686]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -8, 11.5, 5)
+light_color = Color(0.8, 0.9, 1, 1)
+light_energy = 2.6
+spot_range = 16.0
+spot_angle = 38.0
+
+[node name="HangarFillD" type="SpotLight3D" parent="." unique_id=1421669465]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 8, 11.5, 5)
+light_color = Color(0.8, 0.9, 1, 1)
+light_energy = 2.6
+spot_range = 16.0
+spot_angle = 38.0
+
+[node name="ForgeGlow" type="OmniLight3D" parent="." unique_id=153244439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 4.5
+shadow_enabled = true
+shadow_bias = 0.04
+omni_range = 10.0
+omni_attenuation = 1.2
+
+[node name="PortalGlow" type="OmniLight3D" parent="." unique_id=1417935890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, -12)
+light_color = Color(1, 0.58, 0.22, 1)
+light_energy = 5.5
+shadow_enabled = true
+omni_range = 12.0
+omni_attenuation = 1.1
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=208319606]
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor" unique_id=427209377]
+transform = Transform3D(40, 0, 0, 0, 0.25, 0, 0, 0, 34, 0, -0.125, 0)
+material_override = ExtResource("3_ochre")
+mesh = SubResource("FloorMesh")
+
+[node name="Collision" type="CollisionShape3D" parent="Floor" unique_id=1703655731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("FloorShape")
+
+[node name="CourtyardPad" type="MeshInstance3D" parent="." unique_id=1250678268]
+transform = Transform3D(16, 0, 0, 0, 0.04, 0, 0, 0, 12, 0, 0.02, -1)
+material_override = ExtResource("4_starbone")
+mesh = SubResource("FloorMesh")
+
+[node name="ApproachPad" type="MeshInstance3D" parent="." unique_id=767953645]
+transform = Transform3D(4, 0, 0, 0, 0.04, 0, 0, 0, 10, 0, 0.025, 6)
+material_override = ExtResource("4_starbone")
+mesh = SubResource("FloorMesh")
+
+[node name="Hangar" type="Node3D" parent="." unique_id=674720661]
+script = ExtResource("11_collision")
+
+[node name="WallBayBackB" parent="Hangar" unique_id=781824127 instance=ExtResource("7_wall")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -2.4, 0, -14.5)
+
+[node name="CeilingBayA" parent="Hangar" unique_id=683223660 instance=ExtResource("7_wall")]
+transform = Transform3D(6.126832, 0, 0, 0, -2.8420914e-07, -4.198775, 0, 6.5050583, -1.8344649e-07, -8.783324, 19.500374, -16.783928)
+
+[node name="CeilingBayB" parent="Hangar" unique_id=1326243039 instance=ExtResource("7_wall")]
+transform = Transform3D(6.126832, 0, 0, 0, -2.8420914e-07, -4.198775, 0, 6.5050583, -1.8344649e-07, 10.980735, 19.500374, -16.783928)
+
+[node name="CeilingBayA2" parent="Hangar" unique_id=1090896664 instance=ExtResource("7_wall")]
+transform = Transform3D(-6.126832, -5.6869027e-07, 1.6045076e-14, 0, -2.8434513e-07, -4.198775, 5.356247e-07, -6.5050583, 1.8353428e-07, -8.783324, 19.500374, 17.451525)
+
+[node name="CeilingBayB2" parent="Hangar" unique_id=1362737689 instance=ExtResource("7_wall")]
+transform = Transform3D(-6.126832, -5.6869027e-07, 1.6045076e-14, 0, -2.8434513e-07, -4.198775, 5.356247e-07, -6.5050583, 1.8353428e-07, 10.980735, 19.500374, 17.451525)
+
+[node name="WallBayRightD" parent="Hangar" unique_id=2086687342 instance=ExtResource("7_wall")]
+transform = Transform3D(-2.2292808e-07, 0, -5.1, 0, 6.7236085, 0, 5.1, 0, -2.2292808e-07, 20.47559, 0, 8.531517)
+
+[node name="WallBayRightD2" parent="Hangar" unique_id=1085517751 instance=ExtResource("7_wall")]
+transform = Transform3D(-2.2292808e-07, 0, -5.1, 0, 6.7236085, 0, 5.1, 0, -2.2292808e-07, 20.47559, 0, -7.490346)
+
+[node name="WallBayRightD3" parent="Hangar" unique_id=685178534 instance=ExtResource("7_wall")]
+transform = Transform3D(-2.2292808e-07, 0, 5.1, 0, 6.7236085, 0, -5.1, 0, -2.2292808e-07, -19.577991, 0, 8.531517)
+
+[node name="WallBayRightD5" parent="Hangar" unique_id=2050479826 instance=ExtResource("7_wall")]
+transform = Transform3D(-5.1, 0, -7.700786e-07, 0, 6.7236085, 0, 7.700786e-07, 0, -5.1, -10.06497, 0, 17.166761)
+
+[node name="WallBayRightD6" parent="Hangar" unique_id=618072998 instance=ExtResource("7_wall")]
+transform = Transform3D(-5.1, 0, -7.700786e-07, 0, 6.7236085, 0, 7.700786e-07, 0, -5.1, 11.080922, 0, 17.166761)
+
+[node name="WallBayRightD7" parent="Hangar" unique_id=1800858004 instance=ExtResource("7_wall")]
+transform = Transform3D(5.1, 0, 0, 0, 6.7236085, 0, 0, 0, 5.1, -10.376827, 0, -16.829575)
+
+[node name="WallBayRightD8" parent="Hangar" unique_id=743049092 instance=ExtResource("7_wall")]
+transform = Transform3D(5.1, 0, 0, 0, 6.7236085, 0, 0, 0, 5.1, 11.143601, 0, -16.829575)
+
+[node name="WallBayRightD4" parent="Hangar" unique_id=214505483 instance=ExtResource("7_wall")]
+transform = Transform3D(-2.2292808e-07, 0, 5.1, 0, 6.7236085, 0, -5.1, 0, -2.2292808e-07, -19.577991, 0, -7.490346)
+
+[node name="WorkbenchArmor" parent="Hangar" unique_id=527577129 instance=ExtResource("8_crate")]
+transform = Transform3D(1.15, 0, 0.35, 0, 1.2, 0, -0.35, 0, 1.15, -9.5, 0, -6.5)
+
+[node name="Console" type="MeshInstance3D" parent="Hangar/WorkbenchArmor" unique_id=1018292123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+material_override = SubResource("TealMaterial")
+cast_shadow = 0
+mesh = SubResource("ConsoleMesh")
+
+[node name="Label" type="Label3D" parent="Hangar/WorkbenchArmor" unique_id=1413413978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+billboard = 1
+text = "ARMOR / LOADOUT"
+font_size = 26
+outline_size = 7
+
+[node name="WorkbenchWeapons" parent="Hangar" unique_id=1175033224 instance=ExtResource("8_crate")]
+transform = Transform3D(1.15, 0, -0.35, 0, 1.2, 0, 0.35, 0, 1.15, 9.5, 0, -6.5)
+
+[node name="Console" type="MeshInstance3D" parent="Hangar/WorkbenchWeapons" unique_id=1009082814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+material_override = SubResource("AmberMaterial")
+cast_shadow = 0
+mesh = SubResource("ConsoleMesh")
+
+[node name="Label" type="Label3D" parent="Hangar/WorkbenchWeapons" unique_id=1097233739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+billboard = 1
+text = "WEAPONS / FORGE"
+font_size = 26
+outline_size = 7
+
+[node name="WorkbenchUtility" parent="Hangar" unique_id=1896707703 instance=ExtResource("8_crate")]
+transform = Transform3D(0.95, 0, 0.55, 0, 1.2, 0, -0.55, 0, 0.95, -9.5, 0, 6.5)
+
+[node name="Console" type="MeshInstance3D" parent="Hangar/WorkbenchUtility" unique_id=395203033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+material_override = SubResource("TealMaterial")
+cast_shadow = 0
+mesh = SubResource("ConsoleMesh")
+
+[node name="Label" type="Label3D" parent="Hangar/WorkbenchUtility" unique_id=393050930]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+billboard = 1
+text = "UTILITY / GADGETS"
+font_size = 26
+outline_size = 7
+
+[node name="WorkbenchOutfit" parent="Hangar" unique_id=1086656147 instance=ExtResource("8_crate")]
+transform = Transform3D(0.95, 0, -0.55, 0, 1.2, 0, 0.55, 0, 0.95, 9.5, 0, 6.5)
+
+[node name="Console" type="MeshInstance3D" parent="Hangar/WorkbenchOutfit" unique_id=1342405474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+material_override = SubResource("VioletMaterial")
+cast_shadow = 0
+mesh = SubResource("ConsoleMesh")
+
+[node name="Label" type="Label3D" parent="Hangar/WorkbenchOutfit" unique_id=2006567811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+billboard = 1
+text = "SKIN / OUTFIT"
+font_size = 26
+outline_size = 7
+
+[node name="WorkbenchWorld" parent="Hangar" unique_id=1260130517 instance=ExtResource("8_crate")]
+transform = Transform3D(1.2, 0, 0, 0, 1.15, 0, 0, 0, 1.2, 0.01955986, 0.95570326, -10)
+
+[node name="Console" type="MeshInstance3D" parent="Hangar/WorkbenchWorld" unique_id=1250974795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+material_override = SubResource("VioletMaterial")
+mesh = SubResource("ConsoleMesh")
+
+[node name="Label" type="Label3D" parent="Hangar/WorkbenchWorld" unique_id=1087873341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+billboard = 1
+text = "WORLD / DEPLOY"
+font_size = 26
+outline_size = 7
+
+[node name="PlanterA" parent="Hangar" unique_id=1128039683 instance=ExtResource("9_planter")]
+transform = Transform3D(0.86901724, 0, 0.4947818, 0, 1, 0, -0.4947818, 0, 0.86901724, -15.207557, 0, -13.152739)
+
+[node name="PlanterB" parent="Hangar" unique_id=760946561 instance=ExtResource("9_planter")]
+transform = Transform3D(0.874669, 0, -0.4838946, 0, 0.99999994, 0, 0.4838946, 0, 0.874669, 16.882767, 0, -11.615811)
+
+[node name="PlanterC" parent="Hangar" unique_id=1808375703 instance=ExtResource("9_planter")]
+transform = Transform3D(0.87, 0, -0.5, 0, 1, 0, 0.5, 0, 0.87, -13.2, 0, 10.5)
+
+[node name="PlanterD" parent="Hangar" unique_id=157434813 instance=ExtResource("9_planter")]
+transform = Transform3D(0.9, 0, 0.44, 0, 1, 0, -0.44, 0, 0.9, 13.2, 0, 10.5)
+
+[node name="CentralForge" type="Node3D" parent="." unique_id=919994055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Plinth" type="StaticBody3D" parent="CentralForge" unique_id=1342940236]
+
+[node name="Mesh" type="MeshInstance3D" parent="CentralForge/Plinth" unique_id=14894816]
+material_override = ExtResource("4_starbone")
+mesh = SubResource("PlinthMesh")
+
+[node name="Collision" type="CollisionShape3D" parent="CentralForge/Plinth" unique_id=448148627]
+shape = SubResource("PlinthShape")
+
+[node name="ForgeBeacon" parent="CentralForge" unique_id=2122400030 instance=ExtResource("2_beacon")]
+transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, 0.35, 0)
+
+[node name="WorldGlobe" type="Node3D" parent="CentralForge" unique_id=2144576581]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1, 1.2)
+
+[node name="Globe" type="MeshInstance3D" parent="CentralForge/WorldGlobe" unique_id=962930990]
+material_override = ExtResource("6_globe")
+mesh = SubResource("GlobeMesh")
+
+[node name="Ring" type="MeshInstance3D" parent="CentralForge/WorldGlobe" unique_id=733575687]
+transform = Transform3D(0.939693, -0.34202, 0, 0.321394, 0.883022, -0.34202, 0.116978, 0.321394, 0.939693, 0, 0, 0)
+material_override = SubResource("GlobeRingMaterial")
+mesh = SubResource("GlobeRingMesh")
+
+[node name="Label" type="Label3D" parent="CentralForge/WorldGlobe" unique_id=1854222575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+billboard = 1
+modulate = Color(0.5, 0.9, 1, 1)
+text = "WORLD / NEXT RUN"
+font_size = 28
+outline_size = 8
+
+[node name="ForgeMonumentPortal" type="Node3D" parent="." unique_id=232312644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -12.3)
+
+[node name="Monument" parent="ForgeMonumentPortal" unique_id=1824951971 instance=ExtResource("5_monument")]
+transform = Transform3D(-1.35, 0, 0, 0, 1.35, 0, 0, 0, -1.35, 0, -0.4831767, 0)
+
+[node name="Player" parent="." unique_id=1611429252 instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 10)

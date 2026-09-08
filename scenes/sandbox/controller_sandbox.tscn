@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="Material" path="res://assets/lookdev/ochre.tres" id="2_ochre"]
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(18, 0.2, 18)
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(18, 0.2, 18)
+
+[node name="ControllerSandbox" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("FloorMesh")
+material_override = ExtResource("2_ochre")
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("FloorShape")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

@@ -1,0 +1,16 @@
+.godot/
+*.tmp
+.DS_Store
+*.translation
+.import/
+export_presets.cfg
+*.apk
+*.aab
+*.zip
+.env
+.env.*
+credentials.json
+**/secrets/
+
+__pycache__/
+*.pyc

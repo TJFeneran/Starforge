@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/pulse_bolt.gd" id="1_script"]
+[ext_resource type="Material" path="res://assets/lookdev/amber.tres" id="2_amber"]
+
+[sub_resource type="CapsuleMesh" id="BoltMesh"]
+radius = 0.09
+height = 0.42
+radial_segments = 12
+rings = 4
+
+[sub_resource type="SphereShape3D" id="BoltShape"]
+radius = 0.14
+
+[node name="PulseBolt" type="Area3D"]
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_script")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("BoltMesh")
+material_override = ExtResource("2_amber")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoltShape")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.72, 0.28, 1)
+light_energy = 3.5
+omni_range = 4.0
