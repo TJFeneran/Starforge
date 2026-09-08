@@ -8,7 +8,8 @@ Godot 4.7 third-person space-fantasy game. Visual direction is locked in `docs/a
 
 ## Current entry point
 
-- `project.godot` → `res://scenes/main.tscn` → `res://scenes/lobby/lobby.tscn`
+- `project.godot` → `res://scenes/main.tscn` → `res://scenes/lobby/lobby.tscn` (forge hall)
+- Previous hangar archived at `res://scenes/lobby/lobby_legacy.tscn`
 - Renderer: **Forward+** (switched from Compatibility so shadows work)
 - Resolution: 1920×1080
 
@@ -17,7 +18,8 @@ Godot 4.7 third-person space-fantasy game. Visual direction is locked in `docs/a
 | Scene | Role |
 |---|---|
 | `scenes/main.tscn` | Launch wrapper only |
-| `scenes/lobby/lobby.tscn` | **Active work** — hangar hub / staging area |
+| `scenes/lobby/lobby.tscn` | **Active work** — forge hall hub / staging area |
+| `scenes/lobby/lobby_legacy.tscn` | Archived crate-and-wall hangar |
 | `scenes/playable/outpost_slice.tscn` | Playable mission vertical slice (independent of style_lab) |
 | `scenes/style_lab/style_lab.tscn` | Art / environment sandbox |
 | `scenes/sandbox/controller_sandbox.tscn` | Isolated controller / weapon tests |

@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dsveomao7uu47"]
 
-[ext_resource type="Shader" path="res://assets/lookdev/world_globe_hologram.gdshader" id="1_shader"]
+[ext_resource type="Shader" uid="uid://cojvofv4ifh58" path="res://assets/lookdev/world_globe_hologram.gdshader" id="1_shader"]
 
 [resource]
 render_priority = 1

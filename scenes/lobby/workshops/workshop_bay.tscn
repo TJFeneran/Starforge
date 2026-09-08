@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/lobby/workshops/workshop_bay.gd" id="1_bay"]
+
+[node name="WorkshopBay" type="Node3D"]
+script = ExtResource("1_bay")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Collision" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="InteractionAnchor" type="Marker3D" parent="."]
+position = Vector3(0, 0, 1.5)
+
+[node name="InspectionAnchor" type="Marker3D" parent="."]
+position = Vector3(0, 1.65, -1.8)

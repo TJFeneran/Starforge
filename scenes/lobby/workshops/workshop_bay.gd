@@ -1,0 +1,361 @@
+@tool
+extends Node3D
+## Authored 10 m wide x 8 m deep workshop. Front is local +Z; parent owns floor.
+## Instance workshop_bay.tscn, set purpose, and position/rotate the root.
+## build() synchronously rebuilds only Visual/Collision content; changes also defer rebuild.
+
+@export_enum("weapons", "armor", "utility", "outfit", "deploy") var purpose: String = "weapons":
+	set(value):
+		purpose = value
+		_queue_build()
+
+const PURPOSES: PackedStringArray = ["weapons", "armor", "utility", "outfit", "deploy"]
+const STARBONE: Color = Color("d9d5c7")
+const NAVY: Color = Color("172133")
+const COBALT: Color = Color("245aa8")
+const MINT: Color = Color("8dbfad")
+const AMBER: Color = Color("d6a957")
+
+var _queued: bool = false
+var _visual: Node3D
+var _collision: StaticBody3D
+var _bone: StandardMaterial3D
+var _navy: StandardMaterial3D
+var _cobalt: StandardMaterial3D
+var _metal: StandardMaterial3D
+var _mint: StandardMaterial3D
+var _amber: StandardMaterial3D
+var _cloth: StandardMaterial3D
+var _lamp: StandardMaterial3D
+
+
+func _ready() -> void:
+	build()
+
+
+func _queue_build() -> void:
+	if not is_inside_tree() or _queued:
+		return
+	_queued = true
+	call_deferred("_deferred_build")
+
+
+func _deferred_build() -> void:
+	if _queued and is_inside_tree():
+		build()
+
+
+func build() -> void:
+	_queued = false
+	if not is_inside_tree():
+		return
+	_visual = get_node_or_null("Visual") as Node3D
+	if _visual == null:
+		_visual = Node3D.new()
+		_visual.name = "Visual"
+		_adopt(self, _visual)
+	_collision = get_node_or_null("Collision") as StaticBody3D
+	if _collision == null:
+		_collision = StaticBody3D.new()
+		_collision.name = "Collision"
+		_adopt(self, _collision)
+	_collision.collision_layer = 1
+	_collision.collision_mask = 0
+	_clear(_visual)
+	_clear(_collision)
+	_anchor("InteractionAnchor", Vector3(0.0, 0.0, 1.5))
+	_anchor("InspectionAnchor", Vector3(0.0, 1.65, -1.8))
+	_materials()
+	_chassis()
+	var selected: String = purpose if PURPOSES.has(purpose) else "weapons"
+	match selected:
+		"armor":
+			_armor()
+		"utility":
+			_utility()
+		"outfit":
+			_outfit()
+		"deploy":
+			_deploy()
+		_:
+			_weapons()
+	_sign(selected)
+
+
+func _clear(parent: Node) -> void:
+	for child: Node in parent.get_children():
+		parent.remove_child(child)
+		child.free()
+
+
+func _adopt(parent: Node, child: Node) -> void:
+	parent.add_child(child)
+	# Self is always an ancestor, including when this bay is an instanced scene.
+	# Ownership makes generated geometry packable and visible in editor scene trees.
+	child.owner = self
+
+
+func _anchor(node_name: String, at: Vector3) -> void:
+	if get_node_or_null(NodePath(node_name)) != null:
+		return
+	var marker: Marker3D = Marker3D.new()
+	marker.name = node_name
+	marker.position = at
+	_adopt(self, marker)
+
+
+func _material(color: Color, metallic: float = 0.0, roughness: float = 0.65) -> StandardMaterial3D:
+	var result: StandardMaterial3D = StandardMaterial3D.new()
+	result.albedo_color = color
+	result.metallic = metallic
+	result.roughness = roughness
+	return result
+
+
+func _materials() -> void:
+	_bone = _material(STARBONE, 0.18)
+	_navy = _material(NAVY, 0.25)
+	_cobalt = _material(COBALT, 0.2)
+	_metal = _material(Color("65717b"), 0.72, 0.4)
+	_mint = _material(MINT, 0.15)
+	_amber = _material(AMBER, 0.15)
+	_cloth = _material(Color("85908e"), 0.0, 0.98)
+	_lamp = _material(Color("fff2da"))
+	_lamp.emission_enabled = true
+	_lamp.emission = Color("fff2da")
+	_lamp.emission_energy_multiplier = 0.7
+
+
+func _mesh(node_name: String, mesh: Mesh, at: Vector3, material: Material, rotation_degrees_value: Vector3 = Vector3.ZERO) -> MeshInstance3D:
+	var instance: MeshInstance3D = MeshInstance3D.new()
+	instance.name = node_name
+	instance.mesh = mesh
+	instance.material_override = material
+	instance.position = at
+	instance.rotation_degrees = rotation_degrees_value
+	_adopt(_visual, instance)
+	return instance
+
+
+func _box(node_name: String, at: Vector3, size: Vector3, material: Material, rotation_degrees_value: Vector3 = Vector3.ZERO) -> MeshInstance3D:
+	var mesh: BoxMesh = BoxMesh.new()
+	mesh.size = size
+	return _mesh(node_name, mesh, at, material, rotation_degrees_value)
+
+
+func _cylinder(node_name: String, at: Vector3, radius: float, height: float, material: Material, sides: int = 8, top_scale: float = 1.0) -> MeshInstance3D:
+	var mesh: CylinderMesh = CylinderMesh.new()
+	mesh.top_radius = radius * top_scale
+	mesh.bottom_radius = radius
+	mesh.height = height
+	mesh.radial_segments = sides
+	return _mesh(node_name, mesh, at, material)
+
+
+func _proxy(node_name: String, at: Vector3, size: Vector3, rotation_degrees_value: Vector3 = Vector3.ZERO) -> void:
+	var proxy: CollisionShape3D = CollisionShape3D.new()
+	var shape: BoxShape3D = BoxShape3D.new()
+	shape.size = size
+	proxy.name = node_name
+	proxy.shape = shape
+	proxy.position = at
+	proxy.rotation_degrees = rotation_degrees_value
+	_adopt(_collision, proxy)
+
+
+func _layered(node_name: String, at: Vector3, size: Vector3, material: Material) -> void:
+	# Recessed cap and foot soften the main silhouette without dense bevel meshes.
+	_box(node_name + "Core", at, Vector3(size.x, size.y * 0.72, size.z), material)
+	_box(node_name + "Foot", at - Vector3(0.0, size.y * 0.43, 0.0), Vector3(size.x * 0.94, size.y * 0.14, size.z * 0.94), _navy)
+	_box(node_name + "Cap", at + Vector3(0.0, size.y * 0.43, 0.0), Vector3(size.x * 0.94, size.y * 0.14, size.z * 0.94), material)
+
+
+func _chassis() -> void:
+	for side: int in [-1, 1]:
+		var suffix: String = "Left" if side < 0 else "Right"
+		var x: float = float(side) * 4.35
+		_layered("Frame" + suffix, Vector3(x, 2.05, -2.8), Vector3(0.4, 4.1, 0.65), _bone)
+		_box("FrameInset" + suffix, Vector3(x, 2.3, -2.46), Vector3(0.19, 2.6, 0.035), _navy)
+		_proxy("Frame" + suffix, Vector3(x, 2.05, -2.8), Vector3(0.4, 4.1, 0.65))
+		var cabinet_at: Vector3 = Vector3(float(side) * 3.45, 0.68, -2.15)
+		_layered("Cabinet" + suffix, cabinet_at, Vector3(1.25, 1.36, 1.3), _bone)
+		_proxy("Cabinet" + suffix, cabinet_at, Vector3(1.25, 1.36, 1.3))
+		_box("CabinetTop" + suffix, cabinet_at + Vector3(0.0, 0.72, 0.0), Vector3(1.32, 0.12, 1.35), _navy)
+		for drawer: int in range(3):
+			var drawer_y: float = 0.35 + float(drawer) * 0.32
+			_box("Drawer" + suffix + str(drawer), Vector3(cabinet_at.x, drawer_y, -1.487), Vector3(1.03, 0.27, 0.04), _cobalt if drawer == 2 else _bone)
+			_box("Handle" + suffix + str(drawer), Vector3(cabinet_at.x, drawer_y + 0.04, -1.445), Vector3(0.36, 0.04, 0.045), _navy)
+		_box("FootGuard" + suffix, Vector3(x, 0.16, -2.35), Vector3(0.62, 0.32, 1.55), _navy)
+		_proxy("FootGuard" + suffix, Vector3(x, 0.16, -2.35), Vector3(0.62, 0.32, 1.55))
+	_layered("OverheadBeam", Vector3(0.0, 3.88, -2.8), Vector3(8.7, 0.48, 0.75), _bone)
+	_proxy("OverheadBeam", Vector3(0.0, 3.88, -2.8), Vector3(8.7, 0.48, 0.75))
+	_box("RearSpine", Vector3(0.0, 0.45, -3.35), Vector3(8.3, 0.28, 0.25), _navy)
+	_proxy("RearSpine", Vector3(0.0, 0.45, -3.35), Vector3(8.3, 0.28, 0.25))
+	for index: int in range(2):
+		var x: float = -2.4 + float(index) * 4.8
+		_box("TaskLightArm" + str(index), Vector3(x, 3.65, -2.1), Vector3(0.13, 0.13, 1.5), _metal)
+		_box("TaskLightHousing" + str(index), Vector3(x, 3.48, -1.4), Vector3(1.25, 0.16, 0.4), _navy)
+		_box("TaskLightDiffuser" + str(index), Vector3(x, 3.39, -1.4), Vector3(1.08, 0.025, 0.28), _lamp)
+		var light: SpotLight3D = SpotLight3D.new()
+		light.name = "TaskLight" + str(index)
+		light.position = Vector3(x, 3.34, -1.35)
+		light.rotation_degrees.x = -90.0
+		light.light_color = Color("fff2e4")
+		light.light_energy = 1.5
+		light.spot_range = 5.0
+		light.spot_angle = 52.0
+		light.spot_attenuation = 1.2
+		light.shadow_enabled = false
+		_adopt(_visual, light)
+
+
+func _sign(selected: String) -> void:
+	_box("PhysicalSignBacking", Vector3(0.0, 3.88, -2.39), Vector3(3.65, 0.5, 0.085), _navy)
+	_box("PhysicalSignTrim", Vector3(0.0, 3.62, -2.34), Vector3(3.65, 0.035, 0.04), _cobalt)
+	var lettering: TextMesh = TextMesh.new()
+	lettering.text = selected.to_upper()
+	lettering.font_size = 64
+	lettering.pixel_size = 0.0045
+	lettering.depth = 0.012
+	_mesh("PhysicalSignLettering", lettering, Vector3(0.0, 3.84, -2.325), _bone)
+	var index: int = PURPOSES.find(selected)
+	for mark: int in range(index + 1):
+		_box("BayIndex" + str(mark), Vector3(-3.78 + float(mark) * 0.12, 3.88, -2.4), Vector3(0.055, 0.2, 0.025), _amber)
+
+
+func _weapons() -> void:
+	for side: int in [-1, 1]:
+		var x: float = float(side) * 1.72
+		_layered("BenchPedestal" + str(side), Vector3(x, 0.6, -1.9), Vector3(0.75, 1.2, 1.6), _bone)
+		_proxy("BenchPedestal" + str(side), Vector3(x, 0.6, -1.9), Vector3(0.75, 1.2, 1.6))
+	_layered("WeaponsWorktop", Vector3(0.0, 1.26, -1.9), Vector3(4.8, 0.22, 1.9), _navy)
+	_proxy("WeaponsWorktop", Vector3(0.0, 1.26, -1.9), Vector3(4.8, 0.22, 1.9))
+	_box("ServiceMat", Vector3(0.0, 1.379, -1.8), Vector3(2.85, 0.025, 1.15), _cobalt)
+	_box("ClampRail", Vector3(0.0, 1.45, -1.9), Vector3(2.1, 0.13, 0.26), _metal)
+	for side: int in [-1, 1]:
+		var x: float = float(side) * 0.78
+		_box("ClampJaw" + str(side), Vector3(x, 1.68, -1.9), Vector3(0.16, 0.43, 0.42), _bone)
+		_box("ClampPad" + str(side), Vector3(x - float(side) * 0.1, 1.73, -1.9), Vector3(0.06, 0.19, 0.3), _navy)
+		var screw: MeshInstance3D = _cylinder("ClampScrew" + str(side), Vector3(x + float(side) * 0.2, 1.58, -1.9), 0.07, 0.42, _metal)
+		screw.rotation_degrees.z = 90.0
+	# A stripped receiver/barrel assembly, not a player weapon or gameplay pickup.
+	_layered("ReceiverAssembly", Vector3(0.0, 1.71, -1.9), Vector3(1.2, 0.24, 0.29), _navy)
+	_box("ReceiverShroud", Vector3(0.18, 1.84, -1.9), Vector3(0.54, 0.08, 0.25), _bone)
+	var barrel: MeshInstance3D = _cylinder("BarrelAssembly", Vector3(-0.78, 1.75, -1.9), 0.072, 0.68, _metal)
+	barrel.rotation_degrees.z = 90.0
+	_box("PartsTray", Vector3(1.8, 1.4, -1.9), Vector3(0.55, 0.055, 0.8), _metal)
+	for index: int in range(3):
+		_box("Parts" + str(index), Vector3(1.8, 1.45, -2.13 + float(index) * 0.22), Vector3(0.32, 0.065, 0.09), _navy)
+	_box("BenchRearToolRail", Vector3(0.0, 1.93, -2.87), Vector3(3.6, 0.14, 0.12), _bone)
+	for side: int in [-1, 1]:
+		_box("ToolRailUpright" + str(side), Vector3(float(side) * 1.7, 1.65, -2.87), Vector3(0.08, 0.64, 0.12), _metal)
+
+
+func _armor() -> void:
+	_cylinder("CradleBase", Vector3(0.0, 0.14, -2.0), 1.45, 0.28, _navy, 8, 0.94)
+	_proxy("CradleBase", Vector3(0.0, 0.14, -2.0), Vector3(2.6, 0.28, 2.6))
+	_layered("CradleSpine", Vector3(0.0, 1.62, -2.5), Vector3(0.3, 2.95, 0.3), _metal)
+	_proxy("FittingCradle", Vector3(0.0, 1.65, -2.05), Vector3(2.5, 2.75, 1.15))
+	_box("ShoulderSupport", Vector3(0.0, 2.45, -2.35), Vector3(2.45, 0.11, 0.18), _metal)
+	# Separate display plates on an open mechanical cradle; no head, hands or body.
+	_box("ChestPlateOuter", Vector3(0.0, 2.06, -1.85), Vector3(1.28, 0.92, 0.22), _navy)
+	_box("ChestPlateUpper", Vector3(0.0, 2.25, -1.68), Vector3(1.08, 0.43, 0.18), _bone, Vector3(-12.0, 0.0, 0.0))
+	_box("ChestPlateLower", Vector3(0.0, 1.84, -1.64), Vector3(0.86, 0.32, 0.18), _bone, Vector3(14.0, 0.0, 0.0))
+	_box("ChestUnitStripe", Vector3(0.0, 2.25, -1.568), Vector3(0.14, 0.31, 0.025), _cobalt)
+	for side: int in [-1, 1]:
+		var x: float = float(side) * 0.96
+		_box("ShoulderPlate" + str(side), Vector3(x, 2.49, -1.92), Vector3(0.57, 0.38, 0.62), _bone, Vector3(0.0, 0.0, float(side) * -18.0))
+		_box("ShoulderInset" + str(side), Vector3(x, 2.48, -1.593), Vector3(0.4, 0.14, 0.035), _cobalt)
+		_box("ShinMount" + str(side), Vector3(float(side) * 0.5, 0.89, -2.23), Vector3(0.1, 0.88, 0.12), _metal)
+		_box("ShinPlate" + str(side), Vector3(float(side) * 0.5, 0.94, -1.88), Vector3(0.43, 0.72, 0.2), _bone, Vector3(-9.0, 0.0, float(side) * -6.0))
+		_box("ShinPlateInset" + str(side), Vector3(float(side) * 0.5, 0.95, -1.75), Vector3(0.13, 0.53, 0.045), _navy)
+	_box("CradleCrown", Vector3(0.0, 3.02, -2.36), Vector3(0.72, 0.16, 0.22), _cobalt)
+
+
+func _utility() -> void:
+	_cylinder("DiagnosticStandBase", Vector3(-0.65, 0.16, -1.95), 0.95, 0.32, _navy, 8, 0.91)
+	_layered("DiagnosticColumn", Vector3(-0.65, 0.85, -1.95), Vector3(0.57, 1.5, 0.58), _bone)
+	_cylinder("DiagnosticTable", Vector3(-0.65, 1.6, -1.95), 1.18, 0.18, _cobalt, 8, 0.93)
+	_proxy("DiagnosticStand", Vector3(-0.65, 0.86, -1.95), Vector3(2.1, 1.72, 2.1))
+	_cylinder("DroneDock", Vector3(-0.65, 1.85, -1.95), 0.18, 0.4, _metal)
+	_cylinder("DroneHull", Vector3(-0.65, 2.16, -1.95), 0.49, 0.38, _bone, 8, 0.75)
+	_cylinder("DroneCrown", Vector3(-0.65, 2.39, -1.95), 0.25, 0.1, _navy)
+	_box("DroneOpticHousing", Vector3(-0.65, 2.16, -1.5), Vector3(0.39, 0.18, 0.12), _navy)
+	_box("DroneOptic", Vector3(-0.65, 2.16, -1.431), Vector3(0.2, 0.055, 0.025), _mint)
+	for index: int in range(4):
+		var angle: float = PI * 0.25 + float(index) * PI * 0.5
+		var direction: Vector3 = Vector3(cos(angle), 0.0, sin(angle))
+		var center: Vector3 = Vector3(-0.65, 2.1, -1.95)
+		var arm: MeshInstance3D = _box("DroneArm" + str(index), center + direction * 0.6, Vector3(0.76, 0.1, 0.12), _metal)
+		arm.rotation.y = -angle
+		_cylinder("DronePod" + str(index), center + direction * 0.95, 0.27, 0.23, _navy, 12)
+		_cylinder("DronePodCap" + str(index), center + direction * 0.95 + Vector3(0.0, 0.125, 0.0), 0.2, 0.04, _bone, 12)
+	_layered("ChargingBank", Vector3(1.7, 0.48, -2.12), Vector3(1.1, 0.96, 1.15), _navy)
+	_proxy("ChargingBank", Vector3(1.7, 0.85, -2.12), Vector3(1.1, 1.7, 1.15))
+	for index: int in range(3):
+		var x: float = 1.36 + float(index) * 0.34
+		_cylinder("ChargingCell" + str(index), Vector3(x, 1.28, -2.12), 0.135, 0.68, _bone, 8)
+		_cylinder("CellContact" + str(index), Vector3(x, 1.66, -2.12), 0.09, 0.08, _metal)
+		_cylinder("CellBand" + str(index), Vector3(x, 1.45, -2.12), 0.14, 0.07, _mint, 8)
+	_box("ChargingBankStripe", Vector3(1.7, 0.57, -1.534), Vector3(0.74, 0.06, 0.025), _amber)
+
+
+func _outfit() -> void:
+	for side: int in [-1, 1]:
+		var x: float = -1.25 + float(side) * 1.05
+		_box("RackFoot" + str(side), Vector3(x, 0.075, -2.4), Vector3(0.5, 0.15, 1.2), _navy)
+		_box("RackUpright" + str(side), Vector3(x, 1.4, -2.4), Vector3(0.12, 2.65, 0.14), _bone)
+		_proxy("RackUpright" + str(side), Vector3(x, 1.4, -2.4), Vector3(0.12, 2.65, 0.14))
+		_proxy("RackFoot" + str(side), Vector3(x, 0.075, -2.4), Vector3(0.5, 0.15, 1.2))
+	_box("TextileRail", Vector3(-1.25, 2.72, -2.4), Vector3(2.35, 0.12, 0.15), _metal)
+	_proxy("TextileRail", Vector3(-1.25, 2.72, -2.4), Vector3(2.35, 0.12, 0.15))
+	for index: int in range(4):
+		var x: float = -2.0 + float(index) * 0.5
+		_box("TextileHanger" + str(index), Vector3(x, 2.52, -2.4), Vector3(0.4, 0.045, 0.12), _metal)
+		_box("HangerHook" + str(index), Vector3(x, 2.62, -2.4), Vector3(0.035, 0.21, 0.035), _metal)
+		var textile_material: Material = _cobalt if index % 2 == 0 else _cloth
+		var length: float = 1.4 + float(index % 2) * 0.25
+		_box("HangingTextile" + str(index), Vector3(x, 2.45 - length * 0.5, -2.4), Vector3(0.43, length, 0.065), textile_material)
+		for fold: int in range(3):
+			_box("TextileFold" + str(index) + "_" + str(fold), Vector3(x - 0.14 + float(fold) * 0.14, 2.43 - length * 0.5, -2.345), Vector3(0.035, length - 0.05, 0.035), textile_material)
+		_box("TextileHem" + str(index), Vector3(x, 2.47 - length, -2.327), Vector3(0.42, 0.045, 0.02), _bone)
+	# Flush fitting inset: top at 2 mm, no step or extra floor collider.
+	_cylinder("FlushFittingPlatform", Vector3(1.25, -0.018, -1.55), 1.13, 0.04, _metal, 12)
+	_cylinder("FittingPlatformInset", Vector3(1.25, -0.016, -1.55), 0.96, 0.04, _navy, 12)
+	for side: int in [-1, 1]:
+		_box("FittingFootMark" + str(side), Vector3(1.25 + float(side) * 0.25, 0.005, -1.55), Vector3(0.11, 0.003, 0.4), _bone)
+	_layered("FittingMirrorFrame", Vector3(1.25, 1.55, -3.0), Vector3(1.3, 3.1, 0.2), _bone)
+	_box("FittingMirrorSurface", Vector3(1.25, 1.6, -2.886), Vector3(1.06, 2.67, 0.025), _metal)
+	_proxy("FittingMirror", Vector3(1.25, 1.55, -3.0), Vector3(1.3, 3.1, 0.2))
+
+
+func _deploy() -> void:
+	_layered("NavigationFoot", Vector3(0.0, 0.13, -1.95), Vector3(2.5, 0.26, 1.75), _navy)
+	_layered("NavigationPedestal", Vector3(0.0, 0.83, -2.08), Vector3(1.3, 1.4, 0.94), _bone)
+	_box("PedestalInset", Vector3(0.0, 0.95, -1.59), Vector3(0.89, 0.79, 0.04), _cobalt)
+	_proxy("NavigationFoot", Vector3(0.0, 0.13, -1.95), Vector3(2.5, 0.26, 1.75))
+	_proxy("NavigationPedestal", Vector3(0.0, 0.83, -2.08), Vector3(1.3, 1.4, 0.94))
+	var slope: Vector3 = Vector3(18.0, 0.0, 0.0)
+	var origin: Vector3 = Vector3(0.0, 1.62, -1.95)
+	var map_basis: Basis = Basis.from_euler(slope * PI / 180.0)
+	_box("MapLecternRim", origin, Vector3(3.35, 0.2, 2.05), _bone, slope)
+	_proxy("MapLectern", origin, Vector3(3.35, 0.2, 2.05), slope)
+	_box("PhysicalMapSurface", origin + map_basis * Vector3(0.0, 0.115, 0.0), Vector3(3.05, 0.03, 1.75), _navy, slope)
+	# Raised cartographic relief and inlaid routes, deliberately not a screen or UI.
+	for index: int in range(5):
+		var x: float = -1.08 + float(index) * 0.53
+		var z: float = sin(float(index) * 1.7) * 0.38
+		var height: float = 0.045 + float(index % 3) * 0.028
+		var relief: MeshInstance3D = _cylinder("MapRelief" + str(index), origin + map_basis * Vector3(x, 0.14 + height * 0.5, z), 0.29, height, _cobalt, 6, 0.73)
+		relief.rotation_degrees = slope
+		var marker: MeshInstance3D = _cylinder("MapPin" + str(index), origin + map_basis * Vector3(x, 0.2 + height, z), 0.035, 0.1, _amber if index == 4 else _bone, 8)
+		marker.rotation_degrees = slope
+	for index: int in range(3):
+		_box("MapMeridian" + str(index), origin + map_basis * Vector3(-0.8 + float(index) * 0.8, 0.137, 0.0), Vector3(0.012, 0.008, 1.48), _metal, slope)
+	_box("MapRouteInlay", origin + map_basis * Vector3(0.0, 0.139, 0.6), Vector3(2.65, 0.009, 0.025), _mint, slope)
+	for side: int in [-1, 1]:
+		_box("MapHandle" + str(side), origin + map_basis * Vector3(float(side) * 1.54, 0.23, 0.45), Vector3(0.065, 0.17, 0.55), _metal, slope)
+	_layered("RouteArchive", Vector3(2.12, 0.63, -2.7), Vector3(0.55, 1.26, 0.74), _navy)
+	_proxy("RouteArchive", Vector3(2.12, 0.63, -2.7), Vector3(0.55, 1.26, 0.74))
+	for index: int in range(3):
+		_box("ArchiveCartridge" + str(index), Vector3(2.12, 0.32 + float(index) * 0.3, -2.31), Vector3(0.4, 0.2, 0.08), _bone)

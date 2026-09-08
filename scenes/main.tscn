@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://2if4mtaj0k33"]
 
-[ext_resource type="PackedScene" path="res://scenes/lobby/lobby.tscn" id="1_lobby"]
+[ext_resource type="PackedScene" uid="uid://d4hlt8blno238" path="res://scenes/lobby/lobby.tscn" id="1_lobby"]
 
-[node name="Main" type="Node3D"]
-[node name="Lobby" parent="." instance=ExtResource("1_lobby")]
+[node name="Main" type="Node3D" unique_id=729372876]
+
+[node name="StarforgeLobby" parent="." unique_id=262510341 instance=ExtResource("1_lobby")]

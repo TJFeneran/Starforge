@@ -144,6 +144,7 @@ func _physics_process(delta: float) -> void:
 
 	velocity.x = horizontal.x
 	velocity.z = horizontal.z
+	_step_up(wish)
 	move_and_slide()
 	# Evaluate floor contact after movement so landing animation starts on the
 	# actual impact frame rather than one physics frame late.
@@ -157,6 +158,43 @@ func _physics_process(delta: float) -> void:
 	# Follow the animated hand after AnimationPlayer updates the skeleton.
 	call_deferred("_update_weapon_follow")
 	_update_camera_feel(delta, horizontal.length(), on_floor)
+
+
+func _step_up(wish: Vector3) -> void:
+	if not is_on_floor() or wish.length_squared() < 0.0001:
+		return
+	var space := get_world_3d().direct_space_state
+	var heading := Vector3(wish.x, 0.0, wish.z).normalized()
+	var probe := PhysicsRayQueryParameters3D.create(
+		global_position + Vector3(0.0, 0.12, 0.0),
+		global_position + heading * 0.55 + Vector3(0.0, 0.12, 0.0),
+		1
+	)
+	probe.exclude = [get_rid()]
+	var blocked: Dictionary = space.intersect_ray(probe)
+	if blocked.is_empty():
+		return
+	var up := PhysicsRayQueryParameters3D.create(
+		global_position + heading * 0.42 + Vector3(0.0, 0.55, 0.0),
+		global_position + heading * 0.42 + Vector3(0.0, 0.02, 0.0),
+		1
+	)
+	up.exclude = [get_rid()]
+	var tread: Dictionary = space.intersect_ray(up)
+	if tread.is_empty():
+		return
+	var rise: float = tread.position.y - global_position.y
+	if rise <= 0.02 or rise > 0.48:
+		return
+	var ceiling := PhysicsRayQueryParameters3D.create(
+		global_position + Vector3(0.0, 1.7, 0.0),
+		global_position + Vector3(0.0, 1.7 + rise, 0.0),
+		1
+	)
+	ceiling.exclude = [get_rid()]
+	if not space.intersect_ray(ceiling).is_empty():
+		return
+	global_position.y += rise + 0.02
 
 
 func _update_jump_visual(delta: float, on_floor: bool, horizontal_speed: float) -> void:

@@ -15,7 +15,10 @@ height = 1.8
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
 floor_stop_on_slope = true
-floor_snap_length = 0.15
+floor_max_angle = 0.872665
+floor_snap_length = 0.45
+floor_constant_speed = true
+safe_margin = 0.08
 script = ExtResource("1_script")
 walk_scene = ExtResource("3_walk")
 run_scene = ExtResource("4_run")

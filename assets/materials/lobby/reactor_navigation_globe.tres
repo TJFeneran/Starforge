@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/lookdev/world_globe_hologram.gdshader" id="1_shader"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "Reactor navigation — independent hologram material copy"
+render_priority = 1
+shader = ExtResource("1_shader")
+shader_parameter/deep_color = Color(0.01, 0.04, 0.1, 1)
+shader_parameter/core_color = Color(0.03, 0.38, 0.52, 1)
+shader_parameter/nebula_color = Color(0.06, 0.17, 0.3, 1)
+shader_parameter/hot_color = Color(0.55, 0.96, 1, 1)
+shader_parameter/grid_color = Color(0.16, 0.98, 0.94, 1)
+shader_parameter/grid_density = 14.0
+shader_parameter/grid_width = 0.012
+shader_parameter/scanline_density = 72.0
+shader_parameter/scanline_strength = 0.08
+shader_parameter/hologram_strength = 0.8
+shader_parameter/star_density = 32.0
+shader_parameter/rotation_speed = 0.018
+shader_parameter/flicker_strength = 0.0
