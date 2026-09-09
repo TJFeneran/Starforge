@@ -71,11 +71,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2464256)
 collision_mask = 0
 
 [node name="LeftFoot" type="CollisionShape3D" parent="ForgeMonumentPortal/Collision" unique_id=174556159]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 2, 0.8854532)
 shape = SubResource("PortalSideShape")
 
 [node name="RightFoot" type="CollisionShape3D" parent="ForgeMonumentPortal/Collision" unique_id=571927622]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2, 0.8854532)
 shape = SubResource("PortalSideShape")
 
 [node name="Stairs" type="StaticBody3D" parent="ForgeMonumentPortal" unique_id=440379599]

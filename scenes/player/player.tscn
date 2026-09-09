@@ -1,12 +1,16 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scenes/player/player_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://assets/models/characters/frontier_guardian_bind.glb" id="2_bind"]
-[ext_resource type="PackedScene" path="res://assets/models/characters/frontier_guardian.glb" id="3_walk"]
-[ext_resource type="PackedScene" path="res://assets/models/characters/frontier_guardian_run.glb" id="4_run"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_idle.glb" id="2_bind"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_walk.glb" id="3_walk"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_run.glb" id="4_run"]
 [ext_resource type="Script" path="res://scenes/combat/health.gd" id="5_health"]
 [ext_resource type="PackedScene" path="res://scenes/combat/forge_sidearm.tscn" id="6_weapon"]
 [ext_resource type="PackedScene" path="res://scenes/combat/pulse_bolt.tscn" id="7_bolt"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_jump.glb" id="8_jump"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_aim.glb" id="9_pistol_aim"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_run.glb" id="10_pistol_run"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_jump.glb" id="11_pistol_jump"]
 
 [sub_resource type="CapsuleShape3D" id="Capsule"]
 radius = 0.32
@@ -23,6 +27,10 @@ script = ExtResource("1_script")
 walk_scene = ExtResource("3_walk")
 run_scene = ExtResource("4_run")
 idle_scene = ExtResource("2_bind")
+jump_scene = ExtResource("8_jump")
+pistol_aim_scene = ExtResource("9_pistol_aim")
+pistol_run_scene = ExtResource("10_pistol_run")
+pistol_jump_scene = ExtResource("11_pistol_jump")
 pulse_bolt_scene = ExtResource("7_bolt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
