@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://c16kkqkhmj74v" path="res://scenes/lobby/modules/monument_stairs.gd" id="6_stairs"]
 [ext_resource type="PackedScene" uid="uid://buli5i60gedr0" path="res://assets/models/outpost_kit/outpost_crate.glb" id="9_l1n8d"]
 [ext_resource type="PackedScene" path="res://scenes/lobby/props/planter.tscn" id="10_planter"]
-[ext_resource type="PackedScene" path="res://assets/models/props/forge_microscope.glb" id="11_microscope"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -518,6 +517,3 @@ transform = Transform3D(0.9956844, 0, 0.09280382, 0, 1, 0, -0.09280382, 0, 0.995
 
 [node name="outpost_crate2" parent="." unique_id=1869604676 instance=ExtResource("9_l1n8d")]
 transform = Transform3D(0.92700535, 0, 0.37504822, 0, 1, 0, -0.37504822, 0, 0.92700535, -4.6758523, -0.011060491, -10.600168)
-
-[node name="forge_microscope" parent="outpost_crate2" unique_id=1482093371 instance=ExtResource("11_microscope")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
