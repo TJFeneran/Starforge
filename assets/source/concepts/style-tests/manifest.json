@@ -172,6 +172,27 @@
       "notes": "Compact forge pulse sidearm"
     },
     {
+      "id": "forge_microscope",
+      "role": "lobby_workshop_prop",
+      "file": "forge_microscope/hero.png",
+      "views": [
+        "forge_microscope/front.png",
+        "forge_microscope/side.png",
+        "forge_microscope/hero.png"
+      ],
+      "status": "imported_lobby",
+      "meshy_eligible": true,
+      "meshy_task_id": "01a087c2-767b-70ed-a89b-2fdf6a35710a",
+      "credits_spent": 30,
+      "meshy_model": "meshy-7",
+      "target_height_m": 0.4,
+      "target_polycount": 40000,
+      "texture_resolution": "2k",
+      "runtime_glb": "assets/models/props/forge_microscope.glb",
+      "source_format": "glb",
+      "notes": "Three-view tabletop microscope on the crate nearest the monument gate"
+    },
+    {
       "id": "rift_skitter",
       "role": "enemy_scout",
       "file": "rift_skitter.png",
