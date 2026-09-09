@@ -13,14 +13,20 @@ config_version=5
 config/name="Starforge"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7")
+run/max_fps=120
 
 [display]
 
 window/size/viewport_width=3840
 window/size/viewport_height=2160
 window/size/mode=3
+window/size/borderless=true
 window/size/window_width_override=1920
 window/size/window_height_override=1080
+
+[gui]
+
+theme/size/mode=0
 
 [input]
 
@@ -83,6 +89,5 @@ aim={
 
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 global_illumination/gi/use_half_resolution=true
-anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/msaa_3d=1
 anti_aliasing/quality/screen_space_aa=1
-anti_aliasing/quality/use_taa=true

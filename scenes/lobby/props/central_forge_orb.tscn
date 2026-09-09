@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://bb5so3jt70dys" path="res://assets/models/style_tests/forge_beacon.glb" id="1_beacon"]
+
+[sub_resource type="CylinderShape3D" id="BeaconShape"]
+radius = 0.89
+height = 3.3
+
+[node name="OrbPedestal" type="Node3D"]
+
+[node name="BeaconBody" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Collision" type="CollisionShape3D" parent="BeaconBody"]
+position = Vector3(0, 2.13, 0)
+shape = SubResource("BeaconShape")
+
+[node name="ForgeBeacon" parent="." instance=ExtResource("1_beacon")]
+position = Vector3(0, 0.48, 0)
+scale = Vector3(1.5, 1.5, 1.5)

@@ -1,20 +1,38 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c0hh3od2cb2kl"]
 
-[ext_resource type="Script" path="res://scenes/lobby/vfx/forge_reactor.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://assets/models/style_tests/forge_beacon.glb" id="2_beacon"]
-[ext_resource type="Shader" path="res://assets/materials/lobby/reactor_core.gdshader" id="3_core"]
-[ext_resource type="Shader" path="res://assets/materials/lobby/reactor_motes.gdshader" id="4_motes"]
-[ext_resource type="Material" path="res://assets/materials/lobby/reactor_navigation_globe.tres" id="5_globe"]
+[ext_resource type="Script" uid="uid://jaknw0fkqjhs" path="res://scenes/lobby/vfx/forge_reactor.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/props/central_forge_orb.tscn" id="2_orb"]
+[ext_resource type="Shader" uid="uid://n6lh8o3mq8d2" path="res://assets/materials/lobby/reactor_core.gdshader" id="3_core"]
+[ext_resource type="Shader" uid="uid://b8o8jdsesas4t" path="res://assets/materials/lobby/reactor_motes.gdshader" id="4_motes"]
+[ext_resource type="Shader" uid="uid://cojvofv4ifh58" path="res://assets/lookdev/world_globe_hologram.gdshader" id="5_hmkla"]
 
 [sub_resource type="StandardMaterial3D" id="DarkMetal"]
 albedo_color = Color(0.055, 0.067, 0.08, 1)
 metallic = 0.65
 roughness = 0.48
 
+[sub_resource type="CylinderMesh" id="PlinthMesh"]
+top_radius = 2.35
+bottom_radius = 2.35
+height = 0.42
+
+[sub_resource type="CylinderShape3D" id="PlinthShape"]
+height = 0.42
+radius = 2.35
+
 [sub_resource type="StandardMaterial3D" id="Starbone"]
 albedo_color = Color(0.64, 0.61, 0.51, 1)
 metallic = 0.2
 roughness = 0.66
+
+[sub_resource type="CylinderMesh" id="DeckMesh"]
+top_radius = 2.13
+bottom_radius = 2.13
+height = 0.06
+
+[sub_resource type="CylinderShape3D" id="DeckShape"]
+height = 0.06
+radius = 2.13
 
 [sub_resource type="StandardMaterial3D" id="Amber"]
 albedo_color = Color(0.9, 0.46, 0.1, 1)
@@ -24,49 +42,9 @@ emission_enabled = true
 emission = Color(1, 0.48, 0.12, 1)
 emission_energy_multiplier = 1.2
 
-[sub_resource type="StandardMaterial3D" id="ArcMaterial"]
-resource_local_to_scene = true
-shading_mode = 0
-albedo_color = Color(1, 0.85, 0.57, 1)
-emission_enabled = true
-emission = Color(1, 0.78, 0.4, 1)
-emission_energy_multiplier = 2.0
-
-[sub_resource type="StandardMaterial3D" id="Cyan"]
-shading_mode = 0
-albedo_color = Color(0.08, 0.55, 0.62, 1)
-emission_enabled = true
-emission = Color(0.1, 0.6, 0.7, 1)
-emission_energy_multiplier = 0.6
-
-[sub_resource type="CylinderMesh" id="PlinthMesh"]
-top_radius = 2.35
-bottom_radius = 2.35
-height = 0.42
-radial_segments = 64
-
-[sub_resource type="CylinderShape3D" id="PlinthShape"]
-radius = 2.35
-height = 0.42
-
-[sub_resource type="CylinderMesh" id="DeckMesh"]
-top_radius = 2.13
-bottom_radius = 2.13
-height = 0.06
-radial_segments = 64
-
-[sub_resource type="CylinderShape3D" id="DeckShape"]
-radius = 2.13
-height = 0.06
-
-[sub_resource type="CylinderShape3D" id="BeaconShape"]
-radius = 0.89
-height = 3.3
-
 [sub_resource type="TorusMesh" id="FloorTrim"]
 inner_radius = 2.19
 outer_radius = 2.22
-rings = 64
 ring_segments = 8
 
 [sub_resource type="TorusMesh" id="OuterRing"]
@@ -78,18 +56,20 @@ ring_segments = 8
 [sub_resource type="TorusMesh" id="MiddleRing"]
 inner_radius = 1.35
 outer_radius = 1.405
-rings = 64
 ring_segments = 8
 
 [sub_resource type="TorusMesh" id="InnerRing"]
 inner_radius = 1.06
-outer_radius = 1.10
-rings = 64
+outer_radius = 1.1
 ring_segments = 8
 
-[sub_resource type="ShaderMaterial" id="CoreMaterial"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmkla"]
 resource_local_to_scene = true
+render_priority = 0
 shader = ExtResource("3_core")
+shader_parameter/amber = Color(1, 0.48, 0.12, 1)
+shader_parameter/white_hot = Color(1, 0.94, 0.75, 1)
+shader_parameter/pulse = 0.45
 
 [sub_resource type="SphereMesh" id="CoreMesh"]
 radius = 0.16
@@ -97,15 +77,19 @@ height = 1.15
 radial_segments = 32
 rings = 16
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_soufq"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_color = Color(1, 0.85, 0.57, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_c6ky4"]
+
 [sub_resource type="ShaderMaterial" id="MoteProcess"]
 shader = ExtResource("4_motes")
 
 [sub_resource type="StandardMaterial3D" id="MoteMaterial"]
 shading_mode = 0
 vertex_color_use_as_albedo = true
-emission_enabled = true
-emission = Color(1, 0.55, 0.18, 1)
-emission_energy_multiplier = 1.4
 
 [sub_resource type="SphereMesh" id="MoteMesh"]
 material = SubResource("MoteMaterial")
@@ -114,12 +98,6 @@ height = 0.022
 radial_segments = 6
 rings = 3
 
-[sub_resource type="SphereMesh" id="GlobeMesh"]
-radius = 0.32
-height = 0.64
-radial_segments = 40
-rings = 20
-
 [sub_resource type="CylinderMesh" id="ProjectorMesh"]
 top_radius = 0.26
 bottom_radius = 0.32
@@ -127,8 +105,37 @@ height = 0.68
 radial_segments = 32
 
 [sub_resource type="CylinderShape3D" id="ProjectorShape"]
-radius = 0.32
 height = 0.68
+radius = 0.32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i6xna"]
+resource_local_to_scene = true
+resource_name = "Reactor navigation — independent hologram material copy"
+render_priority = 1
+shader = ExtResource("5_hmkla")
+shader_parameter/deep_color = Color(0.01, 0.04, 0.1, 1)
+shader_parameter/core_color = Color(0.03, 0.38, 0.52, 1)
+shader_parameter/nebula_color = Color(0.06, 0.17, 0.3, 1)
+shader_parameter/hot_color = Color(0.55, 0.96, 1, 1)
+shader_parameter/grid_color = Color(0.16, 0.98, 0.94, 1)
+shader_parameter/grid_density = 14.0
+shader_parameter/grid_width = 0.012
+shader_parameter/scanline_density = 72.0
+shader_parameter/scanline_strength = 0.08
+shader_parameter/hologram_strength = 0.8
+shader_parameter/star_density = 32.0
+shader_parameter/rotation_speed = 0.018
+shader_parameter/flicker_strength = 0.0
+
+[sub_resource type="SphereMesh" id="GlobeMesh"]
+radius = 0.32
+height = 0.64
+radial_segments = 40
+rings = 20
+
+[sub_resource type="StandardMaterial3D" id="Cyan"]
+shading_mode = 0
+albedo_color = Color(0.08, 0.55, 0.62, 1)
 
 [sub_resource type="TorusMesh" id="NavigationRing"]
 inner_radius = 0.395
@@ -136,153 +143,140 @@ outer_radius = 0.407
 rings = 48
 ring_segments = 6
 
-[node name="ForgeReactor" type="Node3D"]
+[node name="ForgeReactor" type="Node3D" unique_id=155679513]
 script = ExtResource("1_script")
 
-[node name="Plinth" type="StaticBody3D" parent="."]
-collision_layer = 1
+[node name="Plinth" type="StaticBody3D" parent="." unique_id=1114848761]
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Plinth"]
-position = Vector3(0, 0.21, 0)
-mesh = SubResource("PlinthMesh")
+[node name="Mesh" type="MeshInstance3D" parent="Plinth" unique_id=381212648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
 material_override = SubResource("DarkMetal")
+mesh = SubResource("PlinthMesh")
 
-[node name="Collision" type="CollisionShape3D" parent="Plinth"]
-position = Vector3(0, 0.21, 0)
+[node name="Collision" type="CollisionShape3D" parent="Plinth" unique_id=1851909162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
 shape = SubResource("PlinthShape")
 
-[node name="Deck" type="MeshInstance3D" parent="Plinth"]
-position = Vector3(0, 0.45, 0)
-mesh = SubResource("DeckMesh")
+[node name="Deck" type="MeshInstance3D" parent="Plinth" unique_id=1704065086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 material_override = SubResource("Starbone")
+mesh = SubResource("DeckMesh")
 
-[node name="DeckCollision" type="CollisionShape3D" parent="Plinth"]
-position = Vector3(0, 0.45, 0)
+[node name="DeckCollision" type="CollisionShape3D" parent="Plinth" unique_id=566453597]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 shape = SubResource("DeckShape")
 
-[node name="Trim" type="MeshInstance3D" parent="Plinth"]
-position = Vector3(0, 0.424, 0)
-mesh = SubResource("FloorTrim")
+[node name="Trim" type="MeshInstance3D" parent="Plinth" unique_id=1277651308]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.424, 0)
 material_override = SubResource("Amber")
 cast_shadow = 0
+mesh = SubResource("FloorTrim")
 
-[node name="BeaconBody" type="StaticBody3D" parent="."]
-collision_layer = 1
-collision_mask = 0
+[node name="OrbPedestal" parent="." unique_id=658158156 instance=ExtResource("2_orb")]
 
-[node name="Collision" type="CollisionShape3D" parent="BeaconBody"]
-position = Vector3(0, 2.13, 0)
-shape = SubResource("BeaconShape")
+[node name="Containment" type="Node3D" parent="." unique_id=393937047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, 0)
 
-[node name="ForgeBeacon" parent="." instance=ExtResource("2_beacon")]
-position = Vector3(0, 0.48, 0)
-scale = Vector3(1.5, 1.5, 1.5)
+[node name="Outer" type="Node3D" parent="Containment" unique_id=2010053647]
+transform = Transform3D(0.9795912, -0.062817365, 0.19093224, 0.11505007, 0.9541442, -0.27635565, -0.16481695, 0.29268232, 0.94189835, 0, 0, 0)
 
-[node name="Containment" type="Node3D" parent="."]
-position = Vector3(0, 3.55, 0)
-
-[node name="Outer" type="Node3D" parent="Containment"]
-rotation = Vector3(0.28, 0.2, 0.12)
-
-[node name="Ring" type="MeshInstance3D" parent="Containment/Outer"]
-mesh = SubResource("OuterRing")
+[node name="Ring" type="MeshInstance3D" parent="Containment/Outer" unique_id=683464633]
 material_override = SubResource("Starbone")
 cast_shadow = 0
+mesh = SubResource("OuterRing")
 
-[node name="Electrode" type="Marker3D" parent="Containment/Outer"]
-position = Vector3(1.65, 0, 0)
+[node name="Electrode" type="Marker3D" parent="Containment/Outer" unique_id=27182813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 0, 0)
 
-[node name="Middle" type="Node3D" parent="Containment"]
-rotation = Vector3(-0.4, -0.3, 0.24)
+[node name="Middle" type="Node3D" parent="Containment" unique_id=2130791236]
+transform = Transform3D(0.9553097, -0.115303434, -0.27219215, 0.2189386, 0.8946613, 0.38941833, 0.19861856, -0.43160838, 0.87992316, 0, 0, 0)
 
-[node name="Ring" type="MeshInstance3D" parent="Containment/Middle"]
-mesh = SubResource("MiddleRing")
+[node name="Ring" type="MeshInstance3D" parent="Containment/Middle" unique_id=524494558]
 material_override = SubResource("DarkMetal")
 cast_shadow = 0
+mesh = SubResource("MiddleRing")
 
-[node name="Inner" type="Node3D" parent="Containment"]
-rotation = Vector3(0.52, 0.1, -0.3)
+[node name="Inner" type="Node3D" parent="Containment" unique_id=7585980]
+transform = Transform3D(0.9359045, 0.34143353, 0.086637355, -0.2564581, 0.82905936, -0.4968801, -0.24147905, 0.44281346, 0.8634837, 0, 0, 0)
 
-[node name="Ring" type="MeshInstance3D" parent="Containment/Inner"]
-mesh = SubResource("InnerRing")
+[node name="Ring" type="MeshInstance3D" parent="Containment/Inner" unique_id=143303349]
 material_override = SubResource("Amber")
 cast_shadow = 0
+mesh = SubResource("InnerRing")
 
-[node name="Electrode" type="Marker3D" parent="Containment/Inner"]
-position = Vector3(-1.06, 0, 0)
+[node name="Electrode" type="Marker3D" parent="Containment/Inner" unique_id=289152473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06, 0, 0)
 
-[node name="Core" type="MeshInstance3D" parent="Containment"]
+[node name="Core" type="MeshInstance3D" parent="Containment" unique_id=513833468]
+material_override = SubResource("ShaderMaterial_hmkla")
+cast_shadow = 0
 mesh = SubResource("CoreMesh")
-material_override = SubResource("CoreMaterial")
-cast_shadow = 0
 
-[node name="CoreEndpointA" type="Marker3D" parent="Containment"]
-position = Vector3(0.13, 0.22, 0)
+[node name="CoreEndpointA" type="Marker3D" parent="Containment" unique_id=943451558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 0.22, 0)
 
-[node name="CoreEndpointB" type="Marker3D" parent="Containment"]
-position = Vector3(-0.13, -0.22, 0)
+[node name="CoreEndpointB" type="Marker3D" parent="Containment" unique_id=1584608034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13, -0.22, 0)
 
-[node name="Arcs" type="MeshInstance3D" parent="."]
+[node name="Arcs" type="MeshInstance3D" parent="." unique_id=634181006]
 visible = false
-material_override = SubResource("ArcMaterial")
+material_override = SubResource("StandardMaterial3D_soufq")
 cast_shadow = 0
+mesh = SubResource("ImmediateMesh_c6ky4")
 
-[node name="Motes" type="GPUParticles3D" parent="."]
+[node name="Motes" type="GPUParticles3D" parent="." unique_id=104175702]
+cast_shadow = 0
+emitting = false
 amount = 96
 lifetime = 3.8
 preprocess = 3.8
-local_coords = true
-visibility_aabb = AABB(-0.9, 2.2, -0.9, 1.8, 1.45, 1.8)
-process_material = SubResource("MoteProcess")
-draw_pass_1 = SubResource("MoteMesh")
-cast_shadow = 0
-fixed_fps = 30
 use_fixed_seed = true
 seed = 17
+visibility_aabb = AABB(-0.9, 2.2, -0.9, 1.8, 1.45, 1.8)
+local_coords = true
+process_material = SubResource("MoteProcess")
+draw_pass_1 = SubResource("MoteMesh")
 
-[node name="ForgeLight" type="OmniLight3D" parent="."]
-position = Vector3(0, 3.9, 0)
+[node name="ForgeLight" type="OmniLight3D" parent="." unique_id=1834646112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 0)
 light_color = Color(1, 0.65, 0.3, 1)
 light_energy = 1.5
-omni_range = 6.0
-omni_attenuation = 1.8
 shadow_enabled = true
 shadow_bias = 0.05
+omni_range = 6.0
+omni_attenuation = 1.8
 
-[node name="ArcPulse" type="OmniLight3D" parent="."]
-position = Vector3(0, 3.55, 0)
+[node name="ArcPulse" type="OmniLight3D" parent="." unique_id=1428580958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, 0)
 light_color = Color(1, 0.79, 0.47, 1)
 light_energy = 0.0
 omni_range = 3.1
 omni_attenuation = 2.0
-shadow_enabled = false
 
-[node name="Navigation" type="Node3D" parent="."]
-position = Vector3(1.65, 0.48, 0.75)
+[node name="Navigation" type="Node3D" parent="." unique_id=1384831781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007523805, -0.01877582, 2.9264102)
 
-[node name="Projector" type="StaticBody3D" parent="Navigation"]
-collision_layer = 1
+[node name="Projector" type="StaticBody3D" parent="Navigation" unique_id=1487170755]
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Navigation/Projector"]
-position = Vector3(0, 0.34, 0)
-mesh = SubResource("ProjectorMesh")
+[node name="Mesh" type="MeshInstance3D" parent="Navigation/Projector" unique_id=2090925116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, 0)
 material_override = SubResource("DarkMetal")
+mesh = SubResource("ProjectorMesh")
 
-[node name="Collision" type="CollisionShape3D" parent="Navigation/Projector"]
-position = Vector3(0, 0.34, 0)
+[node name="Collision" type="CollisionShape3D" parent="Navigation/Projector" unique_id=325676768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, 0)
 shape = SubResource("ProjectorShape")
 
-[node name="Globe" type="MeshInstance3D" parent="Navigation"]
-position = Vector3(0, 1.16, 0)
-mesh = SubResource("GlobeMesh")
-material_override = ExtResource("5_globe")
+[node name="Globe" type="MeshInstance3D" parent="Navigation" unique_id=248604875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16, 0)
+material_override = SubResource("ShaderMaterial_i6xna")
 cast_shadow = 0
+mesh = SubResource("GlobeMesh")
 
-[node name="Orbit" type="MeshInstance3D" parent="Navigation"]
-position = Vector3(0, 1.16, 0)
-rotation = Vector3(0.32, 0, -0.2)
-mesh = SubResource("NavigationRing")
+[node name="Orbit" type="MeshInstance3D" parent="Navigation" unique_id=1752882576]
+transform = Transform3D(0.9800666, 0.19866933, 0, -0.18858397, 0.93031394, -0.31456655, -0.062494725, 0.30829617, 0.94923544, 0, 1.16, 0)
 material_override = SubResource("Cyan")
 cast_shadow = 0
+mesh = SubResource("NavigationRing")
