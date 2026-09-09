@@ -1,0 +1,664 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/lobby/modules/hall_lighting.gd" id="1_1fdyp"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/modules/hall_fixture.tscn" id="2_2a8b8"]
+[ext_resource type="Script" path="res://scenes/lobby/modules/hall_fixture.gd" id="3_pp8pt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1fdyp"]
+albedo_color = Color(0.21568628, 0.27450982, 0.3137255, 1)
+metallic = 0.65
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_2a8b8"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pp8pt"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ddt0c"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ultr5"]
+size = Vector3(0.1, 0.1, 0.80999947)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3aqrn"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_br3iy"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cwp0w"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_52cn8"]
+size = Vector3(0.1, 0.1, 0.80999947)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yjbfg"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8gba0"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lghea"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qwtrj"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f1ogq"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xiriu"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dpt66"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qt6yb"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_af1wb"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5de0v"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yc81b"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pecyn"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tc5nh"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eldin"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hl04j"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7tptn"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nrbka"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ky5o"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t461d"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_agmek"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_05b34"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7n3hq"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cidyd"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bxmrx"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_340s7"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ph30q"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rvgkv"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ev40j"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h1n2f"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gqgvs"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d2fi4"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y7f4h"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0ql0s"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r0uvh"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yr37f"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fqido"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a606v"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_38uui"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rw00n"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_80mga"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3nlgl"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gw7dx"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6c4af"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kmqrt"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0rf0s"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0tndy"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q3n2r"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sscv3"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lw0go"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tqgo1"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4h1g8"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nq1sf"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xlvu0"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q3q55"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[node name="HallLighting" type="Node3D" unique_id=7789371]
+script = ExtResource("1_1fdyp")
+
+[node name="Rear_West_01" type="Node3D" parent="." unique_id=943984508 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, 0.95838577, 0, -0.95838577, 0.2854764, -19.1, 7.05, -21.5)
+script = ExtResource("3_pp8pt")
+energy = 1.8
+
+[node name="Mount" type="MeshInstance3D" parent="Rear_West_01" unique_id=356094550]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, -0.95838577, 0, 0.95838577, 0.2854764, 0, 0.114191055, 0.3833537)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_2a8b8")
+
+[node name="Drop" type="MeshInstance3D" parent="Rear_West_01" unique_id=2129760784]
+transform = Transform3D(1, 0, 0, 0, 0.95838577, 0.2854764, 0, -0.2854764, 0.95838577, 0, 0.069942474, 0.23480415)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_pp8pt")
+
+[node name="Stairs_West_01" type="Node3D" parent="." unique_id=918831029 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.33532447, 0.94210273, 0, 0.94210273, -0.33532447, -17.5, 9.8, -31.899998)
+script = ExtResource("3_pp8pt")
+
+[node name="Mount" type="MeshInstance3D" parent="Stairs_West_01" unique_id=1515865800]
+transform = Transform3D(-1, 0, 0, 0, 0.33532444, 0.9421026, 0, 0.9421026, -0.33532444, 0, 0.33532333, 0.94210243)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_ddt0c")
+
+[node name="Drop" type="MeshInstance3D" parent="Stairs_West_01" unique_id=288159376]
+transform = Transform3D(-1, 0, 0, 0, -0.9421026, 0.33532444, 0, 0.33532444, 0.9421026, 0, 0.1827507, 0.5134468)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_ultr5")
+
+[node name="Rear_East_01" type="Node3D" parent="." unique_id=1121466599 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, 0.95838577, 0, -0.95838577, 0.2854764, 19.1, 7.05, -21.5)
+script = ExtResource("3_pp8pt")
+energy = 1.8
+
+[node name="Mount" type="MeshInstance3D" parent="Rear_East_01" unique_id=913468108]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, -0.95838577, 0, 0.95838577, 0.2854764, 0, 0.114191055, 0.3833537)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_3aqrn")
+
+[node name="Drop" type="MeshInstance3D" parent="Rear_East_01" unique_id=1120491653]
+transform = Transform3D(1, 0, 0, 0, 0.95838577, 0.2854764, 0, -0.2854764, 0.95838577, 0, 0.069942474, 0.23480415)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_br3iy")
+
+[node name="Stairs_East_01" type="Node3D" parent="." unique_id=163264903 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.33532447, 0.94210273, 0, 0.94210273, -0.33532447, 17.5, 9.8, -31.899998)
+script = ExtResource("3_pp8pt")
+energy = 1.0
+
+[node name="Mount" type="MeshInstance3D" parent="Stairs_East_01" unique_id=1673178392]
+transform = Transform3D(-1, 0, 0, 0, 0.33532444, 0.9421026, 0, 0.9421026, -0.33532444, 0, 0.33532333, 0.94210243)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_cwp0w")
+
+[node name="Drop" type="MeshInstance3D" parent="Stairs_East_01" unique_id=1067492882]
+transform = Transform3D(-1, 0, 0, 0, -0.9421026, 0.33532444, 0, 0.33532444, 0.9421026, 0, 0.1827507, 0.5134468)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_52cn8")
+
+[node name="Gallery_West_01" type="Node3D" parent="." unique_id=300663055 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, 0.59303457, -0.80517703, 0, 0.80517703, 0.59303457, 1, 0, 0, -10.85, 6.15, -9)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_West_01" unique_id=850524402]
+transform = Transform3D(0, 0, 1, 0.59303457, 0.80517703, 0, -0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_yjbfg")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_West_01" unique_id=504801666]
+transform = Transform3D(0, -1, 0, 0.59303457, 0, 0.80517703, -0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_8gba0")
+
+[node name="Gallery_West_03" type="Node3D" parent="." unique_id=1046690602 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, 0.59303457, -0.80517703, 0, 0.80517703, 0.59303457, 1, 0, 0, -10.85, 6.15, 3)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_West_03" unique_id=1374094529]
+transform = Transform3D(0, 0, 1, 0.59303457, 0.80517703, 0, -0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_lghea")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_West_03" unique_id=1797329687]
+transform = Transform3D(0, -1, 0, 0.59303457, 0, 0.80517703, -0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_qwtrj")
+
+[node name="Gallery_West_05" type="Node3D" parent="." unique_id=1164140765 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, 0.59303457, -0.80517703, 0, 0.80517703, 0.59303457, 1, 0, 0, -10.85, 6.15, 14)
+script = ExtResource("3_pp8pt")
+energy = 0.2
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_West_05" unique_id=1975973455]
+transform = Transform3D(0, 0, 1, 0.59303457, 0.80517703, 0, -0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_f1ogq")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_West_05" unique_id=2111164171]
+transform = Transform3D(0, -1, 0, 0.59303457, 0, 0.80517703, -0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_xiriu")
+
+[node name="Rear_West_02" type="Node3D" parent="." unique_id=1210222042 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-0.8858315, 0.32666388, -0.32953486, 0, 0.7101936, 0.7040063, 0.46400705, 0.62363094, -0.6291119, -12.8, 7.05, -21.8)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Rear_West_02" unique_id=520598953]
+transform = Transform3D(-0.8858316, 0, 0.46400708, 0.32666397, 0.71019375, 0.62363106, -0.32953492, 0.7040065, -0.629112, 0, 0.28407764, 0.28160095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_dpt66")
+
+[node name="Drop" type="MeshInstance3D" parent="Rear_West_02" unique_id=200603389]
+transform = Transform3D(-0.8858316, -0.46400708, 0, 0.32666397, -0.62363106, 0.71019375, -0.32953492, 0.629112, 0.7040065, 0, 0.17399693, 0.17248154)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_qt6yb")
+
+[node name="Gallery_East_01" type="Node3D" parent="." unique_id=1876854519 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, -9)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_East_01" unique_id=1727684988]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_af1wb")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_East_01" unique_id=1713931199]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_5de0v")
+
+[node name="Gallery_East_02" type="Node3D" parent="." unique_id=680198378 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, -3)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_East_02" unique_id=2036446298]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_yc81b")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_East_02" unique_id=167349069]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_pecyn")
+
+[node name="Gallery_East_03" type="Node3D" parent="." unique_id=390731748 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, 3)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_East_03" unique_id=448979762]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_tc5nh")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_East_03" unique_id=2051394412]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_eldin")
+
+[node name="Gallery_East_04" type="Node3D" parent="." unique_id=178014942 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, 9)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_East_04" unique_id=1344145750]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_hl04j")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_East_04" unique_id=1542240660]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_7tptn")
+
+[node name="Gallery_East_05" type="Node3D" parent="." unique_id=1283542274 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, 14)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Gallery_East_05" unique_id=807987700]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_nrbka")
+
+[node name="Drop" type="MeshInstance3D" parent="Gallery_East_05" unique_id=1914864121]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_6ky5o")
+
+[node name="Rear_East_02" type="Node3D" parent="." unique_id=770349410 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-0.8858315, -0.32666388, 0.32953486, 0, 0.7101936, 0.7040063, -0.46400705, 0.62363094, -0.6291119, 12.8, 7.05, -21.8)
+script = ExtResource("3_pp8pt")
+energy = 3.4
+
+[node name="Mount" type="MeshInstance3D" parent="Rear_East_02" unique_id=448669379]
+transform = Transform3D(-0.8858316, 0, -0.46400708, -0.32666397, 0.71019375, 0.62363106, 0.32953492, 0.7040065, -0.629112, 0, 0.28407764, 0.28160095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_t461d")
+
+[node name="Drop" type="MeshInstance3D" parent="Rear_East_02" unique_id=932014916]
+transform = Transform3D(-0.8858316, 0.46400708, 0, -0.32666397, -0.62363106, 0.71019375, 0.32953492, 0.629112, 0.7040065, 0, 0.17399693, 0.17248154)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_agmek")
+
+[node name="Entry_West_01" type="Node3D" parent="." unique_id=1693299559 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, 0.7884481, 0, -0.7884481, 0.61510134, -7, 7.05, 15.5)
+script = ExtResource("3_pp8pt")
+energy = 2.6
+
+[node name="Mount" type="MeshInstance3D" parent="Entry_West_01" unique_id=1890674268]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, -0.7884481, 0, 0.7884481, 0.61510134, 0, 0.24604034, 0.3153782)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_05b34")
+
+[node name="Drop" type="MeshInstance3D" parent="Entry_West_01" unique_id=353155617]
+transform = Transform3D(1, 0, 0, 0, 0.7884481, 0.61510134, 0, -0.61510134, 0.7884481, 0, 0.15070009, 0.1931696)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_7n3hq")
+
+[node name="Entry_Center_01" type="Node3D" parent="." unique_id=1982607093 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, 0.7884481, 0, -0.7884481, 0.61510134, 0, 7.05, 15.5)
+script = ExtResource("3_pp8pt")
+energy = 2.6
+
+[node name="Mount" type="MeshInstance3D" parent="Entry_Center_01" unique_id=1399825060]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, -0.7884481, 0, 0.7884481, 0.61510134, 0, 0.24604034, 0.3153782)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_cidyd")
+
+[node name="Drop" type="MeshInstance3D" parent="Entry_Center_01" unique_id=2036812951]
+transform = Transform3D(1, 0, 0, 0, 0.7884481, 0.61510134, 0, -0.61510134, 0.7884481, 0, 0.15070009, 0.1931696)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_bxmrx")
+
+[node name="Entry_East_01" type="Node3D" parent="." unique_id=1608670310 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, 0.7884481, 0, -0.7884481, 0.61510134, 7, 7.05, 15.5)
+script = ExtResource("3_pp8pt")
+energy = 2.6
+
+[node name="Mount" type="MeshInstance3D" parent="Entry_East_01" unique_id=391697018]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, -0.7884481, 0, 0.7884481, 0.61510134, 0, 0.24604034, 0.3153782)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_340s7")
+
+[node name="Drop" type="MeshInstance3D" parent="Entry_East_01" unique_id=233000854]
+transform = Transform3D(1, 0, 0, 0, 0.7884481, 0.61510134, 0, -0.61510134, 0.7884481, 0, 0.15070009, 0.1931696)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_ph30q")
+
+[node name="Rear_West_03" type="Node3D" parent="." unique_id=1504764636 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.028357493, 0.99959785, 0, 0.99959785, -0.028357493, -6, 7.05, -21.6)
+script = ExtResource("3_pp8pt")
+energy = 1.8
+
+[node name="Mount" type="MeshInstance3D" parent="Rear_West_03" unique_id=1523239276]
+transform = Transform3D(-1, 0, 0, 0, 0.028357493, 0.99959785, 0, 0.99959785, -0.028357493, 0, 0.011343002, 0.39983892)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_rvgkv")
+
+[node name="Drop" type="MeshInstance3D" parent="Rear_West_03" unique_id=325256646]
+transform = Transform3D(-1, 0, 0, 0, -0.99959785, 0.028357493, 0, 0.028357493, 0.99959785, 0, 0.0069465637, 0.24490166)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_ev40j")
+
+[node name="Rear_East_03" type="Node3D" parent="." unique_id=941413215 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.028357493, 0.99959785, 0, 0.99959785, -0.028357493, 6, 7.05, -21.6)
+script = ExtResource("3_pp8pt")
+energy = 1.8
+
+[node name="Mount" type="MeshInstance3D" parent="Rear_East_03" unique_id=1826328899]
+transform = Transform3D(-1, 0, 0, 0, 0.028357493, 0.99959785, 0, 0.99959785, -0.028357493, 0, 0.011343002, 0.39983892)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_h1n2f")
+
+[node name="Drop" type="MeshInstance3D" parent="Rear_East_03" unique_id=1200835415]
+transform = Transform3D(-1, 0, 0, 0, -0.99959785, 0.028357493, 0, 0.028357493, 0.99959785, 0, 0.0069465637, 0.24490166)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_gqgvs")
+
+[node name="Ceiling_West_01" type="Node3D" parent="." unique_id=1851055089 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, -13.266349, 15, -8)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_West_01" unique_id=1535775357]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_d2fi4")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_West_01" unique_id=471378925]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_y7f4h")
+
+[node name="Ceiling_West_02" type="Node3D" parent="." unique_id=2146200190 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332147, 0.9999111, 0, 0.9999111, -0.013332147, -13.266349, 15, -1)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_West_02" unique_id=616740755]
+transform = Transform3D(-1, 0, 0, 0, 0.013332147, 0.9999111, 0, 0.9999111, -0.013332147, 0, 0.010332406, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_0ql0s")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_West_02" unique_id=1991592255]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332147, 0, 0.013332147, 0.9999111, 0, 0.0057661533, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_r0uvh")
+
+[node name="Ceiling_West_03" type="Node3D" parent="." unique_id=1975870125 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, -7, 15, 6)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_West_03" unique_id=282482759]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_yr37f")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_West_03" unique_id=361891801]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_fqido")
+
+[node name="Ceiling_West_04" type="Node3D" parent="." unique_id=490595976 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, -12.069391, 15, 13)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_West_04" unique_id=294849458]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010333061, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_a606v")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_West_04" unique_id=2020459501]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.0057668686, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_38uui")
+
+[node name="Ceiling_East_01" type="Node3D" parent="." unique_id=1286968328 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 13.644114, 15, -8)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_East_01" unique_id=310156746]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_rw00n")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_East_01" unique_id=29971470]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_80mga")
+
+[node name="Ceiling_East_02" type="Node3D" parent="." unique_id=1052548472 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332147, 0.9999111, 0, 0.9999111, -0.013332147, 7, 15, -1)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_East_02" unique_id=143488768]
+transform = Transform3D(-1, 0, 0, 0, 0.013332147, 0.9999111, 0, 0.9999111, -0.013332147, 0, 0.010332406, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_3nlgl")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_East_02" unique_id=312554706]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332147, 0, 0.013332147, 0.9999111, 0, 0.0057661533, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_gw7dx")
+
+[node name="Ceiling_East_03" type="Node3D" parent="." unique_id=260016482 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 13.698967, 15, 6)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_East_03" unique_id=1472765140]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_6c4af")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_East_03" unique_id=993058499]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_kmqrt")
+
+[node name="Ceiling_East_04" type="Node3D" parent="." unique_id=1715916114 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 13.698967, 15, 13)
+script = ExtResource("3_pp8pt")
+energy = 2.8
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_East_04" unique_id=532047155]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010333061, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_0rf0s")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_East_04" unique_id=1773516694]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.0057668686, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_0tndy")
+
+[node name="Ceiling_West_05" type="Node3D" parent="." unique_id=1293604560 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, -12, 15, -16)
+script = ExtResource("3_pp8pt")
+energy = 2.6
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_West_05" unique_id=1730215888]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010333061, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_q3n2r")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_West_05" unique_id=2145486596]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.0057668686, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_sscv3")
+
+[node name="Ceiling_West_06" type="Node3D" parent="." unique_id=1832804158 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, -12, 15, -21)
+script = ExtResource("3_pp8pt")
+energy = 2.6
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_West_06" unique_id=1648355121]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_lw0go")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_West_06" unique_id=2139534785]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332199, 0, 0.013332199, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_tqgo1")
+
+[node name="Ceiling_East_05" type="Node3D" parent="." unique_id=1969436435 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 12, 15, -16)
+script = ExtResource("3_pp8pt")
+energy = 2.6
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_East_05" unique_id=755669374]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010333061, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_4h1g8")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_East_05" unique_id=885106867]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.0057668686, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_nq1sf")
+
+[node name="Ceiling_East_06" type="Node3D" parent="." unique_id=1403378502 groups=["hall_lights"] instance=ExtResource("2_2a8b8")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, 12, 15, -21)
+script = ExtResource("3_pp8pt")
+energy = 2.6
+
+[node name="Mount" type="MeshInstance3D" parent="Ceiling_East_06" unique_id=56561423]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_xlvu0")
+
+[node name="Drop" type="MeshInstance3D" parent="Ceiling_East_06" unique_id=1634522156]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332199, 0, 0.013332199, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_1fdyp")
+mesh = SubResource("BoxMesh_q3q55")

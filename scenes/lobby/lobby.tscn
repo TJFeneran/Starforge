@@ -1,13 +1,15 @@
-[gd_scene format=3 uid="uid://d4hlt8blno238"]
+[gd_scene format=3 uid="uid://b4568epjpwcit"]
 
 [ext_resource type="Script" uid="uid://rox27sjtc61l" path="res://scenes/lobby/modules/forge_hall.gd" id="1_hall"]
+[ext_resource type="Script" uid="uid://bcevob5dcxsp5" path="res://scenes/lobby/modules/hall_lighting.gd" id="2_cx3k0"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://jb7fng5bylm7" path="res://scenes/lobby/modules/hall_fixture.tscn" id="3_1pfjy"]
 [ext_resource type="PackedScene" uid="uid://b0g1paaauq2nh" path="res://assets/models/style_tests/forge_monument.glb" id="3_portal"]
 [ext_resource type="PackedScene" path="res://scenes/lobby/workshops/workshop_bay.tscn" id="4_bay"]
-[ext_resource type="PackedScene" path="res://scenes/lobby/vfx/forge_reactor.tscn" id="5_reactor"]
+[ext_resource type="PackedScene" uid="uid://c0hh3od2cb2kl" path="res://scenes/lobby/vfx/forge_reactor.tscn" id="5_reactor"]
 [ext_resource type="Script" uid="uid://c16kkqkhmj74v" path="res://scenes/lobby/modules/monument_stairs.gd" id="6_stairs"]
-[ext_resource type="Script" path="res://scenes/lobby/fog_explore.gd" id="7_fog"]
-[ext_resource type="Script" path="res://scenes/lobby/lobby_bootstrap.gd" id="8_boot"]
+[ext_resource type="PackedScene" uid="uid://buli5i60gedr0" path="res://assets/models/outpost_kit/outpost_crate.glb" id="9_l1n8d"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/props/planter.tscn" id="10_planter"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -20,61 +22,449 @@ tonemap_mode = 2
 ssao_enabled = true
 ssao_intensity = 1.2
 sdfgi_enabled = true
-sdfgi_cascades = 4
-sdfgi_min_cell_size = 0.25
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
+sdfgi_min_cell_size = 0.25
 sdfgi_energy = 0.9
 glow_enabled = true
 glow_intensity = 0.45
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.0065
+volumetric_fog_density = 0.00325
 volumetric_fog_albedo = Color(0.82, 0.9, 0.96, 1)
 volumetric_fog_emission = Color(0.1, 0.16, 0.22, 1)
 volumetric_fog_emission_energy = 0.02
-volumetric_fog_anisotropy = 0.12
-volumetric_fog_length = 64.0
 volumetric_fog_gi_inject = 0.12
+volumetric_fog_anisotropy = 0.12
 volumetric_fog_ambient_inject = 0.18
-volumetric_fog_temporal_reprojection_amount = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cx3k0"]
+albedo_color = Color(0.21568628, 0.27450982, 0.3137255, 1)
+metallic = 0.65
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_1pfjy"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rqnjc"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ewac"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8q070"]
+size = Vector3(0.1, 0.1, 0.80999947)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ogwbl"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u65gp"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j3ft6"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e1gst"]
+size = Vector3(0.1, 0.1, 0.80999947)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mcm7o"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ue7tr"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_scnnd"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wvcvr"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wxlhk"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qt3sm"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_svwot"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hb84q"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ocmbu"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_amveb"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hlyqb"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qvwxh"]
+size = Vector3(0.1, 0.1, 1.1100001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fha4k"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0k85a"]
+size = Vector3(0.1, 0.1, 0.21000004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d0k7d"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x7hdg"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dqt2p"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dvbd0"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ubyqi"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0fo4p"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7guav"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mudve"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rql1k"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_25x15"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_itg5c"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q52fj"]
+size = Vector3(0.1, 0.1, 0.58500004)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wh20w"]
+size = Vector3(0.28, 0.1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i3tcx"]
+size = Vector3(0.1, 0.1, 0.58500004)
 
 [sub_resource type="BoxShape3D" id="PortalSideShape"]
 size = Vector3(1, 4, 1.2)
 
 [node name="StarforgeLobby" type="Node3D" unique_id=437718597]
-script = ExtResource("8_boot")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1157924935]
 environment = SubResource("Environment_hall")
 
-[node name="FogExplore" type="Node" parent="."]
-script = ExtResource("7_fog")
-
 [node name="Architecture" type="Node3D" parent="." unique_id=720120896]
 script = ExtResource("1_hall")
+
+[node name="HallLighting" type="Node3D" parent="." unique_id=7789371]
+script = ExtResource("2_cx3k0")
+
+[node name="Rear_West_01" parent="HallLighting" unique_id=943984508 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, 0.95838577, 0, -0.95838577, 0.2854764, -19.1, 7.05, -21.5)
+energy = 1.8
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Rear_West_01" unique_id=1301713613]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, -0.95838577, 0, 0.95838577, 0.2854764, 0, 0.114191055, 0.3833537)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_1pfjy")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Rear_West_01" unique_id=200674000]
+transform = Transform3D(1, 0, 0, 0, 0.95838577, 0.2854764, 0, -0.2854764, 0.95838577, 0, 0.069942474, 0.23480415)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_rqnjc")
+
+[node name="Stairs_West_01" parent="HallLighting" unique_id=918831029 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.33532447, 0.94210273, 0, 0.94210273, -0.33532447, -17.5, 9.8, -31.899998)
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Stairs_West_01" unique_id=717136484]
+transform = Transform3D(-1, 0, 0, 0, 0.33532444, 0.9421026, 0, 0.9421026, -0.33532444, 0, 0.33532333, 0.94210243)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_6ewac")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Stairs_West_01" unique_id=1774835255]
+transform = Transform3D(-1, 0, 0, 0, -0.9421026, 0.33532444, 0, 0.33532444, 0.9421026, 0, 0.1827507, 0.5134468)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_8q070")
+
+[node name="Rear_East_01" parent="HallLighting" unique_id=1121466599 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, 0.95838577, 0, -0.95838577, 0.2854764, 19.1, 7.05, -21.5)
+energy = 1.8
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Rear_East_01" unique_id=1093197061]
+transform = Transform3D(1, 0, 0, 0, 0.2854764, -0.95838577, 0, 0.95838577, 0.2854764, 0, 0.114191055, 0.3833537)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_ogwbl")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Rear_East_01" unique_id=1236841451]
+transform = Transform3D(1, 0, 0, 0, 0.95838577, 0.2854764, 0, -0.2854764, 0.95838577, 0, 0.069942474, 0.23480415)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_u65gp")
+
+[node name="Stairs_East_01" parent="HallLighting" unique_id=163264903 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.33532447, 0.94210273, 0, 0.94210273, -0.33532447, 17.5, 9.8, -31.899998)
+energy = 1.0
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Stairs_East_01" unique_id=1579022512]
+transform = Transform3D(-1, 0, 0, 0, 0.33532444, 0.9421026, 0, 0.9421026, -0.33532444, 0, 0.33532333, 0.94210243)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_j3ft6")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Stairs_East_01" unique_id=1872366581]
+transform = Transform3D(-1, 0, 0, 0, -0.9421026, 0.33532444, 0, 0.33532444, 0.9421026, 0, 0.1827507, 0.5134468)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_e1gst")
+
+[node name="Gallery_West_01" parent="HallLighting" unique_id=300663055 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(0, 0.59303457, -0.80517703, 0, 0.80517703, 0.59303457, 1, 0, 0, -10.85, 6.15, -9)
+energy = 3.4
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Gallery_West_01" unique_id=1703654083]
+transform = Transform3D(0, 0, 1, 0.59303457, 0.80517703, 0, -0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_mcm7o")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Gallery_West_01" unique_id=2139261326]
+transform = Transform3D(0, -1, 0, 0.59303457, 0, 0.80517703, -0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_ue7tr")
+
+[node name="Gallery_West_03" parent="HallLighting" unique_id=1046690602 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(0, 0.59303457, -0.80517703, 0, 0.80517703, 0.59303457, 1, 0, 0, -10.85, 6.15, 3)
+energy = 3.4
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Gallery_West_03" unique_id=1302492736]
+transform = Transform3D(0, 0, 1, 0.59303457, 0.80517703, 0, -0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_scnnd")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Gallery_West_03" unique_id=1401580024]
+transform = Transform3D(0, -1, 0, 0.59303457, 0, 0.80517703, -0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_wvcvr")
+
+[node name="Gallery_West_05" parent="HallLighting" unique_id=1164140765 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(0, 0.59303457, -0.80517703, 0, 0.80517703, 0.59303457, 1, 0, 0, -10.85, 6.15, 14)
+energy = 0.2
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Gallery_West_05" unique_id=1784097361]
+transform = Transform3D(0, 0, 1, 0.59303457, 0.80517703, 0, -0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_wxlhk")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Gallery_West_05" unique_id=62018607]
+transform = Transform3D(0, -1, 0, 0.59303457, 0, 0.80517703, -0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_qt3sm")
+
+[node name="Gallery_East_01" parent="HallLighting" unique_id=1876854519 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, -9)
+energy = 3.4
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Gallery_East_01" unique_id=1048406174]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_svwot")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Gallery_East_01" unique_id=920342846]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_hb84q")
+
+[node name="Gallery_East_03" parent="HallLighting" unique_id=390731748 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, 3)
+energy = 3.4
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Gallery_East_03" unique_id=41284422]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_ocmbu")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Gallery_East_03" unique_id=1388373160]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_amveb")
+
+[node name="Gallery_East_05" parent="HallLighting" unique_id=1283542274 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(0, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, -1, 0, 0, 10.85, 6.15, 14)
+energy = 3.4
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Gallery_East_05" unique_id=1299365555]
+transform = Transform3D(0, 0, -1, -0.59303457, 0.80517703, 0, 0.80517703, 0.59303457, 0, 0, 1.0467296, 0.7709446)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_hlyqb")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Gallery_East_05" unique_id=955060787]
+transform = Transform3D(0, 1, 0, -0.59303457, 0, 0.80517703, 0.80517703, 0, 0.59303457, 0, 0.55959797, 0.41215897)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_qvwxh")
+
+[node name="Entry_Center_01" parent="HallLighting" unique_id=1982607093 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, 0.7884481, 0, -0.7884481, 0.61510134, 0, 7.05, 15.5)
+energy = 2.6
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Entry_Center_01" unique_id=728598415]
+transform = Transform3D(1, 0, 0, 0, 0.61510134, -0.7884481, 0, 0.7884481, 0.61510134, 0, 0.24604034, 0.3153782)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_fha4k")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Entry_Center_01" unique_id=758298797]
+transform = Transform3D(1, 0, 0, 0, 0.7884481, 0.61510134, 0, -0.61510134, 0.7884481, 0, 0.15070009, 0.1931696)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_0k85a")
+
+[node name="Ceiling_West_01" parent="HallLighting" unique_id=1851055089 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, -13.266349, 15, -8)
+energy = 2.8
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Ceiling_West_01" unique_id=42366083]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_d0k7d")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Ceiling_West_01" unique_id=1832213534]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_x7hdg")
+
+[node name="Ceiling_West_02" parent="HallLighting" unique_id=2146200190 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332147, 0.9999111, 0, 0.9999111, -0.013332147, -13.266349, 15, -1)
+energy = 2.8
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Ceiling_West_02" unique_id=466201515]
+transform = Transform3D(-1, 0, 0, 0, 0.013332147, 0.9999111, 0, 0.9999111, -0.013332147, 0, 0.010332406, 0.77493095)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_dqt2p")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Ceiling_West_02" unique_id=1331252102]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332147, 0, 0.013332147, 0.9999111, 0, 0.0057661533, 0.4324627)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_dvbd0")
+
+[node name="Ceiling_West_04" parent="HallLighting" unique_id=490595976 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, -12.069391, 15, 13)
+energy = 2.8
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Ceiling_West_04" unique_id=2090984857]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010333061, 0.77493095)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_ubyqi")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Ceiling_West_04" unique_id=1748257228]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.0057668686, 0.4324627)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_0fo4p")
+
+[node name="Ceiling_East_01" parent="HallLighting" unique_id=1286968328 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 13.644114, 15, -8)
+energy = 2.8
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Ceiling_East_01" unique_id=572434132]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_7guav")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Ceiling_East_01" unique_id=2086700057]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_mudve")
+
+[node name="Ceiling_East_04" parent="HallLighting" unique_id=1715916114 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 13.698967, 15, 13)
+energy = 2.8
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Ceiling_East_04" unique_id=220405878]
+transform = Transform3D(-1, 0, 0, 0, 0.013332136, 0.9999111, 0, 0.9999111, -0.013332136, 0, 0.010333061, 0.77493095)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_rql1k")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Ceiling_East_04" unique_id=1716980282]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332136, 0, 0.013332136, 0.9999111, 0, 0.0057668686, 0.4324627)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_25x15")
+
+[node name="Ceiling_West_06" parent="HallLighting" unique_id=1832804158 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, -12, 15, -21)
+energy = 2.6
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Ceiling_West_06" unique_id=1738379536]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_itg5c")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Ceiling_West_06" unique_id=240867925]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332199, 0, 0.013332199, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_q52fj")
+
+[node name="Ceiling_East_06" parent="HallLighting" unique_id=1403378502 instance=ExtResource("3_1pfjy")]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, 12, 15, -21)
+energy = 2.6
+casts_shadow = true
+
+[node name="Mount" type="MeshInstance3D" parent="HallLighting/Ceiling_East_06" unique_id=1112530132]
+transform = Transform3D(-1, 0, 0, 0, 0.013332199, 0.9999111, 0, 0.9999111, -0.013332199, 0, 0.010332108, 0.77493095)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_wh20w")
+
+[node name="Drop" type="MeshInstance3D" parent="HallLighting/Ceiling_East_06" unique_id=445937935]
+transform = Transform3D(-1, 0, 0, 0, -0.9999111, 0.013332199, 0, 0.013332199, 0.9999111, 0, 0.005765915, 0.4324627)
+material_override = SubResource("StandardMaterial3D_cx3k0")
+mesh = SubResource("BoxMesh_i3tcx")
+
+[node name="Planters" type="Node3D" parent="." unique_id=1460571072]
+
+[node name="PlanterA" parent="Planters" unique_id=412789088 instance=ExtResource("10_planter")]
+transform = Transform3D(0.092769034, 0, -0.99568766, 0, 1, 0, 0.99568766, 0, 0.092769034, -10.66151, 0, 11.993474)
+
+[node name="PlanterB" parent="Planters" unique_id=2014078458 instance=ExtResource("10_planter")]
+transform = Transform3D(0.9925953, 0, -0.12146777, 0, 1, 0, 0.12146777, 0, 0.9925953, 6.0231066, 0, 16.806408)
+
+[node name="PlanterC" parent="Planters" unique_id=2068205444 instance=ExtResource("10_planter")]
+transform = Transform3D(-0.02227199, 0, -0.9997519, 0, 1, 0, 0.9997519, 0, -0.02227199, -10.767961, 0, -12.204295)
+
+[node name="PlanterD" parent="Planters" unique_id=1151997456 instance=ExtResource("10_planter")]
+transform = Transform3D(0.5480617, 0, -0.8364379, 0, 1, 0, 0.8364379, 0, 0.5480617, 11.023082, 0, -13.689513)
 
 [node name="CentralForge" parent="." unique_id=409337439 instance=ExtResource("5_reactor")]
 
 [node name="Workshops" type="Node3D" parent="." unique_id=219987434]
 
 [node name="WorkbenchWeapons" parent="Workshops" unique_id=220137898 instance=ExtResource("4_bay")]
-transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 16, 0, -6)
+transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 11.429093, 0, -6)
 
 [node name="WorkbenchUtility" parent="Workshops" unique_id=1616457800 instance=ExtResource("4_bay")]
-transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 16, 0, 6)
+transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 11.429093, 0, 6)
 purpose = "utility"
 
 [node name="WorkbenchArmor" parent="Workshops" unique_id=800688552 instance=ExtResource("4_bay")]
-transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, -16, 0, -6)
+transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, -11.426723, 0, -6)
 purpose = "armor"
 
 [node name="WorkbenchOutfit" parent="Workshops" unique_id=933655632 instance=ExtResource("4_bay")]
-transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, -16, 0, 6)
+transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, -11.426723, 0, 6)
 purpose = "outfit"
-
-[node name="WorkbenchWorld" parent="Workshops" unique_id=1407753847 instance=ExtResource("4_bay")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -18)
-purpose = "deploy"
 
 [node name="ForgeMonumentPortal" type="Node3D" parent="." unique_id=46844899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14)
@@ -121,3 +511,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.4, -4)
 
 [node name="Player" parent="." unique_id=1776662509 instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 10)
+
+[node name="outpost_crate" parent="." unique_id=2142954363 instance=ExtResource("9_l1n8d")]
+transform = Transform3D(0.9956844, 0, 0.09280382, 0, 1, 0, -0.09280382, 0, 0.9956844, -5.9940434, -0.011060491, 16.673342)
+
+[node name="outpost_crate2" parent="." unique_id=1869604676 instance=ExtResource("9_l1n8d")]
+transform = Transform3D(0.92700535, 0, 0.37504822, 0, 1, 0, -0.37504822, 0, 0.92700535, -4.6758523, -0.011060491, -10.600168)

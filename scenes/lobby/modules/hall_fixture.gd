@@ -1,46 +1,70 @@
 @tool
 extends Node3D
 
-## Reusable physical light housing; local -Z is the emitted light direction.
-@export_enum("Overhead", "Task", "Service") var style: int = 0
-@export var casts_shadow: bool = false
-@export var energy: float = 2.2
+## Saved fixture geometry and spotlight; local -Z is the emitted light direction.
+## Edit these properties on the fixture root, not the derived TaskLight values.
+@export var light_enabled: bool = true:
+	set(value):
+		light_enabled = value
+		refresh_light()
+@export_range(0.0, 16.0, 0.05) var energy: float = 2.2:
+	set(value):
+		energy = value
+		refresh_light()
+@export var light_color: Color = Color("e6edee"):
+	set(value):
+		light_color = value
+		refresh_light()
+@export var casts_shadow: bool = false:
+	set(value):
+		casts_shadow = value
+		refresh_light()
+@export_range(0.1, 60.0, 0.1) var light_range: float = 19.0:
+	set(value):
+		light_range = value
+		refresh_light()
+@export_range(1.0, 89.0, 0.5) var cone_angle: float = 58.0:
+	set(value):
+		cone_angle = value
+		refresh_light()
+@export var diffuser_color: Color = Color("e2e7df"):
+	set(value):
+		diffuser_color = value
+		refresh_light()
+@export_range(0.0, 8.0, 0.05) var diffuser_energy: float = 1.8:
+	set(value):
+		diffuser_energy = value
+		refresh_light()
+
+var _lens: StandardMaterial3D
 
 func _ready() -> void:
-	if get_child_count() > 0:
-		return
-	var housing := StandardMaterial3D.new()
-	housing.albedo_color = Color("293442")
-	housing.metallic = 0.65
-	housing.roughness = 0.42
-	var lens := StandardMaterial3D.new()
-	lens.albedo_color = Color("e2e7df")
-	lens.emission_enabled = true
-	lens.emission = Color("e2e7df")
-	lens.emission_energy_multiplier = 1.8
-	var width: float = 3.4 if style == 0 else (1.25 if style == 1 else 0.45)
-	_box("Housing", Vector3(width, 0.48, 0.24), Vector3.ZERO, housing)
-	_box("Diffuser", Vector3(width - 0.16, 0.30, 0.04), Vector3(0, 0, -0.14), lens)
-	for x: float in [-width * 0.35, width * 0.35]:
-		_box("Bracket", Vector3(0.09, 0.16, 0.32), Vector3(x, 0, 0.24), housing)
-	var light := SpotLight3D.new()
-	light.name = "TaskLight"
-	light.position.z = -0.19
-	light.light_color = Color("e6edee")
-	light.light_energy = energy
-	light.light_specular = 0.6
-	light.spot_range = 19.0 if style == 0 else 8.0
-	light.spot_angle = 58.0 if style == 0 else 48.0
-	light.spot_attenuation = 0.7
-	light.shadow_enabled = casts_shadow
-	add_child(light)
+	refresh_light()
 
-func _box(label: String, size: Vector3, at: Vector3, material: Material) -> void:
-	var mesh := MeshInstance3D.new()
-	mesh.name = label
-	var box := BoxMesh.new()
-	box.size = size
-	mesh.mesh = box
-	mesh.material_override = material
-	mesh.position = at
-	add_child(mesh)
+func refresh_light() -> void:
+	if not is_inside_tree():
+		return
+	var light := get_node_or_null("TaskLight") as SpotLight3D
+	var diffuser := get_node_or_null("Diffuser") as MeshInstance3D
+	if light == null or diffuser == null:
+		return
+	var multiplier := 1.0
+	var tint := Color.WHITE
+	var enabled := light_enabled
+	var parent := get_parent()
+	if parent != null and parent.has_method("_refresh") and parent.get("energy_multiplier") != null:
+		multiplier = parent.get("energy_multiplier")
+		tint = parent.get("color_tint")
+		enabled = enabled and parent.get("lights_enabled")
+	light.visible = enabled
+	light.light_energy = energy * multiplier
+	light.light_color = light_color * tint
+	light.shadow_enabled = casts_shadow
+	light.spot_range = light_range
+	light.spot_angle = cone_angle
+	if _lens == null:
+		_lens = diffuser.material_override.duplicate() as StandardMaterial3D
+		diffuser.material_override = _lens
+	_lens.albedo_color = diffuser_color * tint
+	_lens.emission = diffuser_color * tint
+	_lens.emission_energy_multiplier = diffuser_energy * multiplier if enabled else 0.0

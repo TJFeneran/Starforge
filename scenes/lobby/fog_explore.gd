@@ -100,7 +100,7 @@ func _apply_baseline() -> void:
 func _apply_forge_haze() -> void:
 	_reset_fog_common()
 	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.018
+	_env.volumetric_fog_density = 0.01
 	_env.volumetric_fog_albedo = Color(1.0, 0.86, 0.72)
 	_env.volumetric_fog_emission = Color(0.35, 0.18, 0.05)
 	_env.volumetric_fog_emission_energy = 0.08
@@ -113,7 +113,7 @@ func _apply_forge_haze() -> void:
 func _apply_cleanroom() -> void:
 	_reset_fog_common()
 	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.0065
+	_env.volumetric_fog_density = 0.00325
 	_env.volumetric_fog_albedo = Color(0.82, 0.9, 0.96)
 	_env.volumetric_fog_emission = Color(0.1, 0.16, 0.22)
 	_env.volumetric_fog_emission_energy = 0.02
@@ -126,7 +126,7 @@ func _apply_cleanroom() -> void:
 func _apply_rift_smog() -> void:
 	_reset_fog_common()
 	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.045
+	_env.volumetric_fog_density = 0.025
 	_env.volumetric_fog_albedo = Color(0.35, 0.42, 0.55)
 	_env.volumetric_fog_emission = Color(0.08, 0.16, 0.35)
 	_env.volumetric_fog_emission_energy = 0.22
@@ -147,7 +147,7 @@ func _apply_shaft_pools() -> void:
 	_env.volumetric_fog_density = 0.008
 	_env.volumetric_fog_albedo = Color(0.95, 0.92, 0.88)
 	_env.volumetric_fog_anisotropy = 0.55
-	_env.volumetric_fog_length = 56.0
+	_env.volumetric_fog_length = 28.0
 	_env.volumetric_fog_gi_inject = 0.45
 	_env.volumetric_fog_ambient_inject = 0.05
 	_add_fog_volume(
