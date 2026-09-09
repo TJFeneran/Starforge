@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/combat/forge_sidearm.tscn" id="6_weapon"]
 [ext_resource type="PackedScene" path="res://scenes/combat/pulse_bolt.tscn" id="7_bolt"]
 [ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_jump.glb" id="8_jump"]
-[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_aim.glb" id="9_pistol_aim"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_idle.glb" id="9_pistol_aim"]
 [ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_run.glb" id="10_pistol_run"]
 [ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_jump.glb" id="11_pistol_jump"]
 

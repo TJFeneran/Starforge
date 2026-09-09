@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" path="res://scenes/lobby/workshops/workshop_bay.tscn" id="4_bay"]
 [ext_resource type="PackedScene" path="res://scenes/lobby/vfx/forge_reactor.tscn" id="5_reactor"]
 [ext_resource type="Script" uid="uid://c16kkqkhmj74v" path="res://scenes/lobby/modules/monument_stairs.gd" id="6_stairs"]
+[ext_resource type="Script" path="res://scenes/lobby/fog_explore.gd" id="7_fog"]
+[ext_resource type="Script" path="res://scenes/lobby/lobby_bootstrap.gd" id="8_boot"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -13,20 +15,40 @@ background_color = Color(0.04, 0.065, 0.1, 1)
 ambient_light_source = 3
 ambient_light_color = Color(0.58, 0.68, 0.76, 1)
 ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.42
+ambient_light_energy = 0.28
 tonemap_mode = 2
 ssao_enabled = true
 ssao_intensity = 1.2
+sdfgi_enabled = true
+sdfgi_cascades = 4
+sdfgi_min_cell_size = 0.25
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+sdfgi_energy = 0.9
 glow_enabled = true
 glow_intensity = 0.45
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0065
+volumetric_fog_albedo = Color(0.82, 0.9, 0.96, 1)
+volumetric_fog_emission = Color(0.1, 0.16, 0.22, 1)
+volumetric_fog_emission_energy = 0.02
+volumetric_fog_anisotropy = 0.12
+volumetric_fog_length = 64.0
+volumetric_fog_gi_inject = 0.12
+volumetric_fog_ambient_inject = 0.18
+volumetric_fog_temporal_reprojection_amount = 0.9
 
 [sub_resource type="BoxShape3D" id="PortalSideShape"]
 size = Vector3(1, 4, 1.2)
 
 [node name="StarforgeLobby" type="Node3D" unique_id=437718597]
+script = ExtResource("8_boot")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1157924935]
 environment = SubResource("Environment_hall")
+
+[node name="FogExplore" type="Node" parent="."]
+script = ExtResource("7_fog")
 
 [node name="Architecture" type="Node3D" parent="." unique_id=720120896]
 script = ExtResource("1_hall")

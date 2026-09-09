@@ -42,7 +42,7 @@ const HOLSTER_OFFSET := Vector3(0.07, 0.02, 0.14)
 @export var run_scene: PackedScene
 @export var idle_scene: PackedScene
 @export var jump_scene: PackedScene
-@export var pistol_aim_scene: PackedScene
+@export var pistol_aim_scene: PackedScene ## Stationary ADS: Mixamo Pistol Idle (not Pistol Aim).
 @export var pistol_run_scene: PackedScene
 @export var pistol_jump_scene: PackedScene
 @export var pulse_bolt_scene: PackedScene
