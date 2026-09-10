@@ -322,3 +322,4 @@ mesh = SubResource("NavigationRingB")
 
 [node name="MapInteract" parent="Navigation" instance=ExtResource("7_interact")]
 action_text = "Open Map"
+prompt_offset = Vector3(0, 1.85, 0)

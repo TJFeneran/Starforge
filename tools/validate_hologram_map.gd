@@ -34,6 +34,13 @@ func _run() -> void:
 	_check(interact != null, "MapInteract missing under Navigation")
 	_check(interact is ProximityInteractable, "MapInteract must be ProximityInteractable")
 	_check(str(interact.get("action_text")) == "Open Map", "Globe prompt should say Open Map")
+	_check(interact.get("prompt_offset") is Vector3, "MapInteract should expose prompt_offset")
+
+	if prompt and interact:
+		prompt.request(interact, "Open Map", "E", interact, interact.prompt_offset)
+		_check(prompt.get_node("Root").visible, "Prompt should show after request")
+		prompt.release(interact)
+		_check(not prompt.get_node("Root").visible, "Prompt should hide after release")
 
 	var map := lobby.get_node_or_null("HologramMap")
 	_check(map != null and map.has_method("open_map"), "HologramMap missing")
