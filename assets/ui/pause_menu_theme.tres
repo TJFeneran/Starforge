@@ -1,31 +1,31 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://bn4d6y1dddnny"]
 
 [sub_resource type="StyleBoxFlat" id="PauseNormal"]
-bg_color = Color(0, 0, 0, 0)
 content_margin_left = 24.0
 content_margin_top = 14.0
 content_margin_right = 24.0
 content_margin_bottom = 18.0
+bg_color = Color(0, 0, 0, 0)
 border_width_bottom = 2
 border_color = Color(1, 0.69803923, 0.21960784, 0)
 
-[sub_resource type="StyleBoxFlat" id="PauseHover"]
-bg_color = Color(0.09019608, 0.12941177, 0.2, 0.25)
-content_margin_left = 24.0
-content_margin_top = 14.0
-content_margin_right = 24.0
-content_margin_bottom = 18.0
-border_width_bottom = 2
-border_color = Color(1, 0.69803923, 0.21960784, 0.45)
-
 [sub_resource type="StyleBoxFlat" id="PauseFocus"]
-bg_color = Color(0.09019608, 0.12941177, 0.2, 0.35)
 content_margin_left = 24.0
 content_margin_top = 14.0
 content_margin_right = 24.0
 content_margin_bottom = 18.0
+bg_color = Color(0.09019608, 0.12941177, 0.2, 0.35)
 border_width_bottom = 2
 border_color = Color(1, 0.69803923, 0.21960784, 1)
+
+[sub_resource type="StyleBoxFlat" id="PauseHover"]
+content_margin_left = 24.0
+content_margin_top = 14.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
+bg_color = Color(0.09019608, 0.12941177, 0.2, 0.25)
+border_width_bottom = 2
+border_color = Color(1, 0.69803923, 0.21960784, 0.45)
 
 [resource]
 Button/colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.88)

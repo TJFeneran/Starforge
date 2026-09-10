@@ -113,7 +113,8 @@ func _material(color: Color, metallic: float = 0.0, roughness: float = 0.65) -> 
 
 
 func _materials() -> void:
-	_bone = _material(STARBONE, 0.18)
+	# Cabinets and equipment use clean satin enamel, not the architectural alloy.
+	_bone = _material(STARBONE, 0.08, 0.48)
 	_navy = _material(NAVY, 0.25)
 	_cobalt = _material(COBALT, 0.2)
 	_metal = _material(Color("65717b"), 0.72, 0.4)

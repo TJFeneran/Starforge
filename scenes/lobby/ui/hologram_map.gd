@@ -1,5 +1,5 @@
 extends CanvasLayer
-## Framework overlay for globe → destination select. Stubs only; travel not wired yet.
+## Globe destination overlay. Selecting an available world arms the monument gate.
 
 signal opened
 signal closed
@@ -174,8 +174,8 @@ func _on_select_pressed() -> void:
 	if _selected == null or not _selected.available:
 		return
 	destination_selected.emit(_selected)
-	_status_label.text = "Marked: %s" % _selected.title
-	# Travel / monument gate wiring comes later — keep map open so selection is visible.
+	_status_label.text = "Gate armed: %s" % _selected.title
+	close_map()
 
 
 func _prompt() -> Node:

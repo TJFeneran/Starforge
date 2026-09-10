@@ -6,5 +6,5 @@ class_name MapDestination
 @export var title := ""
 @export var blurb := ""
 @export var available := true
-## Future: path to mission scene once travel is wired.
+## Mission scene loaded when the player embarks at the armed gate.
 @export_file("*.tscn") var scene_path := ""

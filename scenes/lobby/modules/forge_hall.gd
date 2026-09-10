@@ -3,6 +3,7 @@ extends Node3D
 
 ## Authored layout in meters. Generated visuals belong to this module, never shared assets.
 const FLOOR_SHADER = preload("res://assets/materials/lobby/hall_floor.gdshader")
+const PAINTED_ALLOY_SHADER = preload("res://assets/materials/lobby/painted_alloy.gdshader")
 const CATWALK_HEIGHT := 7.8
 const CATWALK_THICKNESS := 0.3
 const STAIR_RUN := 6.6
@@ -11,7 +12,7 @@ const STAIR_STEPS := 22
 const REAR_WALL_Z := -22.8
 const REAR_SHIFT := REAR_WALL_Z + 24.0
 var _navy: StandardMaterial3D
-var _bone: StandardMaterial3D
+var _bone: ShaderMaterial
 var _metal: StandardMaterial3D
 var _cobalt: StandardMaterial3D
 
@@ -19,7 +20,8 @@ func _ready() -> void:
 	if has_node("Floor"):
 		return
 	_navy = _material("172133", 0.3, 0.65)
-	_bone = _material("c4c3b6", 0.15, 0.68)
+	_bone = ShaderMaterial.new()
+	_bone.shader = PAINTED_ALLOY_SHADER
 	_metal = _material("374650", 0.65, 0.45)
 	_cobalt = _material("245aa8", 0.35, 0.55)
 	var floor_material := ShaderMaterial.new()
@@ -290,6 +292,8 @@ func _beam_between(label: String, start: Vector3, end: Vector3, width: float, ma
 	box.size = Vector3(width, width, start.distance_to(end))
 	mesh.mesh = box
 	mesh.material_override = material
+	if material == _bone:
+		mesh.set_instance_shader_parameter("half_extents", box.size * 0.5)
 	mesh.position = (start + end) * 0.5
 	var direction := (end - start).normalized()
 	mesh.basis = Basis.looking_at(direction, Vector3.FORWARD if absf(direction.y) > 0.99 else Vector3.UP)
@@ -367,6 +371,8 @@ func _box(label: String, size: Vector3, at: Vector3, material: Material, solid: 
 	box.size = size
 	mesh.mesh = box
 	mesh.material_override = material
+	if material == _bone:
+		mesh.set_instance_shader_parameter("half_extents", box.size * 0.5)
 	mesh.position = at
 	add_child(mesh)
 	if solid:

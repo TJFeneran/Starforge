@@ -21,6 +21,11 @@ func _capture() -> void:
 	await physics_frame
 	_validate_windows()
 	var views := [
+		["alloy_rail", Vector3(13.0, 9.5, 1.2), Vector3(10.6, 8.65, -1.2)],
+		["workshop_enamel", Vector3(9.8, 2.1, 6.0), Vector3(15.0, 1.3, 6.0)],
+		["alloy_overview", Vector3(1, 8.2, -7), Vector3(16.5, 8.2, 0)],
+		["alloy_pillar", Vector3(7.6, 3.8, -3.5), Vector3(11.7, 3.6, 0)],
+		["alloy_window", Vector3(12.8, 10.3, 0), Vector3(16.5, 10.8, -0.5)],
 		["east", Vector3(-5, 3.5, 10), Vector3(16.5, 11.5, 0)],
 		["west", Vector3(5, 4.0, -6), Vector3(-16.5, 11.5, 4)],
 		["catwalk", Vector3(12.0, 9.5, 5), Vector3(110, 65, -32)],
