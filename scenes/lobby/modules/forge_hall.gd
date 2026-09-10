@@ -31,13 +31,13 @@ func _ready() -> void:
 	_box("Ceiling", Vector3(33, 0.35, 30), Vector3(0, 16, 3), _navy, true)
 	_box("TransitVaultCeiling", Vector3(42, 0.35, 12 - REAR_SHIFT), Vector3(0, 16, -18 + REAR_SHIFT * 0.5), _navy, true)
 	# Enclosed outer shell. Front entrance is a shallow recess, not an unbounded exit.
-	_box("WestWall", Vector3(0.5, 16, 30), Vector3(-16.5, 8, 3), _navy, true)
-	_box("EastWall", Vector3(0.5, 16, 30), Vector3(16.5, 8, 3), _navy, true)
+	_build_window_wall(-1.0)
+	_build_window_wall(1.0)
 	for side: float in [-1.0, 1.0]:
 		_box("VaultSide", Vector3(0.5, 16, 12 - REAR_SHIFT), Vector3(side * 21.0, 8, -18 + REAR_SHIFT * 0.5), _navy, true)
 		_box("VaultReturn", Vector3(4.5, 16, 0.5), Vector3(side * 18.75, 8, -12), _navy, true)
 	# Full-height stairwell openings at each end of the rear wall.
-	_box("BackWall", Vector3(28.8, 16, 0.5), Vector3(0, 8, REAR_WALL_Z), _navy, true)
+	_build_rear_window_wall()
 	for side: float in [-1.0, 1.0]:
 		_box("StairEntryDivider", Vector3(0.4, 11, 0.5), Vector3(side * 17.5, 5.5, REAR_WALL_Z), _navy, true)
 		_box("StairEntryOuterPier", Vector3(0.5, 16, 0.5), Vector3(side * 20.75, 8, REAR_WALL_Z), _navy, true)
@@ -74,8 +74,6 @@ func _ready() -> void:
 	_box("EntryDoor", Vector3(7.8, 5.8, 0.18), Vector3(0, 2.9, 17.65), _metal)
 	for x: float in [-3.0, -1.5, 0.0, 1.5, 3.0]:
 		_box("DoorFluting", Vector3(0.045, 5.1, 0.05), Vector3(x, 2.85, 17.52), _bone)
-	_sign("EntrySign", "STARFORGE  /  OPERATIONS", Vector3(0, 5.8, 17.35), PI, 38)
-	_sign("DeploySign", "EXPEDITION  /  TRANSIT", Vector3(0, 14.7, REAR_WALL_Z + 0.5), 0.0, 48)
 	for x: float in [-8.0, 8.0]:
 		_box("PortalFrame", Vector3(0.6, 14.5, 0.8), Vector3(x, 7.25, -20.2), _bone, true)
 	_box("PortalLintel", Vector3(16.6, 0.4, 0.8), Vector3(0, 14.5, -20.2), _bone)
@@ -85,6 +83,88 @@ func _ready() -> void:
 			_box("BayThreshold", Vector3(0.09, 0.004, 7.6), Vector3(side * 11.0, 0.004, z), _bone)
 			for offset: float in [-3.8, 3.8]:
 				_box("ThresholdEnd", Vector3(1.1, 0.004, 0.09), Vector3(side * 11.5, 0.004, z + offset), _bone)
+
+func _glass_material() -> StandardMaterial3D:
+	var glass := StandardMaterial3D.new()
+	glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	glass.albedo_color = Color(0.25, 0.43, 0.52, 0.065)
+	glass.roughness = 0.08
+	glass.cull_mode = BaseMaterial3D.CULL_DISABLED
+	return glass
+
+
+func _build_window_wall(side: float) -> void:
+	# Real holes in both render geometry and collision, not glass over an opaque wall.
+	var prefix := "West" if side < 0.0 else "East"
+	var x := side * 16.5
+	var bottom := 9.6
+	var top := 14.2
+	_box(prefix + "WallLower", Vector3(0.5, bottom, 30), Vector3(x, bottom * 0.5, 3), _navy, true)
+	_box(prefix + "WallHeader", Vector3(0.5, 16.0 - top, 30), Vector3(x, (16.0 + top) * 0.5, 3), _navy, true)
+	var glass := _glass_material()
+	var cursor := -12.0
+	for z: float in [-7.0, 3.0, 13.0]:
+		var left := z - 3.5
+		_box(prefix + "WindowPier", Vector3(0.5, top - bottom, left - cursor), Vector3(x, (top + bottom) * 0.5, (cursor + left) * 0.5), _navy, true)
+		cursor = z + 3.5
+		# Deep pressure-frame reveals, inset gasket and a slender central mullion.
+		for y: float in [bottom, top]:
+			_box(prefix + "WindowFrame", Vector3(0.9, 0.24, 7.3), Vector3(x, y, z), _bone, true)
+			_box(prefix + "WindowSeal", Vector3(0.94, 0.07, 6.8), Vector3(x, y + (0.17 if y == bottom else -0.17), z), _metal)
+		for edge: float in [-3.5, 3.5]:
+			_box(prefix + "WindowJamb", Vector3(0.9, 4.6, 0.24), Vector3(x, 11.9, z + edge), _bone, true)
+		_box(prefix + "WindowMullion", Vector3(0.34, 4.36, 0.085), Vector3(x, 11.9, z), _metal, true)
+		_box(prefix + "WindowSill", Vector3(1.15, 0.12, 7.45), Vector3(x - side * 0.12, bottom - 0.16, z), _metal)
+		_pane(prefix + "PressureGlass" + str(int(z) + 7), Vector2(4.36, 6.76), Vector3(x, 11.9, z), Vector3(0, 0, PI * 0.5), Vector3(0.08, 4.36, 6.76), glass)
+	_box(prefix + "WallEnd", Vector3(0.5, top - bottom, 18.0 - cursor), Vector3(x, (top + bottom) * 0.5, (cursor + 18.0) * 0.5), _navy, true)
+
+
+func _build_rear_window_wall() -> void:
+	# Wide observation cutout behind the forge monument, matching the side gallery windows.
+	var bottom := 7.6
+	var top := 15.2
+	var half_span := 8.6
+	_box("BackWallLower", Vector3(28.8, bottom, 0.5), Vector3(0, bottom * 0.5, REAR_WALL_Z), _navy, true)
+	_box("BackWallHeader", Vector3(28.8, 16.0 - top, 0.5), Vector3(0, (16.0 + top) * 0.5, REAR_WALL_Z), _navy, true)
+	for side: float in [-1.0, 1.0]:
+		var pier_width := 14.4 - half_span
+		var pier_center := side * (half_span + pier_width * 0.5)
+		_box("BackWallPier", Vector3(pier_width, top - bottom, 0.5), Vector3(pier_center, (top + bottom) * 0.5, REAR_WALL_Z), _navy, true)
+	for y: float in [bottom, top]:
+		_box("RearWindowFrame", Vector3(half_span * 2.0 + 0.3, 0.24, 0.9), Vector3(0, y, REAR_WALL_Z), _bone, true)
+		_box("RearWindowSeal", Vector3(half_span * 2.0 - 0.2, 0.07, 0.94), Vector3(0, y + (0.17 if y == bottom else -0.17), REAR_WALL_Z), _metal)
+	for edge: float in [-half_span, half_span]:
+		_box("RearWindowJamb", Vector3(0.24, top - bottom, 0.9), Vector3(edge, (top + bottom) * 0.5, REAR_WALL_Z), _bone, true)
+	for x: float in [-4.0, 0.0, 4.0]:
+		_box("RearWindowMullion", Vector3(0.085, top - bottom - 0.24, 0.34), Vector3(x, (top + bottom) * 0.5, REAR_WALL_Z), _metal, true)
+	_box("RearWindowSill", Vector3(half_span * 2.0 + 0.45, 0.12, 1.15), Vector3(0, bottom - 0.16, REAR_WALL_Z + 0.12), _metal)
+	var glass := _glass_material()
+	var pane_h := top - bottom - 0.24
+	var pane_w := half_span * 2.0 - 0.24
+	_pane("RearPressureGlass", Vector2(pane_w, pane_h), Vector3(0, (top + bottom) * 0.5, REAR_WALL_Z), Vector3(PI * 0.5, 0, 0), Vector3(pane_w, pane_h, 0.08), glass)
+
+
+func _pane(label: String, size: Vector2, at: Vector3, euler: Vector3, collision_size: Vector3, glass: Material) -> void:
+	var pane := MeshInstance3D.new()
+	pane.name = label
+	var plane := PlaneMesh.new()
+	plane.size = size
+	pane.mesh = plane
+	pane.rotation = euler
+	pane.position = at
+	pane.material_override = glass
+	pane.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(pane)
+	var body := StaticBody3D.new()
+	body.collision_mask = 0
+	var collision := CollisionShape3D.new()
+	var shape := BoxShape3D.new()
+	shape.size = collision_size
+	collision.shape = shape
+	body.position = at
+	body.add_child(collision)
+	add_child(body)
+
 
 func _build_catwalk() -> void:
 	# Broad side decks sit above the workshop roofs; the center remains open to 16 m.
@@ -175,7 +255,6 @@ func _build_rear_stairwell(side: float) -> void:
 	# Close the sides of the upper landing, leaving the forward catwalk doorway open.
 	for edge: float in [-1.4, 1.4]:
 		_guardrail("TopLandingRail", Vector3(inner_x + edge, CATWALK_HEIGHT, -25.5), Vector3(inner_x + edge, CATWALK_HEIGHT, -23.85))
-	_sign("StairAccessSign", "GALLERY  /  UP", Vector3(outer_x, 3.1, -23.68), 0.0, 30)
 	# Shift the complete stair assembly, including ramp/rail physics.
 	for index: int in range(first_child, get_child_count()):
 		var part := get_child(index) as Node3D
@@ -241,16 +320,3 @@ func _box(label: String, size: Vector3, at: Vector3, material: Material, solid: 
 		collision.shape = shape
 		mesh.add_child(body)
 		body.add_child(collision)
-
-func _sign(label: String, text: String, at: Vector3, yaw: float, size: int) -> void:
-	var sign := Label3D.new()
-	sign.name = label
-	sign.text = text
-	sign.position = at
-	sign.rotation.y = yaw
-	sign.font_size = size
-	sign.pixel_size = 0.012
-	sign.modulate = Color("d9d5c7")
-	sign.no_depth_test = false
-	sign.outline_size = 2
-	add_child(sign)

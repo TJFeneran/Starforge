@@ -1,0 +1,155 @@
+[gd_scene format=3 uid="uid://dj8ffo1a1l670"]
+
+[ext_resource type="Script" path="res://scenes/ui/welcome_screen.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/ui/starforge_ui_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://assets/ui/welcome_lobby_blurred.png" id="3_bg"]
+
+[sub_resource type="StyleBoxFlat" id="RailPanel"]
+bg_color = Color(0.09019608, 0.12941177, 0.2, 0.96)
+content_margin_left = 40.0
+content_margin_top = 48.0
+content_margin_right = 40.0
+content_margin_bottom = 40.0
+
+[node name="WelcomeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DimVeil" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.050980393, 0.078431375, 0.1254902, 0.28)
+
+[node name="LeftRail" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_right = 0.32
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("RailPanel")
+
+[node name="RailLayout" type="VBoxContainer" parent="LeftRail"]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="BrandBlock" type="VBoxContainer" parent="LeftRail/RailLayout"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Brand" type="Label" parent="LeftRail/RailLayout/BrandBlock"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 1)
+theme_override_font_sizes/font_size = 42
+text = "STARFORGE"
+
+[node name="Accent" type="ColorRect" parent="LeftRail/RailLayout/BrandBlock"]
+custom_minimum_size = Vector2(72, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(1, 0.69803923, 0.21960784, 0.95)
+
+[node name="Tagline" type="Label" parent="LeftRail/RailLayout/BrandBlock"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.55)
+theme_override_font_sizes/font_size = 16
+text = "Forge Hall"
+
+[node name="Spacer" type="Control" parent="LeftRail/RailLayout"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="Menu" type="VBoxContainer" parent="LeftRail/RailLayout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StartButton" type="Button" parent="LeftRail/RailLayout/Menu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../OptionsButton")
+focus_neighbor_top = NodePath("../ExitButton")
+text = "Start"
+alignment = 0
+
+[node name="OptionsButton" type="Button" parent="LeftRail/RailLayout/Menu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../ExitButton")
+text = "Options"
+alignment = 0
+
+[node name="ExitButton" type="Button" parent="LeftRail/RailLayout/Menu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_top = NodePath("../OptionsButton")
+focus_neighbor_bottom = NodePath("../StartButton")
+text = "Exit"
+alignment = 0
+
+[node name="BottomSpacer" type="Control" parent="LeftRail/RailLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OptionsNote" type="Label" parent="LeftRail/RailLayout"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.5)
+theme_override_font_sizes/font_size = 14
+text = "Options — coming soon"
+
+[node name="StudioMark" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -88.0
+offset_right = -48.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="StudioAccent" type="ColorRect" parent="StudioMark"]
+custom_minimum_size = Vector2(48, 2)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+color = Color(1, 0.69803923, 0.21960784, 0.75)
+
+[node name="StudioName" type="Label" parent="StudioMark"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.78)
+theme_override_font_sizes/font_size = 22
+text = "VOID GAMES"
+horizontal_alignment = 2

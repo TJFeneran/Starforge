@@ -27,10 +27,7 @@ ambient_light_energy = 0.78
 tonemap_mode = 2
 glow_enabled = true
 glow_intensity = 0.65
-fog_enabled = true
-fog_light_color = Color(0.20, 0.28, 0.52, 1)
-fog_light_energy = 0.55
-fog_density = 0.009
+fog_enabled = false
 
 [sub_resource type="BoxMesh" id="Box"]
 
