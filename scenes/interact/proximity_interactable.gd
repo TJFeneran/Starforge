@@ -81,7 +81,7 @@ func _show_prompt() -> void:
 		var anchor := get_node_or_null(prompt_anchor)
 		if anchor is Node3D:
 			source = anchor as Node3D
-			offset = Vector3.ZERO
+			# prompt_offset stays relative to the chosen anchor.
 	prompt.request(self, action_text, prompt.key_label_for(input_action), source, offset)
 
 
