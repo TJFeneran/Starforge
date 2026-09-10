@@ -66,26 +66,6 @@ func _run() -> void:
 			"title": "A — Baseline (no fog)",
 			"apply": Callable(self, "_apply_baseline"),
 		},
-		{
-			"id": "B_forge_haze",
-			"title": "B — Forge Haze (warm thin volumetric)",
-			"apply": Callable(self, "_apply_forge_haze"),
-		},
-		{
-			"id": "C_cleanroom",
-			"title": "C — Cleanroom Drift (cool clinical)",
-			"apply": Callable(self, "_apply_cleanroom"),
-		},
-		{
-			"id": "D_rift_smog",
-			"title": "D — Rift Smog (dense dramatic)",
-			"apply": Callable(self, "_apply_rift_smog"),
-		},
-		{
-			"id": "E_shaft_pools",
-			"title": "E — Shaft Pools (light global + local FogVolumes)",
-			"apply": Callable(self, "_apply_shaft_pools"),
-		},
 	]
 
 	for preset: Dictionary in presets:
@@ -165,75 +145,16 @@ func _apply_baseline() -> void:
 
 
 func _apply_forge_haze() -> void:
-	_reset_fog_common()
-	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.018
-	_env.volumetric_fog_albedo = Color(1.0, 0.86, 0.72)
-	_env.volumetric_fog_emission = Color(0.35, 0.18, 0.05)
-	_env.volumetric_fog_emission_energy = 0.08
-	_env.volumetric_fog_anisotropy = 0.35
-	_env.volumetric_fog_length = 48.0
-	_env.volumetric_fog_gi_inject = 0.35
-	_env.volumetric_fog_ambient_inject = 0.15
+	_apply_baseline()
 
 
 func _apply_cleanroom() -> void:
-	_reset_fog_common()
-	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.0065
-	_env.volumetric_fog_albedo = Color(0.82, 0.9, 0.96)
-	_env.volumetric_fog_emission = Color(0.1, 0.16, 0.22)
-	_env.volumetric_fog_emission_energy = 0.02
-	_env.volumetric_fog_anisotropy = 0.12
-	_env.volumetric_fog_length = 64.0
-	_env.volumetric_fog_gi_inject = 0.12
-	_env.volumetric_fog_ambient_inject = 0.18
+	_apply_baseline()
 
 
 func _apply_rift_smog() -> void:
-	_reset_fog_common()
-	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.045
-	_env.volumetric_fog_albedo = Color(0.35, 0.42, 0.55)
-	_env.volumetric_fog_emission = Color(0.08, 0.16, 0.35)
-	_env.volumetric_fog_emission_energy = 0.22
-	_env.volumetric_fog_anisotropy = 0.45
-	_env.volumetric_fog_length = 40.0
-	_env.volumetric_fog_gi_inject = 0.55
-	_env.volumetric_fog_ambient_inject = 0.1
-	# Soft classic fog layer for depth crush at distance.
-	_env.fog_enabled = true
-	_env.fog_light_color = Color(0.18, 0.24, 0.38)
-	_env.fog_light_energy = 0.55
-	_env.fog_density = 0.0045
-	_env.fog_aerial_perspective = 0.35
+	_apply_baseline()
 
 
 func _apply_shaft_pools() -> void:
-	_reset_fog_common()
-	_env.volumetric_fog_enabled = true
-	_env.volumetric_fog_density = 0.008
-	_env.volumetric_fog_albedo = Color(0.95, 0.92, 0.88)
-	_env.volumetric_fog_anisotropy = 0.55
-	_env.volumetric_fog_length = 56.0
-	_env.volumetric_fog_gi_inject = 0.45
-	_env.volumetric_fog_ambient_inject = 0.05
-	# Local denser pools around forge + monument for readable light shafts.
-	_add_fog_volume(
-		"ForgePool",
-		Vector3(0.0, 2.2, 0.0),
-		Vector3(14.0, 8.0, 14.0),
-		0.06,
-		Color(1.0, 0.82, 0.65),
-		Color(1.0, 0.55, 0.2),
-		0.15
-	)
-	_add_fog_volume(
-		"MonumentPool",
-		Vector3(0.0, 2.5, -14.0),
-		Vector3(10.0, 7.0, 8.0),
-		0.05,
-		Color(1.0, 0.78, 0.5),
-		Color(1.0, 0.6, 0.25),
-		0.2
-	)
+	_apply_baseline()

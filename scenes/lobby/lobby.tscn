@@ -8,15 +8,16 @@
 [ext_resource type="PackedScene" uid="uid://yn37ia4vbhx8" path="res://scenes/lobby/workshops/workshop_bay.tscn" id="4_bay"]
 [ext_resource type="PackedScene" uid="uid://c0hh3od2cb2kl" path="res://scenes/lobby/vfx/forge_reactor.tscn" id="5_reactor"]
 [ext_resource type="Script" uid="uid://c16kkqkhmj74v" path="res://scenes/lobby/modules/monument_stairs.gd" id="6_stairs"]
-[ext_resource type="PackedScene" uid="uid://buli5i60gedr0" path="res://assets/models/outpost_kit/outpost_crate.glb" id="9_l1n8d"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/props/outpost_crate.tscn" id="9_l1n8d"]
 [ext_resource type="PackedScene" path="res://scenes/lobby/props/planter.tscn" id="10_planter"]
 [ext_resource type="PackedScene" uid="uid://dsmkwut3mkww0" path="res://assets/models/props/microscope_options/forge_microscope_closeup_30k.glb" id="11_microscope"]
 
 [ext_resource type="Script" path="res://scenes/lobby/vfx/gate_gem_vfx.gd" id="12_gem_vfx"]
+[ext_resource type="Script" path="res://scenes/lobby/vfx/orbital_exterior.gd" id="13_space"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
-background_color = Color(0.04, 0.065, 0.1, 1)
+background_color = Color(0.001, 0.002, 0.006, 1)
 ambient_light_source = 3
 ambient_light_color = Color(0.58, 0.68, 0.76, 1)
 ambient_light_sky_contribution = 0.0
@@ -31,14 +32,7 @@ sdfgi_min_cell_size = 0.25
 sdfgi_energy = 0.9
 glow_enabled = true
 glow_intensity = 0.45
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.00325
-volumetric_fog_albedo = Color(0.82, 0.9, 0.96, 1)
-volumetric_fog_emission = Color(0.1, 0.16, 0.22, 1)
-volumetric_fog_emission_energy = 0.02
-volumetric_fog_gi_inject = 0.12
-volumetric_fog_anisotropy = 0.12
-volumetric_fog_ambient_inject = 0.18
+volumetric_fog_enabled = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cx3k0"]
 albedo_color = Color(0.21568628, 0.27450982, 0.3137255, 1)
@@ -160,6 +154,9 @@ environment = SubResource("Environment_hall")
 
 [node name="Architecture" type="Node3D" parent="." unique_id=720120896]
 script = ExtResource("1_hall")
+
+[node name="OrbitalExterior" type="Node3D" parent="."]
+script = ExtResource("13_space")
 
 [node name="HallLighting" type="Node3D" parent="." unique_id=7789371]
 script = ExtResource("2_cx3k0")

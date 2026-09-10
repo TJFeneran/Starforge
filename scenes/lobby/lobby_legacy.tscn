@@ -24,10 +24,7 @@ ssao_radius = 1.4
 ssao_intensity = 1.8
 glow_enabled = true
 glow_intensity = 0.7
-fog_enabled = true
-fog_light_color = Color(0.55, 0.68, 0.7, 1)
-fog_light_energy = 0.4
-fog_density = 0.0035
+fog_enabled = false
 
 [sub_resource type="BoxMesh" id="FloorMesh"]
 

@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7")
 run/max_fps=120
 
+[autoload]
+
+PauseMenu="*res://scenes/ui/pause_menu.tscn"
+
 [display]
 
 window/size/viewport_width=3840

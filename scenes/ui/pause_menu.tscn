@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://2ybedia68f8g"]
+
+[ext_resource type="Script" path="res://scenes/ui/pause_menu.gd" id="1_script"]
+[ext_resource type="Shader" path="res://assets/ui/pause_freeze_blur.gdshader" id="2_shader"]
+[ext_resource type="Theme" path="res://assets/ui/pause_menu_theme.tres" id="3_theme"]
+[ext_resource type="Script" path="res://scenes/ui/pause_arch_frame.gd" id="4_arch"]
+
+[sub_resource type="ShaderMaterial" id="FreezeMat"]
+shader = ExtResource("2_shader")
+shader_parameter/blur_lod = 2.25
+shader_parameter/blur_spread = 3.25
+shader_parameter/vignette = 0.5
+shader_parameter/darken = 0.38
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="FreezeFrame" type="TextureRect" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("FreezeMat")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ArchFrame" type="Control" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -420.0
+offset_right = 420.0
+offset_bottom = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_arch")
+
+[node name="Brand" type="Label" parent="Root"]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 40.0
+offset_right = 320.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.7)
+theme_override_font_sizes/font_size = 22
+text = "STARFORGE"
+
+[node name="CenterMenu" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -130.0
+offset_right = 180.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Root/CenterMenu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../OptionsButton")
+focus_neighbor_top = NodePath("../ExitButton")
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="Root/CenterMenu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../ExitButton")
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="Root/CenterMenu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_top = NodePath("../OptionsButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
+text = "Exit"
+
+[node name="OptionsNote" type="Label" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -90.0
+offset_right = 200.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.55)
+theme_override_font_sizes/font_size = 16
+text = "Options — coming soon"
+horizontal_alignment = 1

@@ -4,6 +4,10 @@ Starforge is a **Godot 4.7 third-person 3D game** (renderer: Forward+). Art asse
 are stored with **Git LFS**. See `docs/production/HANDOFF.md` for design/status and
 `project.godot` for the entry point (`res://scenes/main.tscn` → `scenes/lobby/lobby.tscn`).
 
+## Agents
+
+Keep responses brief; 1-2 sentence responses unless asked for an explanation. No extra prose.
+
 ## Environment
 
 The Cloud Agent environment ships Godot 4.7.2 (`/usr/local/bin/godot`), `git-lfs`,
@@ -19,10 +23,13 @@ godot --headless --import --path . # generate the .godot/ import cache
 ```
 
 Notes:
+
 - Do not run `git lfs install` in this repo — it conflicts with the managed git hooks.
-  The LFS clean/smudge filters are already configured, so `git lfs pull` is enough.
+The LFS clean/smudge filters are already configured, so `git lfs pull` is enough.
 - After a fresh `git lfs pull`, LFS files can show as modified in `git status` due to a
-  stale index stat-cache; `git add --renormalize .` (run by `install`) clears this.
+stale index stat-cache; `git add --renormalize .` (run by `install`) clears this.
+
+
 
 ## Running / rendering the game
 
@@ -58,7 +65,8 @@ driver (headless, no sound card), and there is a non-fatal invalid-UID warning f
 
 - Verify the project imports cleanly: `godot --headless --import --path .`
 - For visual/scene changes, run the game on `:1` and capture a screenshot or recording
-  as evidence (see above).
+as evidence (see above).
 - Test experiments in `scenes/sandbox/` or `scenes/style_lab/`, not by breaking the
-  playable slice (`scenes/playable/outpost_slice.tscn`) or the lobby hub. Keep the scene
-  boundaries in `docs/production/HANDOFF.md` intact.
+playable slice (`scenes/playable/outpost_slice.tscn`) or the lobby hub. Keep the scene
+boundaries in `docs/production/HANDOFF.md` intact.
+
