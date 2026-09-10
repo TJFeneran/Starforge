@@ -1,0 +1,161 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhologrammap001"]
+
+[ext_resource type="Script" path="res://scenes/lobby/ui/hologram_map.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/ui/starforge_ui_theme.tres" id="2_theme"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+bg_color = Color(0.09019608, 0.12941177, 0.2, 0.96)
+content_margin_left = 36.0
+content_margin_top = 32.0
+content_margin_right = 36.0
+content_margin_bottom = 32.0
+border_width_left = 3
+border_color = Color(0.8509804, 0.69803923, 0.21960784, 0.85)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="DetailStyle"]
+bg_color = Color(0.050980393, 0.078431375, 0.1254902, 0.72)
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="HologramMap" type="CanvasLayer"]
+process_mode = 3
+layer = 80
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="DimVeil" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.050980393, 0.078431375, 0.1254902, 0.55)
+
+[node name="Frame" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -300.0
+offset_right = 520.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("PanelStyle")
+
+[node name="Layout" type="VBoxContainer" parent="Root/Frame"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="VBoxContainer" parent="Root/Frame/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Root/Frame/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 1)
+theme_override_font_sizes/font_size = 32
+text = "DEPLOYMENT MAP"
+
+[node name="Accent" type="ColorRect" parent="Root/Frame/Layout/Header"]
+custom_minimum_size = Vector2(72, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(1, 0.69803923, 0.21960784, 0.95)
+
+[node name="Subtitle" type="Label" parent="Root/Frame/Layout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.55)
+theme_override_font_sizes/font_size = 15
+text = "Forge navigation — chart a destination"
+
+[node name="Body" type="HBoxContainer" parent="Root/Frame/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="DestinationList" type="VBoxContainer" parent="Root/Frame/Layout/Body"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Detail" type="PanelContainer" parent="Root/Frame/Layout/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("DetailStyle")
+
+[node name="DetailLayout" type="VBoxContainer" parent="Root/Frame/Layout/Body/Detail"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="DetailTitle" type="Label" parent="Root/Frame/Layout/Body/Detail/DetailLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95686275, 0.8392157, 1)
+theme_override_font_sizes/font_size = 26
+text = "No destination marked"
+
+[node name="DetailBlurb" type="Label" parent="Root/Frame/Layout/Body/Detail/DetailLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.75)
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+text = "Approach options appear as the forge charts new worlds."
+
+[node name="SelectButton" type="Button" parent="Root/Frame/Layout/Body/Detail/DetailLayout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+disabled = true
+text = "Mark Destination"
+alignment = 0
+
+[node name="Footer" type="HBoxContainer" parent="Root/Frame/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="StatusLabel" type="Label" parent="Root/Frame/Layout/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.55)
+theme_override_font_sizes/font_size = 14
+text = "Select a destination"
+
+[node name="CloseKey" type="Label" parent="Root/Frame/Layout/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.7)
+theme_override_font_sizes/font_size = 14
+text = "Esc  Close"
+horizontal_alignment = 2

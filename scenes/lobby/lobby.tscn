@@ -14,6 +14,8 @@
 
 [ext_resource type="Script" path="res://scenes/lobby/vfx/gate_gem_vfx.gd" id="12_gem_vfx"]
 [ext_resource type="Script" path="res://scenes/lobby/vfx/orbital_exterior.gd" id="13_space"]
+[ext_resource type="Script" path="res://scenes/lobby/lobby_hub.gd" id="14_hub"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/ui/hologram_map.tscn" id="15_map"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -148,6 +150,7 @@ size = Vector3(0.28, 0.1, 0.28)
 size = Vector3(0.1, 0.1, 0.58500004)
 
 [node name="StarforgeLobby" type="Node3D" unique_id=437718597]
+script = ExtResource("14_hub")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1157924935]
 environment = SubResource("Environment_hall")
@@ -445,6 +448,8 @@ transform = Transform3D(-0.02227199, 0, -0.9997519, 0, 1, 0, 0.9997519, 0, -0.02
 transform = Transform3D(0.5480617, 0, -0.8364379, 0, 1, 0, 0.8364379, 0, 0.5480617, 11.023082, 0, -13.689513)
 
 [node name="CentralForge" parent="." unique_id=409337439 instance=ExtResource("5_reactor")]
+
+[node name="HologramMap" parent="." instance=ExtResource("15_map")]
 
 [node name="Workshops" type="Node3D" parent="." unique_id=219987434]
 

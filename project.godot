@@ -17,6 +17,7 @@ run/max_fps=120
 
 [autoload]
 
+InteractPrompt="*res://scenes/ui/interact_prompt.tscn"
 PauseMenu="*res://scenes/ui/pause_menu.tscn"
 
 [display]

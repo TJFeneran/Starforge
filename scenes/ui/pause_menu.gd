@@ -29,6 +29,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if _is_welcome() or _busy:
 		return
+	# Focused overlays (hologram map, future bench UIs) own Esc first.
+	var prompt := _prompt()
+	if not _open and prompt != null and prompt.is_modal_blocking():
+		return
 	if _open:
 		resume()
 	else:
@@ -38,8 +42,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func open_pause() -> void:
 	if _open or _busy or _is_welcome():
 		return
+	var prompt := _prompt()
+	if prompt != null and prompt.is_modal_blocking():
+		return
 	_busy = true
 	_was_mouse_captured = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+	if prompt:
+		prompt.begin_modal()
 	await _capture_freeze_frame()
 	_open = true
 	_root.visible = true
@@ -56,6 +65,9 @@ func resume() -> void:
 	_root.visible = false
 	_options_note.visible = false
 	get_tree().paused = false
+	var prompt := _prompt()
+	if prompt:
+		prompt.end_modal()
 	if _was_mouse_captured and not _is_welcome():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -75,6 +87,9 @@ func _is_welcome() -> bool:
 	if path.ends_with("welcome_screen.tscn") or path.ends_with("main.tscn"):
 		return true
 	return scene.get_node_or_null("WelcomeScreen") != null
+
+func _prompt() -> Node:
+	return get_tree().root.get_node_or_null("InteractPrompt")
 
 func _capture_freeze_frame() -> void:
 	await RenderingServer.frame_post_draw

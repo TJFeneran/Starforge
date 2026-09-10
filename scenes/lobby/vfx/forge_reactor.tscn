@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://b8o8jdsesas4t" path="res://assets/materials/lobby/reactor_motes.gdshader" id="4_motes"]
 [ext_resource type="Shader" uid="uid://cojvofv4ifh58" path="res://assets/lookdev/world_globe_hologram.gdshader" id="5_hmkla"]
 [ext_resource type="Shader" path="res://assets/materials/lobby/globe_orbit_halo.gdshader" id="6_halo"]
+[ext_resource type="PackedScene" path="res://scenes/interact/proximity_interactable.tscn" id="7_interact"]
 
 [sub_resource type="StandardMaterial3D" id="DarkMetal"]
 albedo_color = Color(0.055, 0.067, 0.08, 1)
@@ -318,3 +319,6 @@ material_override = SubResource("HaloMint")
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("NavigationRingB")
+
+[node name="MapInteract" parent="Navigation" instance=ExtResource("7_interact")]
+action_text = "Open Map"

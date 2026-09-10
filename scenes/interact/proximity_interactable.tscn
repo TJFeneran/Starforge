@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bproxinteract01"]
+
+[ext_resource type="Script" path="res://scenes/interact/proximity_interactable.gd" id="1_script"]
+
+[sub_resource type="SphereShape3D" id="InteractShape"]
+radius = 2.4
+
+[node name="ProximityInteractable" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("InteractShape")
