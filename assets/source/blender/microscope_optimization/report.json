@@ -1,0 +1,190 @@
+{
+  "source": "assets/models/props/forge_microscope.glb",
+  "source_sha256": "60dfdc45dc70f82058db2f3d43e16d17ba0e31e04771ef8b76f50c527a1a3e28",
+  "original": {
+    "name": "Mesh_0",
+    "vertices": 76030,
+    "triangles": 78809,
+    "polygons": 78809,
+    "bounds_min": [
+      -0.1107245609164238,
+      -0.06912478059530258,
+      0.0
+    ],
+    "bounds_max": [
+      0.10870375484228134,
+      0.06928624212741852,
+      0.3499999940395355
+    ],
+    "dimensions": [
+      0.21942831575870514,
+      0.1384110152721405,
+      0.3499999940395355
+    ],
+    "materials": [
+      "Material_0"
+    ],
+    "uv_layers": [
+      "UVMap"
+    ],
+    "components": 7142,
+    "largest_components_vertices": [
+      207,
+      200,
+      197,
+      189,
+      169,
+      169,
+      166,
+      166,
+      163,
+      162
+    ],
+    "boundary_edges": 58969,
+    "non_manifold_edges": 58969
+  },
+  "options": [
+    {
+      "name": "closeup_30k_export",
+      "vertices": 14877,
+      "triangles": 29963,
+      "polygons": 29963,
+      "bounds_min": [
+        -0.1107468232512474,
+        -0.0691128745675087,
+        5.912103006266989e-06
+      ],
+      "bounds_max": [
+        0.10870375484228134,
+        0.06925521045923233,
+        0.35000449419021606
+      ],
+      "dimensions": [
+        0.21945057809352875,
+        0.13836808502674103,
+        0.3499985933303833
+      ],
+      "materials": [
+        "Material_0"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "components": 1,
+      "largest_components_vertices": [
+        14877
+      ],
+      "boundary_edges": 966,
+      "non_manifold_edges": 1774,
+      "deviation": {
+        "method": "bidirectional sampled vertex-to-surface distance, local meters; not a Hausdorff guarantee",
+        "source_to_option_p95_mm": 0.0785154988989234,
+        "source_to_option_max_mm": 0.7188108284026384,
+        "option_to_source_p95_mm": 0.06799666152801365,
+        "option_to_source_max_mm": 0.15157880261540413
+      },
+      "triangle_reduction_percent": 61.98023068431271,
+      "file": "assets/models/props/microscope_options/forge_microscope_closeup_30k.glb",
+      "exported_triangles": 29963,
+      "exported_vertices": 37359,
+      "exported_materials": 1,
+      "exported_images": 4,
+      "file_bytes": 9523420
+    },
+    {
+      "name": "balanced_15k_export",
+      "vertices": 7370,
+      "triangles": 14964,
+      "polygons": 14964,
+      "bounds_min": [
+        -0.11072255671024323,
+        -0.06907351315021515,
+        3.683831528178416e-05
+      ],
+      "bounds_max": [
+        0.10875679552555084,
+        0.06921245902776718,
+        0.34999632835388184
+      ],
+      "dimensions": [
+        0.21947935223579407,
+        0.13828596472740173,
+        0.34995949268341064
+      ],
+      "materials": [
+        "Material_0"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "components": 1,
+      "largest_components_vertices": [
+        7370
+      ],
+      "boundary_edges": 949,
+      "non_manifold_edges": 1758,
+      "deviation": {
+        "method": "bidirectional sampled vertex-to-surface distance, local meters; not a Hausdorff guarantee",
+        "source_to_option_p95_mm": 0.17382246733177453,
+        "source_to_option_max_mm": 0.7215641671791673,
+        "option_to_source_p95_mm": 0.15522846661042422,
+        "option_to_source_max_mm": 0.35072615719400346
+      },
+      "triangle_reduction_percent": 81.01232092781281,
+      "file": "assets/models/props/microscope_options/forge_microscope_balanced_15k.glb",
+      "exported_triangles": 14964,
+      "exported_vertices": 23011,
+      "exported_materials": 1,
+      "exported_images": 4,
+      "file_bytes": 8744720
+    },
+    {
+      "name": "economy_8k_export",
+      "vertices": 3850,
+      "triangles": 7963,
+      "polygons": 7963,
+      "bounds_min": [
+        -0.11047130078077316,
+        -0.06871993094682693,
+        0.00011433941836003214
+      ],
+      "bounds_max": [
+        0.10889620333909988,
+        0.06882067024707794,
+        0.3501165211200714
+      ],
+      "dimensions": [
+        0.21936750411987305,
+        0.13754060864448547,
+        0.3500021696090698
+      ],
+      "materials": [
+        "Material_0"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "components": 1,
+      "largest_components_vertices": [
+        3850
+      ],
+      "boundary_edges": 902,
+      "non_manifold_edges": 1715,
+      "deviation": {
+        "method": "bidirectional sampled vertex-to-surface distance, local meters; not a Hausdorff guarantee",
+        "source_to_option_p95_mm": 0.4966406268067658,
+        "source_to_option_max_mm": 1.2914194958284497,
+        "option_to_source_p95_mm": 0.358990509994328,
+        "option_to_source_max_mm": 0.7355553680099547
+      },
+      "triangle_reduction_percent": 89.89582408100598,
+      "file": "assets/models/props/microscope_options/forge_microscope_economy_8k.glb",
+      "exported_triangles": 7963,
+      "exported_vertices": 14545,
+      "exported_materials": 1,
+      "exported_images": 4,
+      "file_bytes": 8296344
+    }
+  ],
+  "source_unchanged": true
+}

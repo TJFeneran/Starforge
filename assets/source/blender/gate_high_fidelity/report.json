@@ -1,0 +1,223 @@
+{
+  "source": "assets/models/style_tests/forge_monument.glb",
+  "source_sha256": "dc44fec758b38205dd19cfa669e604357828a2f22af0642cbdb860ed26d7c17a",
+  "original": {
+    "name": "Original_gate_1935526_triangles",
+    "vertices": 1016281,
+    "triangles": 1935526,
+    "polygons": 1935526,
+    "bounds_min": [
+      -5.123398780822754,
+      -4.0224928855896,
+      0.0
+    ],
+    "bounds_max": [
+      5.1166157722473145,
+      4.023380756378174,
+      10.0
+    ],
+    "dimensions": [
+      10.240015029907227,
+      8.045873641967773,
+      10.0
+    ],
+    "materials": [
+      "material"
+    ],
+    "uv_layers": [
+      "UVMap"
+    ],
+    "components": 629,
+    "largest_components_vertices": [
+      12667,
+      12580,
+      11134,
+      11059,
+      10134,
+      10042,
+      10005,
+      9941,
+      9921,
+      9870
+    ],
+    "boundary_edges": 95800,
+    "non_manifold_edges": 95800
+  },
+  "options": [
+    {
+      "name": "fidelity_1200k_export",
+      "vertices": 599878,
+      "triangles": 1200000,
+      "polygons": 1200000,
+      "bounds_min": [
+        -5.1233720779418945,
+        -4.022698402404785,
+        0.0
+      ],
+      "bounds_max": [
+        5.116661071777344,
+        4.023380756378174,
+        10.0
+      ],
+      "dimensions": [
+        10.240033149719238,
+        8.046079635620117,
+        10.0
+      ],
+      "materials": [
+        "material"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "components": 1,
+      "largest_components_vertices": [
+        599878
+      ],
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "deviation": {
+        "method": "bidirectional sampled vertex-to-surface distance, local meters; not a Hausdorff guarantee",
+        "source_to_option_p95_mm": 0.13578687503468245,
+        "source_to_option_max_mm": 0.3321317199151963,
+        "option_to_source_p95_mm": 0.08549367339583114,
+        "option_to_source_max_mm": 0.2976857067551464
+      },
+      "file": "assets/models/style_tests/gate_high_fidelity/forge_monument_fidelity_1200k.glb",
+      "exported_triangles": 1200000,
+      "exported_vertices": 641114,
+      "exported_materials": 1,
+      "exported_images": 3,
+      "file_bytes": 67966472,
+      "triangle_reduction_percent": 38.001349503959126
+    },
+    {
+      "name": "fidelity_900k_export",
+      "vertices": 449878,
+      "triangles": 900000,
+      "polygons": 900000,
+      "bounds_min": [
+        -5.1233720779418945,
+        -4.022698402404785,
+        -0.000141143798828125
+      ],
+      "bounds_max": [
+        5.116661071777344,
+        4.023380756378174,
+        10.000078201293945
+      ],
+      "dimensions": [
+        10.240033149719238,
+        8.046079635620117,
+        10.000219345092773
+      ],
+      "materials": [
+        "material"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "components": 1,
+      "largest_components_vertices": [
+        449878
+      ],
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "deviation": {
+        "method": "bidirectional sampled vertex-to-surface distance, local meters; not a Hausdorff guarantee",
+        "source_to_option_p95_mm": 0.25879647000692785,
+        "source_to_option_max_mm": 6.750029046088457,
+        "option_to_source_p95_mm": 0.18719854415394366,
+        "option_to_source_max_mm": 0.6242402596399188
+      },
+      "file": "assets/models/style_tests/gate_high_fidelity/forge_monument_fidelity_900k.glb",
+      "exported_triangles": 900000,
+      "exported_vertices": 487146,
+      "exported_materials": 1,
+      "exported_images": 3,
+      "file_bytes": 56976004,
+      "triangle_reduction_percent": 53.50101212796935
+    },
+    {
+      "name": "fidelity_600k_export",
+      "vertices": 299878,
+      "triangles": 600000,
+      "polygons": 600000,
+      "bounds_min": [
+        -5.123126983642578,
+        -4.0226359367370605,
+        -9.441375732421875e-05
+      ],
+      "bounds_max": [
+        5.116653919219971,
+        4.023303985595703,
+        10.000078201293945
+      ],
+      "dimensions": [
+        10.23978042602539,
+        8.045940399169922,
+        10.000171661376953
+      ],
+      "materials": [
+        "material"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "components": 1,
+      "largest_components_vertices": [
+        299878
+      ],
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "deviation": {
+        "method": "bidirectional sampled vertex-to-surface distance, local meters; not a Hausdorff guarantee",
+        "source_to_option_p95_mm": 0.47045605606399477,
+        "source_to_option_max_mm": 6.750029046088457,
+        "option_to_source_p95_mm": 0.40628723218105733,
+        "option_to_source_max_mm": 1.4194812392815948
+      },
+      "file": "assets/models/style_tests/gate_high_fidelity/forge_monument_fidelity_600k.glb",
+      "exported_triangles": 600000,
+      "exported_vertices": 331741,
+      "exported_materials": 1,
+      "exported_images": 3,
+      "file_bytes": 45916564,
+      "triangle_reduction_percent": 69.00067475197956
+    }
+  ],
+  "welded_source": {
+    "name": "Welded_source",
+    "vertices": 967641,
+    "triangles": 1935526,
+    "polygons": 1935526,
+    "bounds_min": [
+      -5.123398780822754,
+      -4.0224928855896,
+      0.0
+    ],
+    "bounds_max": [
+      5.1166157722473145,
+      4.023380756378174,
+      10.0
+    ],
+    "dimensions": [
+      10.240015029907227,
+      8.045873641967773,
+      10.0
+    ],
+    "materials": [
+      "material"
+    ],
+    "uv_layers": [
+      "UVMap"
+    ],
+    "components": 1,
+    "largest_components_vertices": [
+      967641
+    ],
+    "boundary_edges": 0,
+    "non_manifold_edges": 0
+  },
+  "source_unchanged": true
+}

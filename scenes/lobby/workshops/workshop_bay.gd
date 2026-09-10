@@ -210,17 +210,82 @@ func _chassis() -> void:
 
 
 func _sign(selected: String) -> void:
-	_box("PhysicalSignBacking", Vector3(0.0, 3.88, -2.39), Vector3(3.65, 0.5, 0.085), _navy)
-	_box("PhysicalSignTrim", Vector3(0.0, 3.62, -2.34), Vector3(3.65, 0.035, 0.04), _cobalt)
+	_box("PhysicalSignBacking", Vector3(0.0, 3.88, -2.39), Vector3(4.3, 0.68, 0.085), _navy)
+	# Emissive geometry uses the lobby's existing bloom; no extra lights.
+	var neon := StandardMaterial3D.new()
+	neon.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	neon.albedo_color = Color("bceff5")
+	neon.emission_enabled = true
+	neon.emission = Color("65d9ed")
+	neon.emission_energy_multiplier = 3.5
+	var trim := _box("PhysicalSignTrim", Vector3(0.0, 3.59, -2.335), Vector3(3.9, 0.018, 0.025), neon)
+	trim.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var lettering: TextMesh = TextMesh.new()
 	lettering.text = selected.to_upper()
-	lettering.font_size = 64
-	lettering.pixel_size = 0.0045
-	lettering.depth = 0.012
-	_mesh("PhysicalSignLettering", lettering, Vector3(0.0, 3.84, -2.325), _bone)
+	lettering.font_size = 96
+	lettering.pixel_size = 0.006
+	lettering.depth = 0.018
+	var title := _mesh("PhysicalSignLettering", lettering, Vector3(0.0, 3.88, -2.325), neon)
+	title.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	title.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
+	_floor_plaque(selected)
 	var index: int = PURPOSES.find(selected)
 	for mark: int in range(index + 1):
 		_box("BayIndex" + str(mark), Vector3(-3.78 + float(mark) * 0.12, 3.88, -2.4), Vector3(0.055, 0.2, 0.025), _amber)
+
+
+func _floor_plaque(selected: String) -> void:
+	# A shallow, non-colliding inset. All pieces rotate with their workshop.
+	var surround := ShaderMaterial.new()
+	surround.shader = preload("res://assets/materials/lobby/workshop_plaque.gdshader")
+	surround.set_shader_parameter("face_color", Color("63717b"))
+	surround.set_shader_parameter("metalness", 0.8)
+	var face := ShaderMaterial.new()
+	face.shader = preload("res://assets/materials/lobby/workshop_plaque.gdshader")
+	face.set_shader_parameter("face_color", Color("172536"))
+	_plaque_panel("PlaqueGasket", Vector2(4.5, 1.06), 0.13, 0.009, _navy)
+	_plaque_panel("PlaqueMetalBezel", Vector2(4.42, 0.98), 0.12, 0.015, surround)
+	_plaque_panel("PlaqueInset", Vector2(4.26, 0.82), 0.09, 0.021, face)
+	var ink := _material(STARBONE, 0.15, 0.6)
+	ink.emission_enabled = true
+	ink.emission = STARBONE
+	ink.emission_energy_multiplier = 0.35
+	var title := TextMesh.new()
+	title.text = selected.to_upper()
+	title.font_size = 96
+	title.pixel_size = 0.007
+	title.depth = 0.001
+	var text := _mesh("FloorName", title, Vector3(0, 0.026, 1.18), ink, Vector3(-90, 0, 0))
+	text.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var accent := _material(AMBER, 0.45)
+	accent.emission_enabled = true
+	accent.emission = AMBER
+	accent.emission_energy_multiplier = 0.45
+	for side: float in [-1.0, 1.0]:
+		_box("PlaqueAccent", Vector3(side * 1.88, 0.024, 1.15), Vector3(0.035, 0.005, 0.42), accent)
+		for offset: float in [-0.32, 0.32]:
+			_cylinder("PlaqueFastener", Vector3(side * 2.04, 0.023, 1.15 + offset), 0.026, 0.009, _metal, 8)
+
+func _plaque_panel(label: String, size: Vector2, clip: float, height: float, material: Material) -> void:
+	var x := size.x * 0.5
+	var z := size.y * 0.5
+	var outline := PackedVector2Array([
+		Vector2(-x + clip, -z), Vector2(x - clip, -z),
+		Vector2(x, -z + clip), Vector2(x, z - clip),
+		Vector2(x - clip, z), Vector2(-x + clip, z),
+		Vector2(-x, z - clip), Vector2(-x, -z + clip),
+	])
+	var surface := SurfaceTool.new()
+	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for i in range(outline.size()):
+		# Clockwise when viewed from above: upward-facing Godot front face.
+		for point: Vector2 in [Vector2.ZERO, outline[i], outline[(i + 1) % outline.size()]]:
+			surface.set_normal(Vector3.UP)
+			surface.set_uv(Vector2(point.x / size.x + 0.5, point.y / size.y + 0.5))
+			surface.add_vertex(Vector3(point.x, 0, point.y))
+	var panel := _mesh(label, surface.commit(), Vector3(0, height, 1.15), material)
+	panel.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	panel.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
 
 
 func _weapons() -> void:

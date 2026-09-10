@@ -4,13 +4,15 @@
 [ext_resource type="Script" uid="uid://bcevob5dcxsp5" path="res://scenes/lobby/modules/hall_lighting.gd" id="2_cx3k0"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://jb7fng5bylm7" path="res://scenes/lobby/modules/hall_fixture.tscn" id="3_1pfjy"]
-[ext_resource type="PackedScene" uid="uid://b0g1paaauq2nh" path="res://assets/models/style_tests/forge_monument.glb" id="3_portal"]
-[ext_resource type="PackedScene" path="res://scenes/lobby/workshops/workshop_bay.tscn" id="4_bay"]
+[ext_resource type="PackedScene" uid="uid://c1l16bk06pp5k" path="res://assets/models/style_tests/gate_high_fidelity/forge_monument_fidelity_600k.glb" id="3_portal"]
+[ext_resource type="PackedScene" uid="uid://yn37ia4vbhx8" path="res://scenes/lobby/workshops/workshop_bay.tscn" id="4_bay"]
 [ext_resource type="PackedScene" uid="uid://c0hh3od2cb2kl" path="res://scenes/lobby/vfx/forge_reactor.tscn" id="5_reactor"]
 [ext_resource type="Script" uid="uid://c16kkqkhmj74v" path="res://scenes/lobby/modules/monument_stairs.gd" id="6_stairs"]
 [ext_resource type="PackedScene" uid="uid://buli5i60gedr0" path="res://assets/models/outpost_kit/outpost_crate.glb" id="9_l1n8d"]
 [ext_resource type="PackedScene" path="res://scenes/lobby/props/planter.tscn" id="10_planter"]
-[ext_resource type="PackedScene" path="res://assets/models/props/forge_microscope.glb" id="11_microscope"]
+[ext_resource type="PackedScene" uid="uid://dsmkwut3mkww0" path="res://assets/models/props/microscope_options/forge_microscope_closeup_30k.glb" id="11_microscope"]
+
+[ext_resource type="Script" path="res://scenes/lobby/vfx/gate_gem_vfx.gd" id="12_gem_vfx"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -150,9 +152,6 @@ size = Vector3(0.28, 0.1, 0.28)
 
 [sub_resource type="BoxMesh" id="BoxMesh_i3tcx"]
 size = Vector3(0.1, 0.1, 0.58500004)
-
-[sub_resource type="BoxShape3D" id="PortalSideShape"]
-size = Vector3(1, 4, 1.2)
 
 [node name="StarforgeLobby" type="Node3D" unique_id=437718597]
 
@@ -473,26 +472,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14)
 [node name="Monument" parent="ForgeMonumentPortal" unique_id=1525862168 instance=ExtResource("3_portal")]
 transform = Transform3D(-1.35, 0, -1.1802075e-07, 0, 1.35, 0, 1.1802075e-07, 0, -1.35, 0, 0, 0)
 
+[node name="GemVFX" type="Node3D" parent="ForgeMonumentPortal"]
+position = Vector3(0, 9.3, 0)
+script = ExtResource("12_gem_vfx")
+
 [node name="PortalGlow" type="OmniLight3D" parent="ForgeMonumentPortal" unique_id=641217743]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
 light_color = Color(1, 0.7, 0.35, 1)
 light_energy = 1.4
 omni_range = 6.0
 
-[node name="Collision" type="StaticBody3D" parent="ForgeMonumentPortal" unique_id=1206966207]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2464256)
-collision_mask = 0
-
-[node name="LeftFoot" type="CollisionShape3D" parent="ForgeMonumentPortal/Collision" unique_id=174556159]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 2, 0.8854532)
-shape = SubResource("PortalSideShape")
-
-[node name="RightFoot" type="CollisionShape3D" parent="ForgeMonumentPortal/Collision" unique_id=571927622]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2, 0.8854532)
-shape = SubResource("PortalSideShape")
-
 [node name="Stairs" type="StaticBody3D" parent="ForgeMonumentPortal" unique_id=440379599]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6760921)
 collision_mask = 0
 script = ExtResource("6_stairs")
 
@@ -520,4 +510,4 @@ transform = Transform3D(0.9956844, 0, 0.09280382, 0, 1, 0, -0.09280382, 0, 0.995
 transform = Transform3D(0.92700535, 0, 0.37504822, 0, 1, 0, -0.37504822, 0, 0.92700535, -4.6758523, -0.011060491, -10.600168)
 
 [node name="forge_microscope" parent="outpost_crate2" unique_id=1482093371 instance=ExtResource("11_microscope")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+transform = Transform3D(1.6143982, 0, 1.1805582, 0, 2, 0, -1.1805582, 0, 1.6143982, 0, 0.9, 0)
