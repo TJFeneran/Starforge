@@ -172,6 +172,28 @@
       "notes": "Compact forge pulse sidearm"
     },
     {
+      "id": "forge_microscope",
+      "role": "lobby_workshop_prop",
+      "file": "forge_microscope/front.png",
+      "views": [
+        "forge_microscope/front.png",
+        "forge_microscope/side.png",
+        "forge_microscope/back.png"
+      ],
+      "status": "imported_lobby",
+      "meshy_eligible": true,
+      "meshy_task_id": "01a08802-0ccf-76a4-b2f8-3c7c561dca93",
+      "credits_spent": 30,
+      "meshy_model": "meshy-7",
+      "target_height_m": 0.35,
+      "target_polycount": 80000,
+      "texture_resolution": "2k",
+      "source_glb": "assets/source/meshy/forge_microscope/forge_microscope.glb",
+      "runtime_glb": "assets/models/props/forge_microscope.glb",
+      "source_format": "glb",
+      "notes": "Locked binocular design; front/side/back orthos. Direct Meshy GLB on outpost_crate2 (crate nearest the monument gate)."
+    },
+    {
       "id": "rift_skitter",
       "role": "enemy_scout",
       "file": "rift_skitter.png",
