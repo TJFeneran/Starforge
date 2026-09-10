@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://n6lh8o3mq8d2" path="res://assets/materials/lobby/reactor_core.gdshader" id="3_core"]
 [ext_resource type="Shader" uid="uid://b8o8jdsesas4t" path="res://assets/materials/lobby/reactor_motes.gdshader" id="4_motes"]
 [ext_resource type="Shader" uid="uid://cojvofv4ifh58" path="res://assets/lookdev/world_globe_hologram.gdshader" id="5_hmkla"]
+[ext_resource type="Shader" path="res://assets/materials/lobby/globe_orbit_halo.gdshader" id="6_halo"]
 
 [sub_resource type="StandardMaterial3D" id="DarkMetal"]
 albedo_color = Color(0.055, 0.067, 0.08, 1)
@@ -113,35 +114,64 @@ resource_local_to_scene = true
 resource_name = "Reactor navigation — independent hologram material copy"
 render_priority = 1
 shader = ExtResource("5_hmkla")
-shader_parameter/deep_color = Color(0.01, 0.04, 0.1, 1)
-shader_parameter/core_color = Color(0.03, 0.38, 0.52, 1)
-shader_parameter/nebula_color = Color(0.06, 0.17, 0.3, 1)
-shader_parameter/hot_color = Color(0.55, 0.96, 1, 1)
-shader_parameter/grid_color = Color(0.16, 0.98, 0.94, 1)
-shader_parameter/grid_density = 14.0
-shader_parameter/grid_width = 0.012
-shader_parameter/scanline_density = 72.0
+shader_parameter/ocean_color = Color(0.035, 0.16, 0.26, 1)
+shader_parameter/land_color = Color(0.18, 0.45, 0.4, 1)
+shader_parameter/desert_color = Color(0.7, 0.45, 0.24, 1)
+shader_parameter/ice_color = Color(0.75, 0.9, 0.97, 1)
+shader_parameter/magma_color = Color(1, 0.55, 0.14, 1)
+shader_parameter/plasma_color = Color(0.5, 0.9, 0.8, 1)
+shader_parameter/violet_color = Color(0.42, 0.16, 0.75, 1)
+shader_parameter/grid_color = Color(0.35, 0.82, 1, 1)
+shader_parameter/grid_density = 16.0
+shader_parameter/grid_width = 0.01
+shader_parameter/scanline_density = 96.0
 shader_parameter/scanline_strength = 0.08
-shader_parameter/hologram_strength = 0.8
-shader_parameter/star_density = 32.0
-shader_parameter/rotation_speed = 0.018
+shader_parameter/hologram_strength = 1.45
+shader_parameter/star_density = 42.0
+shader_parameter/rotation_speed = 0.022
 shader_parameter/flicker_strength = 0.0
+shader_parameter/morph_speed = 0.28
+shader_parameter/atmosphere_strength = 1.2
+shader_parameter/iridescence = 0.8
+shader_parameter/displacement = 0.022
 
 [sub_resource type="SphereMesh" id="GlobeMesh"]
 radius = 0.32
 height = 0.64
-radial_segments = 40
-rings = 20
+radial_segments = 72
+rings = 40
 
-[sub_resource type="StandardMaterial3D" id="Cyan"]
-shading_mode = 0
-albedo_color = Color(0.08, 0.55, 0.62, 1)
+[sub_resource type="ShaderMaterial" id="HaloCyan"]
+resource_local_to_scene = true
+render_priority = 2
+shader = ExtResource("6_halo")
+shader_parameter/halo_color = Color(0.32, 0.78, 1, 1)
+shader_parameter/accent_color = Color(0.55, 0.92, 0.82, 1)
+shader_parameter/energy = 1.85
+shader_parameter/soft_edge = 0.95
+shader_parameter/pulse_speed = 0.28
 
-[sub_resource type="TorusMesh" id="NavigationRing"]
-inner_radius = 0.395
-outer_radius = 0.407
-rings = 48
-ring_segments = 6
+[sub_resource type="ShaderMaterial" id="HaloMint"]
+resource_local_to_scene = true
+render_priority = 2
+shader = ExtResource("6_halo")
+shader_parameter/halo_color = Color(0.45, 0.9, 0.78, 1)
+shader_parameter/accent_color = Color(0.7, 0.95, 1, 1)
+shader_parameter/energy = 1.55
+shader_parameter/soft_edge = 0.98
+shader_parameter/pulse_speed = 0.22
+
+[sub_resource type="TorusMesh" id="NavigationRingA"]
+inner_radius = 0.402
+outer_radius = 0.412
+rings = 72
+ring_segments = 16
+
+[sub_resource type="TorusMesh" id="NavigationRingB"]
+inner_radius = 0.448
+outer_radius = 0.458
+rings = 72
+ring_segments = 16
 
 [node name="ForgeReactor" type="Node3D" unique_id=155679513]
 script = ExtResource("1_script")
@@ -275,8 +305,16 @@ material_override = SubResource("ShaderMaterial_i6xna")
 cast_shadow = 0
 mesh = SubResource("GlobeMesh")
 
-[node name="Orbit" type="MeshInstance3D" parent="Navigation" unique_id=1752882576]
+[node name="OrbitA" type="MeshInstance3D" parent="Navigation"]
 transform = Transform3D(0.9800666, 0.19866933, 0, -0.18858397, 0.93031394, -0.31456655, -0.062494725, 0.30829617, 0.94923544, 0, 1.16, 0)
-material_override = SubResource("Cyan")
+material_override = SubResource("HaloCyan")
 cast_shadow = 0
-mesh = SubResource("NavigationRing")
+gi_mode = 0
+mesh = SubResource("NavigationRingA")
+
+[node name="OrbitB" type="MeshInstance3D" parent="Navigation"]
+transform = Transform3D(0.7660444, -0.6427876, 0, 0.6040228, 0.7198463, -0.34202015, 0.2198463, 0.2620026, 0.9396926, 0, 1.16, 0)
+material_override = SubResource("HaloMint")
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("NavigationRingB")

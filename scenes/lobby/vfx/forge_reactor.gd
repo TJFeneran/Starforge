@@ -30,6 +30,8 @@ const ARC_DURATION: float = 0.32
 @onready var _pulse: OmniLight3D = $ArcPulse
 @onready var _core_material: ShaderMaterial = $Containment/Core.material_override
 @onready var _globe_material: ShaderMaterial = $Navigation/Globe.material_override
+@onready var _orbit_a: MeshInstance3D = $Navigation/OrbitA
+@onready var _orbit_b: MeshInstance3D = $Navigation/OrbitB
 @onready var _arc_material: StandardMaterial3D = $Arcs.material_override
 @onready var _endpoint_pairs: Array[Node3D] = [
 	$Containment/Outer/Electrode, $Containment/CoreEndpointA,
@@ -38,7 +40,10 @@ const ARC_DURATION: float = 0.32
 
 var _elapsed: float = 0.0
 var _rotation_phase: float = 0.0
+var _orbit_phase: float = 0.0
 var _arc_mesh: ImmediateMesh
+var _orbit_a_basis: Basis
+var _orbit_b_basis: Basis
 
 func _ready() -> void:
 	# Explicitly isolate animated materials even when instantiated from code.
@@ -46,6 +51,10 @@ func _ready() -> void:
 	$Containment/Core.material_override = _core_material
 	_globe_material = _globe_material.duplicate() as ShaderMaterial
 	$Navigation/Globe.material_override = _globe_material
+	_orbit_a.material_override = (_orbit_a.material_override as ShaderMaterial).duplicate()
+	_orbit_b.material_override = (_orbit_b.material_override as ShaderMaterial).duplicate()
+	_orbit_a_basis = _orbit_a.transform.basis
+	_orbit_b_basis = _orbit_b.transform.basis
 	_arc_material = _arc_material.duplicate() as StandardMaterial3D
 	_arcs.material_override = _arc_material
 	_arc_mesh = ImmediateMesh.new()
@@ -60,21 +69,28 @@ func _apply_effects_mode() -> void:
 	_motes.amount = 28 if reduced_effects else 96
 	_motes.emitting = animate
 	_globe_material.set_shader_parameter("flicker_strength", 0.0)
-	_globe_material.set_shader_parameter("rotation_speed", 0.004 if reduced_effects else 0.018)
-	_globe_material.set_shader_parameter("hologram_strength", 0.55 if reduced_effects else 0.8)
+	_globe_material.set_shader_parameter("rotation_speed", 0.008 if reduced_effects else 0.022)
+	_globe_material.set_shader_parameter("hologram_strength", 0.95 if reduced_effects else 1.45)
+	_globe_material.set_shader_parameter("morph_speed", 0.12 if reduced_effects else 0.28)
+	_globe_material.set_shader_parameter("displacement", 0.01 if reduced_effects else 0.022)
 	_core_material.set_shader_parameter("pulse", 0.45)
 	_arcs.visible = false
 	_pulse.light_energy = 0.0
 	_elapsed = 0.0
 	if not animate:
 		_rotation_phase = 0.0
+		_orbit_phase = 0.0
 		_update_rings()
+		_update_orbits()
 	set_process(animate)
 
 func _process(delta: float) -> void:
 	_elapsed = fmod(_elapsed + delta, ARC_PERIOD)
-	_rotation_phase = fmod(_rotation_phase + delta * (0.22 if reduced_effects else 1.0), TAU / 0.01)
+	var speed := 0.22 if reduced_effects else 1.0
+	_rotation_phase = fmod(_rotation_phase + delta * speed, TAU / 0.01)
+	_orbit_phase = fmod(_orbit_phase + delta * speed, TAU * 100.0)
 	_update_rings()
+	_update_orbits()
 	_core_material.set_shader_parameter("pulse", 0.45 if reduced_effects else 0.5 + 0.5 * sin(_elapsed * TAU / ARC_PERIOD))
 	var arc_time := (_elapsed - ARC_START) / ARC_DURATION
 	var active := not reduced_effects and arc_time > 0.0 and arc_time < 1.0
@@ -91,6 +107,27 @@ func _update_rings() -> void:
 	_outer.rotation = Vector3(0.28, 0.2 + _rotation_phase * 0.03, 0.12)
 	_middle.rotation = Vector3(-0.4, -0.3 - _rotation_phase * 0.02, 0.24)
 	_inner.rotation = Vector3(0.52, 0.1 + _rotation_phase * 0.04, -0.3)
+
+func _update_orbits() -> void:
+	# Rotate each tilted halo around the globe. In-plane torus spin is invisible;
+	# sweeping the ring plane around the sphere is what reads as motion.
+	var rate := 0.12 if reduced_effects else 0.35
+	var yaw_a := _orbit_phase * rate
+	var yaw_b := _orbit_phase * -rate * 0.72
+	var roll_a := _orbit_phase * rate * 0.18
+	var roll_b := _orbit_phase * rate * 0.22
+	_orbit_a.transform.basis = (
+		Basis(Vector3.UP, yaw_a)
+		* Basis(Vector3.FORWARD, roll_a)
+		* _orbit_a_basis
+	)
+	_orbit_b.transform.basis = (
+		Basis(Vector3.UP, yaw_b)
+		* Basis(Vector3.RIGHT, roll_b)
+		* _orbit_b_basis
+	)
+	_orbit_a.position = Vector3(0, 1.16, 0)
+	_orbit_b.position = Vector3(0, 1.16, 0)
 
 func _rebuild_arcs(envelope: float) -> void:
 	_arc_mesh.clear_surfaces()
