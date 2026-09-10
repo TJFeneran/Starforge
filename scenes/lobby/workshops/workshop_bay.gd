@@ -177,14 +177,15 @@ func _chassis() -> void:
 		_layered("Frame" + suffix, Vector3(x, 2.05, -2.8), Vector3(0.4, 4.1, 0.65), _bone)
 		_box("FrameInset" + suffix, Vector3(x, 2.3, -2.46), Vector3(0.19, 2.6, 0.035), _navy)
 		_proxy("Frame" + suffix, Vector3(x, 2.05, -2.8), Vector3(0.4, 4.1, 0.65))
-		var cabinet_at: Vector3 = Vector3(float(side) * 3.45, 0.68, -2.15)
-		_layered("Cabinet" + suffix, cabinet_at, Vector3(1.25, 1.36, 1.3), _bone)
-		_proxy("Cabinet" + suffix, cabinet_at, Vector3(1.25, 1.36, 1.3))
-		_box("CabinetTop" + suffix, cabinet_at + Vector3(0.0, 0.72, 0.0), Vector3(1.32, 0.12, 1.35), _navy)
+		# Human-scale tool cabinets: ~0.9 m work surface (player capsule is 1.8 m).
+		var cabinet_at: Vector3 = Vector3(float(side) * 3.55, 0.42, -2.25)
+		_layered("Cabinet" + suffix, cabinet_at, Vector3(0.92, 0.84, 0.72), _bone)
+		_proxy("Cabinet" + suffix, cabinet_at, Vector3(0.92, 0.84, 0.72))
+		_box("CabinetTop" + suffix, cabinet_at + Vector3(0.0, 0.46, 0.0), Vector3(0.98, 0.08, 0.76), _navy)
 		for drawer: int in range(3):
-			var drawer_y: float = 0.35 + float(drawer) * 0.32
-			_box("Drawer" + suffix + str(drawer), Vector3(cabinet_at.x, drawer_y, -1.487), Vector3(1.03, 0.27, 0.04), _cobalt if drawer == 2 else _bone)
-			_box("Handle" + suffix + str(drawer), Vector3(cabinet_at.x, drawer_y + 0.04, -1.445), Vector3(0.36, 0.04, 0.045), _navy)
+			var drawer_y: float = 0.22 + float(drawer) * 0.2
+			_box("Drawer" + suffix + str(drawer), Vector3(cabinet_at.x, drawer_y, -1.875), Vector3(0.76, 0.16, 0.03), _cobalt if drawer == 2 else _bone)
+			_box("Handle" + suffix + str(drawer), Vector3(cabinet_at.x, drawer_y + 0.03, -1.845), Vector3(0.26, 0.03, 0.035), _navy)
 		_box("FootGuard" + suffix, Vector3(x, 0.16, -2.35), Vector3(0.62, 0.32, 1.55), _navy)
 		_proxy("FootGuard" + suffix, Vector3(x, 0.16, -2.35), Vector3(0.62, 0.32, 1.55))
 	_layered("OverheadBeam", Vector3(0.0, 3.88, -2.8), Vector3(8.7, 0.48, 0.75), _bone)
@@ -289,31 +290,32 @@ func _plaque_panel(label: String, size: Vector2, clip: float, height: float, mat
 
 
 func _weapons() -> void:
+	# Standing workbench top ~0.92 m.
 	for side: int in [-1, 1]:
-		var x: float = float(side) * 1.72
-		_layered("BenchPedestal" + str(side), Vector3(x, 0.6, -1.9), Vector3(0.75, 1.2, 1.6), _bone)
-		_proxy("BenchPedestal" + str(side), Vector3(x, 0.6, -1.9), Vector3(0.75, 1.2, 1.6))
-	_layered("WeaponsWorktop", Vector3(0.0, 1.26, -1.9), Vector3(4.8, 0.22, 1.9), _navy)
-	_proxy("WeaponsWorktop", Vector3(0.0, 1.26, -1.9), Vector3(4.8, 0.22, 1.9))
-	_box("ServiceMat", Vector3(0.0, 1.379, -1.8), Vector3(2.85, 0.025, 1.15), _cobalt)
-	_box("ClampRail", Vector3(0.0, 1.45, -1.9), Vector3(2.1, 0.13, 0.26), _metal)
+		var x: float = float(side) * 1.45
+		_layered("BenchPedestal" + str(side), Vector3(x, 0.4, -1.95), Vector3(0.55, 0.8, 1.15), _bone)
+		_proxy("BenchPedestal" + str(side), Vector3(x, 0.4, -1.95), Vector3(0.55, 0.8, 1.15))
+	_layered("WeaponsWorktop", Vector3(0.0, 0.86, -1.95), Vector3(3.6, 0.12, 1.35), _navy)
+	_proxy("WeaponsWorktop", Vector3(0.0, 0.86, -1.95), Vector3(3.6, 0.12, 1.35))
+	_box("ServiceMat", Vector3(0.0, 0.935, -1.85), Vector3(2.15, 0.02, 0.85), _cobalt)
+	_box("ClampRail", Vector3(0.0, 0.99, -1.95), Vector3(1.55, 0.09, 0.2), _metal)
 	for side: int in [-1, 1]:
-		var x: float = float(side) * 0.78
-		_box("ClampJaw" + str(side), Vector3(x, 1.68, -1.9), Vector3(0.16, 0.43, 0.42), _bone)
-		_box("ClampPad" + str(side), Vector3(x - float(side) * 0.1, 1.73, -1.9), Vector3(0.06, 0.19, 0.3), _navy)
-		var screw: MeshInstance3D = _cylinder("ClampScrew" + str(side), Vector3(x + float(side) * 0.2, 1.58, -1.9), 0.07, 0.42, _metal)
+		var x: float = float(side) * 0.58
+		_box("ClampJaw" + str(side), Vector3(x, 1.16, -1.95), Vector3(0.12, 0.3, 0.3), _bone)
+		_box("ClampPad" + str(side), Vector3(x - float(side) * 0.07, 1.2, -1.95), Vector3(0.045, 0.14, 0.22), _navy)
+		var screw: MeshInstance3D = _cylinder("ClampScrew" + str(side), Vector3(x + float(side) * 0.15, 1.08, -1.95), 0.05, 0.3, _metal)
 		screw.rotation_degrees.z = 90.0
 	# A stripped receiver/barrel assembly, not a player weapon or gameplay pickup.
-	_layered("ReceiverAssembly", Vector3(0.0, 1.71, -1.9), Vector3(1.2, 0.24, 0.29), _navy)
-	_box("ReceiverShroud", Vector3(0.18, 1.84, -1.9), Vector3(0.54, 0.08, 0.25), _bone)
-	var barrel: MeshInstance3D = _cylinder("BarrelAssembly", Vector3(-0.78, 1.75, -1.9), 0.072, 0.68, _metal)
+	_layered("ReceiverAssembly", Vector3(0.0, 1.12, -1.95), Vector3(0.9, 0.16, 0.2), _navy)
+	_box("ReceiverShroud", Vector3(0.14, 1.22, -1.95), Vector3(0.4, 0.055, 0.18), _bone)
+	var barrel: MeshInstance3D = _cylinder("BarrelAssembly", Vector3(-0.58, 1.15, -1.95), 0.05, 0.5, _metal)
 	barrel.rotation_degrees.z = 90.0
-	_box("PartsTray", Vector3(1.8, 1.4, -1.9), Vector3(0.55, 0.055, 0.8), _metal)
+	_box("PartsTray", Vector3(1.35, 0.95, -1.95), Vector3(0.42, 0.04, 0.6), _metal)
 	for index: int in range(3):
-		_box("Parts" + str(index), Vector3(1.8, 1.45, -2.13 + float(index) * 0.22), Vector3(0.32, 0.065, 0.09), _navy)
-	_box("BenchRearToolRail", Vector3(0.0, 1.93, -2.87), Vector3(3.6, 0.14, 0.12), _bone)
+		_box("Parts" + str(index), Vector3(1.35, 0.99, -2.12 + float(index) * 0.16), Vector3(0.24, 0.045, 0.07), _navy)
+	_box("BenchRearToolRail", Vector3(0.0, 1.35, -2.72), Vector3(2.7, 0.1, 0.09), _bone)
 	for side: int in [-1, 1]:
-		_box("ToolRailUpright" + str(side), Vector3(float(side) * 1.7, 1.65, -2.87), Vector3(0.08, 0.64, 0.12), _metal)
+		_box("ToolRailUpright" + str(side), Vector3(float(side) * 1.25, 1.14, -2.72), Vector3(0.06, 0.48, 0.09), _metal)
 
 
 func _armor() -> void:
@@ -338,31 +340,32 @@ func _armor() -> void:
 
 
 func _utility() -> void:
-	_cylinder("DiagnosticStandBase", Vector3(-0.65, 0.16, -1.95), 0.95, 0.32, _navy, 8, 0.91)
-	_layered("DiagnosticColumn", Vector3(-0.65, 0.85, -1.95), Vector3(0.57, 1.5, 0.58), _bone)
-	_cylinder("DiagnosticTable", Vector3(-0.65, 1.6, -1.95), 1.18, 0.18, _cobalt, 8, 0.93)
-	_proxy("DiagnosticStand", Vector3(-0.65, 0.86, -1.95), Vector3(2.1, 1.72, 2.1))
-	_cylinder("DroneDock", Vector3(-0.65, 1.85, -1.95), 0.18, 0.4, _metal)
-	_cylinder("DroneHull", Vector3(-0.65, 2.16, -1.95), 0.49, 0.38, _bone, 8, 0.75)
-	_cylinder("DroneCrown", Vector3(-0.65, 2.39, -1.95), 0.25, 0.1, _navy)
-	_box("DroneOpticHousing", Vector3(-0.65, 2.16, -1.5), Vector3(0.39, 0.18, 0.12), _navy)
-	_box("DroneOptic", Vector3(-0.65, 2.16, -1.431), Vector3(0.2, 0.055, 0.025), _mint)
+	# Round diagnostic table top ~0.92 m; drone prop scaled to sit on it.
+	_cylinder("DiagnosticStandBase", Vector3(-0.65, 0.12, -1.95), 0.7, 0.24, _navy, 8, 0.91)
+	_layered("DiagnosticColumn", Vector3(-0.65, 0.5, -1.95), Vector3(0.4, 0.76, 0.4), _bone)
+	_cylinder("DiagnosticTable", Vector3(-0.65, 0.9, -1.95), 0.85, 0.1, _cobalt, 8, 0.93)
+	_proxy("DiagnosticStand", Vector3(-0.65, 0.5, -1.95), Vector3(1.55, 1.0, 1.55))
+	_cylinder("DroneDock", Vector3(-0.65, 1.08, -1.95), 0.12, 0.28, _metal)
+	_cylinder("DroneHull", Vector3(-0.65, 1.3, -1.95), 0.34, 0.26, _bone, 8, 0.75)
+	_cylinder("DroneCrown", Vector3(-0.65, 1.46, -1.95), 0.17, 0.07, _navy)
+	_box("DroneOpticHousing", Vector3(-0.65, 1.3, -1.62), Vector3(0.28, 0.12, 0.09), _navy)
+	_box("DroneOptic", Vector3(-0.65, 1.3, -1.568), Vector3(0.14, 0.04, 0.02), _mint)
 	for index: int in range(4):
 		var angle: float = PI * 0.25 + float(index) * PI * 0.5
 		var direction: Vector3 = Vector3(cos(angle), 0.0, sin(angle))
-		var center: Vector3 = Vector3(-0.65, 2.1, -1.95)
-		var arm: MeshInstance3D = _box("DroneArm" + str(index), center + direction * 0.6, Vector3(0.76, 0.1, 0.12), _metal)
+		var center: Vector3 = Vector3(-0.65, 1.26, -1.95)
+		var arm: MeshInstance3D = _box("DroneArm" + str(index), center + direction * 0.42, Vector3(0.52, 0.07, 0.08), _metal)
 		arm.rotation.y = -angle
-		_cylinder("DronePod" + str(index), center + direction * 0.95, 0.27, 0.23, _navy, 12)
-		_cylinder("DronePodCap" + str(index), center + direction * 0.95 + Vector3(0.0, 0.125, 0.0), 0.2, 0.04, _bone, 12)
-	_layered("ChargingBank", Vector3(1.7, 0.48, -2.12), Vector3(1.1, 0.96, 1.15), _navy)
-	_proxy("ChargingBank", Vector3(1.7, 0.85, -2.12), Vector3(1.1, 1.7, 1.15))
+		_cylinder("DronePod" + str(index), center + direction * 0.66, 0.18, 0.16, _navy, 12)
+		_cylinder("DronePodCap" + str(index), center + direction * 0.66 + Vector3(0.0, 0.09, 0.0), 0.14, 0.03, _bone, 12)
+	_layered("ChargingBank", Vector3(1.55, 0.36, -2.15), Vector3(0.85, 0.72, 0.85), _navy)
+	_proxy("ChargingBank", Vector3(1.55, 0.6, -2.15), Vector3(0.85, 1.2, 0.85))
 	for index: int in range(3):
-		var x: float = 1.36 + float(index) * 0.34
-		_cylinder("ChargingCell" + str(index), Vector3(x, 1.28, -2.12), 0.135, 0.68, _bone, 8)
-		_cylinder("CellContact" + str(index), Vector3(x, 1.66, -2.12), 0.09, 0.08, _metal)
-		_cylinder("CellBand" + str(index), Vector3(x, 1.45, -2.12), 0.14, 0.07, _mint, 8)
-	_box("ChargingBankStripe", Vector3(1.7, 0.57, -1.534), Vector3(0.74, 0.06, 0.025), _amber)
+		var x: float = 1.28 + float(index) * 0.27
+		_cylinder("ChargingCell" + str(index), Vector3(x, 0.95, -2.15), 0.1, 0.5, _bone, 8)
+		_cylinder("CellContact" + str(index), Vector3(x, 1.24, -2.15), 0.065, 0.06, _metal)
+		_cylinder("CellBand" + str(index), Vector3(x, 1.08, -2.15), 0.105, 0.05, _mint, 8)
+	_box("ChargingBankStripe", Vector3(1.55, 0.42, -1.715), Vector3(0.55, 0.045, 0.02), _amber)
 
 
 func _outfit() -> void:
@@ -395,32 +398,33 @@ func _outfit() -> void:
 
 
 func _deploy() -> void:
-	_layered("NavigationFoot", Vector3(0.0, 0.13, -1.95), Vector3(2.5, 0.26, 1.75), _navy)
-	_layered("NavigationPedestal", Vector3(0.0, 0.83, -2.08), Vector3(1.3, 1.4, 0.94), _bone)
-	_box("PedestalInset", Vector3(0.0, 0.95, -1.59), Vector3(0.89, 0.79, 0.04), _cobalt)
-	_proxy("NavigationFoot", Vector3(0.0, 0.13, -1.95), Vector3(2.5, 0.26, 1.75))
-	_proxy("NavigationPedestal", Vector3(0.0, 0.83, -2.08), Vector3(1.3, 1.4, 0.94))
+	_layered("NavigationFoot", Vector3(0.0, 0.1, -1.95), Vector3(1.9, 0.2, 1.35), _navy)
+	_layered("NavigationPedestal", Vector3(0.0, 0.52, -2.05), Vector3(0.95, 0.84, 0.7), _bone)
+	_box("PedestalInset", Vector3(0.0, 0.58, -1.69), Vector3(0.65, 0.55, 0.03), _cobalt)
+	_proxy("NavigationFoot", Vector3(0.0, 0.1, -1.95), Vector3(1.9, 0.2, 1.35))
+	_proxy("NavigationPedestal", Vector3(0.0, 0.52, -2.05), Vector3(0.95, 0.84, 0.7))
 	var slope: Vector3 = Vector3(18.0, 0.0, 0.0)
-	var origin: Vector3 = Vector3(0.0, 1.62, -1.95)
+	# Standing map table ~1.05 m at the near edge.
+	var origin: Vector3 = Vector3(0.0, 1.0, -1.95)
 	var map_basis: Basis = Basis.from_euler(slope * PI / 180.0)
-	_box("MapLecternRim", origin, Vector3(3.35, 0.2, 2.05), _bone, slope)
-	_proxy("MapLectern", origin, Vector3(3.35, 0.2, 2.05), slope)
-	_box("PhysicalMapSurface", origin + map_basis * Vector3(0.0, 0.115, 0.0), Vector3(3.05, 0.03, 1.75), _navy, slope)
+	_box("MapLecternRim", origin, Vector3(2.45, 0.14, 1.5), _bone, slope)
+	_proxy("MapLectern", origin, Vector3(2.45, 0.14, 1.5), slope)
+	_box("PhysicalMapSurface", origin + map_basis * Vector3(0.0, 0.08, 0.0), Vector3(2.25, 0.025, 1.3), _navy, slope)
 	# Raised cartographic relief and inlaid routes, deliberately not a screen or UI.
 	for index: int in range(5):
-		var x: float = -1.08 + float(index) * 0.53
-		var z: float = sin(float(index) * 1.7) * 0.38
-		var height: float = 0.045 + float(index % 3) * 0.028
-		var relief: MeshInstance3D = _cylinder("MapRelief" + str(index), origin + map_basis * Vector3(x, 0.14 + height * 0.5, z), 0.29, height, _cobalt, 6, 0.73)
+		var x: float = -0.8 + float(index) * 0.4
+		var z: float = sin(float(index) * 1.7) * 0.28
+		var height: float = 0.035 + float(index % 3) * 0.02
+		var relief: MeshInstance3D = _cylinder("MapRelief" + str(index), origin + map_basis * Vector3(x, 0.1 + height * 0.5, z), 0.21, height, _cobalt, 6, 0.73)
 		relief.rotation_degrees = slope
-		var marker: MeshInstance3D = _cylinder("MapPin" + str(index), origin + map_basis * Vector3(x, 0.2 + height, z), 0.035, 0.1, _amber if index == 4 else _bone, 8)
+		var marker: MeshInstance3D = _cylinder("MapPin" + str(index), origin + map_basis * Vector3(x, 0.14 + height, z), 0.025, 0.07, _amber if index == 4 else _bone, 8)
 		marker.rotation_degrees = slope
 	for index: int in range(3):
-		_box("MapMeridian" + str(index), origin + map_basis * Vector3(-0.8 + float(index) * 0.8, 0.137, 0.0), Vector3(0.012, 0.008, 1.48), _metal, slope)
-	_box("MapRouteInlay", origin + map_basis * Vector3(0.0, 0.139, 0.6), Vector3(2.65, 0.009, 0.025), _mint, slope)
+		_box("MapMeridian" + str(index), origin + map_basis * Vector3(-0.6 + float(index) * 0.6, 0.095, 0.0), Vector3(0.01, 0.006, 1.1), _metal, slope)
+	_box("MapRouteInlay", origin + map_basis * Vector3(0.0, 0.097, 0.45), Vector3(1.95, 0.007, 0.02), _mint, slope)
 	for side: int in [-1, 1]:
-		_box("MapHandle" + str(side), origin + map_basis * Vector3(float(side) * 1.54, 0.23, 0.45), Vector3(0.065, 0.17, 0.55), _metal, slope)
-	_layered("RouteArchive", Vector3(2.12, 0.63, -2.7), Vector3(0.55, 1.26, 0.74), _navy)
-	_proxy("RouteArchive", Vector3(2.12, 0.63, -2.7), Vector3(0.55, 1.26, 0.74))
+		_box("MapHandle" + str(side), origin + map_basis * Vector3(float(side) * 1.12, 0.16, 0.35), Vector3(0.05, 0.12, 0.4), _metal, slope)
+	_layered("RouteArchive", Vector3(1.85, 0.45, -2.65), Vector3(0.42, 0.9, 0.55), _navy)
+	_proxy("RouteArchive", Vector3(1.85, 0.45, -2.65), Vector3(0.42, 0.9, 0.55))
 	for index: int in range(3):
-		_box("ArchiveCartridge" + str(index), Vector3(2.12, 0.32 + float(index) * 0.3, -2.31), Vector3(0.4, 0.2, 0.08), _bone)
+		_box("ArchiveCartridge" + str(index), Vector3(1.85, 0.24 + float(index) * 0.22, -2.36), Vector3(0.3, 0.14, 0.06), _bone)

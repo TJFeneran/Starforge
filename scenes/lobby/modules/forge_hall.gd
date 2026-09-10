@@ -34,14 +34,10 @@ func _ready() -> void:
 	_build_window_wall(-1.0)
 	_build_window_wall(1.0)
 	for side: float in [-1.0, 1.0]:
-		_box("VaultSide", Vector3(0.5, 16, 12 - REAR_SHIFT), Vector3(side * 21.0, 8, -18 + REAR_SHIFT * 0.5), _navy, true)
+		_build_vault_side(side)
 		_box("VaultReturn", Vector3(4.5, 16, 0.5), Vector3(side * 18.75, 8, -12), _navy, true)
-	# Full-height stairwell openings at each end of the rear wall.
+	# Stair doorways with observation windows on the pier beside each upper entrance.
 	_build_rear_window_wall()
-	for side: float in [-1.0, 1.0]:
-		_box("StairEntryDivider", Vector3(0.4, 11, 0.5), Vector3(side * 17.5, 5.5, REAR_WALL_Z), _navy, true)
-		_box("StairEntryOuterPier", Vector3(0.5, 16, 0.5), Vector3(side * 20.75, 8, REAR_WALL_Z), _navy, true)
-		_box("StairEntryHeader", Vector3(6.1, 5, 0.5), Vector3(side * 17.45, 13.5, REAR_WALL_Z), _navy, true)
 	_box("EntranceWall", Vector3(33, 16, 0.5), Vector3(0, 8, 18), _navy, true)
 	for side: float in [-1.0, 1.0]:
 		for z: float in [-12.0, 0.0, 12.0]:
@@ -119,17 +115,53 @@ func _build_window_wall(side: float) -> void:
 	_box(prefix + "WallEnd", Vector3(0.5, top - bottom, 18.0 - cursor), Vector3(x, (top + bottom) * 0.5, (cursor + 18.0) * 0.5), _navy, true)
 
 
+func _build_vault_side(side: float) -> void:
+	# Outer vault shell with a pressure window beside each upper stair entrance.
+	var prefix := "West" if side < 0.0 else "East"
+	var x := side * 21.0
+	var depth := 12.0 - REAR_SHIFT
+	var z_center := -18.0 + REAR_SHIFT * 0.5
+	var z_min := z_center - depth * 0.5
+	var z_max := z_center + depth * 0.5
+	var bottom := 7.6
+	var top := 15.2
+	var win_half := 2.1
+	var win_z := REAR_WALL_Z + 3.4
+	_box(prefix + "VaultSideLower", Vector3(0.5, bottom, depth), Vector3(x, bottom * 0.5, z_center), _navy, true)
+	_box(prefix + "VaultSideHeader", Vector3(0.5, 16.0 - top, depth), Vector3(x, (16.0 + top) * 0.5, z_center), _navy, true)
+	_box(prefix + "VaultSideRearPier", Vector3(0.5, top - bottom, win_z - win_half - z_min), Vector3(x, (top + bottom) * 0.5, (z_min + win_z - win_half) * 0.5), _navy, true)
+	_box(prefix + "VaultSideFrontPier", Vector3(0.5, top - bottom, z_max - (win_z + win_half)), Vector3(x, (top + bottom) * 0.5, (win_z + win_half + z_max) * 0.5), _navy, true)
+	var mid_y := (top + bottom) * 0.5
+	var band_h := top - bottom
+	for y: float in [bottom, top]:
+		_box(prefix + "VaultWindowFrame", Vector3(0.9, 0.24, win_half * 2.0 + 0.3), Vector3(x, y, win_z), _bone, true)
+		_box(prefix + "VaultWindowSeal", Vector3(0.94, 0.07, win_half * 2.0 - 0.2), Vector3(x, y + (0.17 if y == bottom else -0.17), win_z), _metal)
+	for edge: float in [-win_half, win_half]:
+		_box(prefix + "VaultWindowJamb", Vector3(0.9, band_h, 0.24), Vector3(x, mid_y, win_z + edge), _bone, true)
+	_box(prefix + "VaultWindowMullion", Vector3(0.34, band_h - 0.24, 0.085), Vector3(x, mid_y, win_z), _metal, true)
+	_box(prefix + "VaultWindowSill", Vector3(1.15, 0.12, win_half * 2.0 + 0.45), Vector3(x - side * 0.12, bottom - 0.16, win_z), _metal)
+	var glass := _glass_material()
+	var pane_h := band_h - 0.24
+	var pane_w := win_half * 2.0 - 0.24
+	_pane(prefix + "VaultPressureGlass", Vector2(pane_h, pane_w), Vector3(x, mid_y, win_z), Vector3(0, 0, PI * 0.5), Vector3(0.08, pane_h, pane_w), glass)
+
+
 func _build_rear_window_wall() -> void:
 	# Wide observation cutout behind the forge monument, matching the side gallery windows.
+	# Pier windows sit beside each upper stair entrance (east + west).
 	var bottom := 7.6
 	var top := 15.2
 	var half_span := 8.6
+	var stair_inner := 14.4
 	_box("BackWallLower", Vector3(28.8, bottom, 0.5), Vector3(0, bottom * 0.5, REAR_WALL_Z), _navy, true)
 	_box("BackWallHeader", Vector3(28.8, 16.0 - top, 0.5), Vector3(0, (16.0 + top) * 0.5, REAR_WALL_Z), _navy, true)
+	var glass := _glass_material()
 	for side: float in [-1.0, 1.0]:
-		var pier_width := 14.4 - half_span
-		var pier_center := side * (half_span + pier_width * 0.5)
-		_box("BackWallPier", Vector3(pier_width, top - bottom, 0.5), Vector3(pier_center, (top + bottom) * 0.5, REAR_WALL_Z), _navy, true)
+		var prefix := "West" if side < 0.0 else "East"
+		_box(prefix + "StairEntryDivider", Vector3(0.4, 11, 0.5), Vector3(side * 17.5, 5.5, REAR_WALL_Z), _navy, true)
+		_box(prefix + "StairEntryOuterPier", Vector3(0.5, 16, 0.5), Vector3(side * 20.75, 8, REAR_WALL_Z), _navy, true)
+		_box(prefix + "StairEntryHeader", Vector3(6.1, 5, 0.5), Vector3(side * 17.45, 13.5, REAR_WALL_Z), _navy, true)
+		_build_stair_pier_window(prefix, side, half_span, stair_inner, bottom, top, glass, 0.85)
 	for y: float in [bottom, top]:
 		_box("RearWindowFrame", Vector3(half_span * 2.0 + 0.3, 0.24, 0.9), Vector3(0, y, REAR_WALL_Z), _bone, true)
 		_box("RearWindowSeal", Vector3(half_span * 2.0 - 0.2, 0.07, 0.94), Vector3(0, y + (0.17 if y == bottom else -0.17), REAR_WALL_Z), _metal)
@@ -138,10 +170,37 @@ func _build_rear_window_wall() -> void:
 	for x: float in [-4.0, 0.0, 4.0]:
 		_box("RearWindowMullion", Vector3(0.085, top - bottom - 0.24, 0.34), Vector3(x, (top + bottom) * 0.5, REAR_WALL_Z), _metal, true)
 	_box("RearWindowSill", Vector3(half_span * 2.0 + 0.45, 0.12, 1.15), Vector3(0, bottom - 0.16, REAR_WALL_Z + 0.12), _metal)
-	var glass := _glass_material()
 	var pane_h := top - bottom - 0.24
 	var pane_w := half_span * 2.0 - 0.24
 	_pane("RearPressureGlass", Vector2(pane_w, pane_h), Vector3(0, (top + bottom) * 0.5, REAR_WALL_Z), Vector3(PI * 0.5, 0, 0), Vector3(pane_w, pane_h, 0.08), glass)
+
+
+func _build_stair_pier_window(prefix: String, side: float, pier_inner: float, pier_outer: float, bottom: float, top: float, glass: Material, margin: float) -> void:
+	# Cut a pressure-framed opening into the pier beside a stair doorway.
+	var pier_width := pier_outer - pier_inner
+	var win_half := (pier_width - margin * 2.0) * 0.5
+	var win_center := side * (pier_inner + pier_width * 0.5)
+	var mid_y := (top + bottom) * 0.5
+	var band_h := top - bottom
+	var inner_edge := side * pier_inner
+	var outer_edge := side * pier_outer
+	var win_inner := win_center - side * win_half
+	var win_outer := win_center + side * win_half
+	var inner_width := absf(win_inner - inner_edge)
+	var outer_width := absf(outer_edge - win_outer)
+	_box(prefix + "StairPierInner", Vector3(inner_width, band_h, 0.5), Vector3((inner_edge + win_inner) * 0.5, mid_y, REAR_WALL_Z), _navy, true)
+	_box(prefix + "StairPierOuter", Vector3(outer_width, band_h, 0.5), Vector3((win_outer + outer_edge) * 0.5, mid_y, REAR_WALL_Z), _navy, true)
+	var frame_w := win_half * 2.0 + 0.3
+	for y: float in [bottom, top]:
+		_box(prefix + "StairWindowFrame", Vector3(frame_w, 0.24, 0.9), Vector3(win_center, y, REAR_WALL_Z), _bone, true)
+		_box(prefix + "StairWindowSeal", Vector3(win_half * 2.0 - 0.2, 0.07, 0.94), Vector3(win_center, y + (0.17 if y == bottom else -0.17), REAR_WALL_Z), _metal)
+	for edge: float in [-win_half, win_half]:
+		_box(prefix + "StairWindowJamb", Vector3(0.24, band_h, 0.9), Vector3(win_center + edge, mid_y, REAR_WALL_Z), _bone, true)
+	_box(prefix + "StairWindowMullion", Vector3(0.085, band_h - 0.24, 0.34), Vector3(win_center, mid_y, REAR_WALL_Z), _metal, true)
+	_box(prefix + "StairWindowSill", Vector3(win_half * 2.0 + 0.45, 0.12, 1.15), Vector3(win_center, bottom - 0.16, REAR_WALL_Z + 0.12), _metal)
+	var pane_h := band_h - 0.24
+	var pane_w := win_half * 2.0 - 0.24
+	_pane(prefix + "StairPressureGlass", Vector2(pane_w, pane_h), Vector3(win_center, mid_y, REAR_WALL_Z), Vector3(PI * 0.5, 0, 0), Vector3(pane_w, pane_h, 0.08), glass)
 
 
 func _pane(label: String, size: Vector2, at: Vector3, euler: Vector3, collision_size: Vector3, glass: Material) -> void:

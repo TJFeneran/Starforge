@@ -26,6 +26,8 @@ func _capture() -> void:
 		["catwalk", Vector3(12.0, 9.5, 5), Vector3(110, 65, -32)],
 		["rear", Vector3(0, 5.5, -2), Vector3(0, 11.5, -22.8)],
 		["gate", Vector3(0, 8.5, -8), Vector3(0, 12.0, -22.8)],
+		["stair_east", Vector3(10.5, 9.2, -16.5), Vector3(11.5, 11.5, -22.8)],
+		["stair_west", Vector3(-10.5, 9.2, -16.5), Vector3(-11.5, 11.5, -22.8)],
 	]
 	for view: Array in views:
 		camera.position = view[1]
@@ -43,7 +45,7 @@ func _validate_windows() -> void:
 	for child: Node in lobby.get_node("Architecture").get_children():
 		if child is MeshInstance3D and "PressureGlass" in str(child.name):
 			panes += 1
-	assert(panes == 7, "Expected six side panes plus one rear pane")
+	assert(panes == 11, "Expected six side panes, one rear pane, two stair pier panes, and two vault panes")
 	for side: float in [-1.0, 1.0]:
 		for z: float in [-7.0, 3.0, 13.0]:
 			var ray := PhysicsRayQueryParameters3D.create(Vector3(side * 15, 11.9, z + 1), Vector3(side * 18, 11.9, z + 1))
@@ -54,4 +56,14 @@ func _validate_windows() -> void:
 	var rear_hit := lobby.get_world_3d().direct_space_state.intersect_ray(rear)
 	assert(not rear_hit.is_empty(), "Rear pressure glass must retain collision")
 	assert(absf(rear_hit.position.z - (-22.8)) < 0.12, "Rear opening still contains an opaque wall collider")
-	print("WINDOW_CHECK: seven glazed openings, collisions correct")
+	for side: float in [-1.0, 1.0]:
+		var pier := PhysicsRayQueryParameters3D.create(Vector3(side * 10.5, 11.5, -20), Vector3(side * 10.5, 11.5, -24))
+		var pier_hit := lobby.get_world_3d().direct_space_state.intersect_ray(pier)
+		assert(not pier_hit.is_empty(), "Stair pier pressure glass must retain collision")
+		assert(absf(pier_hit.position.z - (-22.8)) < 0.12, "Stair pier opening still contains an opaque wall collider")
+		# Offset from the central mullion; vault glass sits at x=±21, z≈-19.4.
+		var vault := PhysicsRayQueryParameters3D.create(Vector3(side * 19.5, 11.5, -18.5), Vector3(side * 22.5, 11.5, -18.5))
+		var vault_hit := lobby.get_world_3d().direct_space_state.intersect_ray(vault)
+		assert(not vault_hit.is_empty(), "Vault pressure glass must retain collision")
+		assert(absf(absf(vault_hit.position.x) - 21.0) < 0.12, "Vault opening still contains an opaque wall collider")
+	print("WINDOW_CHECK: eleven glazed openings, collisions correct")
