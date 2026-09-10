@@ -1,4 +1,4 @@
-# Starforge Handoff — 2026-09-08
+# Starforge Handoff — 2026-09-10
 
 Checkpoint for the next agent. Project is at a good pause point.
 
@@ -24,29 +24,27 @@ Godot 4.7 third-person space-fantasy game. Visual direction is locked in `docs/a
 | `scenes/style_lab/style_lab.tscn` | Art / environment sandbox |
 | `scenes/sandbox/controller_sandbox.tscn` | Isolated controller / weapon tests |
 
-## Lobby hangar — current state
+## Lobby forge hall — current state
 
-Environment-first hub. Interaction systems are **not** implemented yet (documented in `docs/production/lobby-plan.md`).
+Authored hub in `scenes/lobby/lobby.tscn`. Layout/shell owned by `forge_hall.gd`; hub wiring by `lobby_hub.gd`. Details in `docs/production/lobby-plan.md`.
 
 Present now:
-- Enclosed hangar using outpost kit: scaled `outpost_wall_bay`, crates as workbench bottoms, planters as decoration, canopy/wall pieces as ceiling underside + solid void-navy ceiling deck
-- Central forge beacon + procedural hologram WorldGlobe (`assets/lookdev/world_globe_hologram.*`)
-- Forge Monument as unlabeled physical world-entry gate at rear
-- Workbench identifiers: glowing console boxes + Label3D text
-  - Armor / Loadout (teal)
-  - Weapons / Forge (amber)
-  - Utility / Gadgets (teal)
-  - Skin / Outfit (violet)
-  - World / Deploy (violet)
-- Lighting pass: ceiling SpotLights with shadows, forge/portal Omni shadows, lowered ambient, SSAO, Forward+
+- Enclosed forge hall with side workshop bays, catwalks, rear transit vault, observation windows, orbital exterior through the glass
+- Four recessed workshops only (`workshop_bay.tscn`): Weapons / Utility (east), Armor / Outfit (west)
+- **No World / Deploy bench** — deployment moved off the workshop row
+- Central forge reactor + navigation globe (`forge_reactor.tscn`); E on the globe opens the hologram deployment map
+- Hologram map (`scenes/lobby/ui/hologram_map.*` + `MapDestination`) marks a destination; only *Frontier Outpost* is available (loads `outpost_slice`)
+- Marking a destination arms the rear Forge Monument gate (glow + portal/gem VFX); E embark at the gate loads the marked scene
+- Shared interact stack: `ProximityInteractable` + `InteractPrompt` (hold-to-interact, world-anchored billboard)
+- Monument approach stairs (`monument_stairs.gd`), planters, crate + microscope prop near the gate
+- Forward+ lighting / SSAO; authored collision proxies (no auto mesh AABB)
 
 Deferred lobby systems (remember these):
-- Bench interact → focused UI / inspection
+- Workshop bench interact → focused UI / inspection (anchors exist; no loadout UI yet)
 - Armor / weapons loadouts
 - Utility gadgets
 - Skin / outfit cosmetics
-- World / Deploy map + destination select (globe should reflect selection)
-- Walking through Forge Monument loads selected mission
+- Richer map destinations / globe visual reflecting selection (stub map is enough for outpost launch)
 - Persist player state across lobby ↔ mission
 
 ## Playable mission slice (stable enough, not current focus)
@@ -55,13 +53,13 @@ Deferred lobby systems (remember these):
 - Objectives: attune beacon → monument → canopy → rift signal → complete
 - Restart with `R` when DONE (deferred reload; zone `monitoring` uses `set_deferred`)
 - Combat stub: forge sidearm + rift skitter + HP HUD + crosshair
-- Player controller: third-person, jump visual polish, weapon follows `RightHand` (no procedural raised-arm pose — that deformed the mesh)
+- Player controller: third-person, ADS pistol strafe locomotion, weapon follows `RightHand`
 
 ## Known soft spots
 
 - Jump animation is procedural whole-body motion, not a real jump clip
 - Weapon grip/aim pose is functional, not perfect
-- Lobby ceiling currently reuses WallBay/canopy kit pieces + a solid deck; optional future Meshy modular ceiling bay (~20+10 credits Meshy 6)
+- `workshop_bay.gd` still has a leftover `"deploy"` purpose builder; do not place a fifth deploy bay in the lobby
 - Outpost kit Meshy assets are large GLBs under `assets/models/outpost_kit/`
 - Do not use Smart Topology for hard-surface props (see `docs/art/meshy-pipeline.md`)
 
@@ -74,16 +72,19 @@ Deferred lobby systems (remember these):
 
 ## Suggested next steps
 
-1. Lobby interaction stubs (Area3D + E prompt) on workbenches — still no full UI
-2. Wire World / Deploy → select destination → Forge Monument loads `outpost_slice`
-3. Optional Meshy hangar ceiling bay matching kit materials
+1. Workshop interaction stubs (Area3D + E prompt) on the four bays — still no full UI
+2. Optional: globe material / hologram feedback when a destination is marked
+3. Persist player state across lobby ↔ mission
 4. Only then expand mission content / combat polish
 
 ## Key files
 
-- Lobby: `scenes/lobby/lobby.tscn`
+- Lobby scene / hub: `scenes/lobby/lobby.tscn`, `scenes/lobby/lobby_hub.gd`
+- Hall shell: `scenes/lobby/modules/forge_hall.gd`
+- Workshops: `scenes/lobby/workshops/workshop_bay.tscn`
+- Deploy flow: `scenes/lobby/ui/hologram_map.gd`, `scenes/lobby/ui/map_destination.gd`, gate VFX under `scenes/lobby/vfx/`
+- Interact: `scenes/interact/proximity_interactable.gd`, `scenes/ui/interact_prompt.*`
 - Player: `scenes/player/player_controller.gd`, `scenes/player/player.tscn`
 - Mission: `scenes/style_lab/mission_controller.gd` (shared by outpost_slice)
 - Collision proxies: `scenes/style_lab/outpost_collision.gd`
-- Globe shader: `assets/lookdev/world_globe_hologram.gdshader`
 - Plans: `docs/production/lobby-plan.md`, `docs/production/vertical-slice.md`
