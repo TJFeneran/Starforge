@@ -3,8 +3,13 @@ extends Node3D
 ## Geometry is built once; shaders and GPU particles animate without _process.
 ## Local origin is the gem center. Kept separate from the imported gate mesh.
 
+var _armed := false
+var _idle_light_energy := 1.1
+var _armed_light_energy := 4.8
+
 func _ready() -> void:
 	if has_node("Aura"):
+		_apply_armed_look()
 		return
 	var aura := MeshInstance3D.new()
 	aura.name = "Aura"
@@ -90,13 +95,41 @@ func _ready() -> void:
 	var glow := OmniLight3D.new()
 	glow.name = "GemLight"
 	glow.light_color = Color(1.0, 0.62, 0.22)
-	glow.light_energy = 2.4
+	glow.light_energy = _idle_light_energy
 	glow.omni_range = 4.0
 	glow.shadow_enabled = false
 	glow.distance_fade_enabled = true
 	glow.distance_fade_begin = 30.0
 	glow.distance_fade_length = 10.0
 	add_child(glow)
+	_apply_armed_look()
+
+
+func set_armed(armed: bool) -> void:
+	_armed = armed
+	_apply_armed_look()
+
+
+func is_armed() -> bool:
+	return _armed
+
+
+func _apply_armed_look() -> void:
+	var glow := get_node_or_null("GemLight") as OmniLight3D
+	if glow:
+		glow.light_energy = _armed_light_energy if _armed else _idle_light_energy
+		glow.omni_range = 6.5 if _armed else 4.0
+	var sparks := get_node_or_null("AscendingSparks") as GPUParticles3D
+	if sparks:
+		sparks.amount = 160 if _armed else 48
+		sparks.emitting = true
+	var aura := get_node_or_null("Aura") as MeshInstance3D
+	if aura:
+		aura.scale = Vector3(0.86, 1.9, 0.84) if _armed else Vector3(0.58, 1.35, 0.56)
+	var corona := get_node_or_null("SoftCorona") as MeshInstance3D
+	if corona:
+		corona.scale = Vector3(1.18, 1.18, 1.18) if _armed else Vector3(0.82, 0.82, 0.82)
+
 
 func _configure_mesh(instance: MeshInstance3D) -> void:
 	instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

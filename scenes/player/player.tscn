@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scenes/player/player_controller.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_idle.glb" id="2_bind"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_idle.glb" id="9_pistol_aim"]
 [ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_run.glb" id="10_pistol_run"]
 [ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_jump.glb" id="11_pistol_jump"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/exo_gray_pistol_strafe.glb" id="12_pistol_strafe"]
 
 [sub_resource type="CapsuleShape3D" id="Capsule"]
 radius = 0.32
@@ -31,6 +32,7 @@ jump_scene = ExtResource("8_jump")
 pistol_aim_scene = ExtResource("9_pistol_aim")
 pistol_run_scene = ExtResource("10_pistol_run")
 pistol_jump_scene = ExtResource("11_pistol_jump")
+pistol_strafe_scene = ExtResource("12_pistol_strafe")
 pulse_bolt_scene = ExtResource("7_bolt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

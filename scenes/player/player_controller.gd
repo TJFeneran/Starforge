@@ -45,6 +45,7 @@ const HOLSTER_OFFSET := Vector3(0.07, 0.02, 0.14)
 @export var pistol_aim_scene: PackedScene ## Stationary ADS: Mixamo Pistol Idle (not Pistol Aim).
 @export var pistol_run_scene: PackedScene
 @export var pistol_jump_scene: PackedScene
+@export var pistol_strafe_scene: PackedScene ## Mixamo Pistol Strafe; opposite side is mirrored at install.
 @export var pulse_bolt_scene: PackedScene
 
 @onready var _yaw: Node3D = $CameraYaw
@@ -72,6 +73,7 @@ var _base_fov := 55.0
 var _spring_base_length := 5.0
 var _attack_timer := 0.0
 var _weapon_drawn := false
+var _aim_move_input := Vector2.ZERO
 
 
 func _ready() -> void:
@@ -134,6 +136,7 @@ func _physics_process(delta: float) -> void:
 		_play_clip(_jump_clip_name(), 0.05)
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_back", "move_forward")
+	_aim_move_input = input_dir
 	var cam_basis := _yaw.global_transform.basis
 	var forward := -cam_basis.z
 	var right := cam_basis.x
@@ -182,7 +185,7 @@ func _physics_process(delta: float) -> void:
 		_jump_timer = 0.0
 	_was_on_floor = on_floor
 	_update_jump_visual(delta, on_floor, horizontal.length())
-	_update_animation(horizontal.length(), on_floor)
+	_update_animation(horizontal, on_floor)
 	# Follow the animated hand after AnimationPlayer updates the skeleton.
 	call_deferred("_update_weapon_follow")
 	_update_camera_feel(delta, horizontal.length(), on_floor)
@@ -391,12 +394,60 @@ func _install_locomotion_animations() -> void:
 	_add_clip_from_scene(lib, "pistol_aim", pistol_aim_scene)
 	_add_clip_from_scene(lib, "pistol_run", pistol_run_scene)
 	_add_clip_from_scene(lib, "pistol_jump", pistol_jump_scene, false, false)
+	_add_strafe_clips(lib)
 	if not lib.has_animation("idle"):
 		_add_clip_from_scene(lib, "idle", walk_scene, false)
 	if _anim.has_animation_library("loco"):
 		_anim.remove_animation_library("loco")
 	_anim.add_animation_library("loco", lib)
 	_current_clip = ""
+
+
+func _add_strafe_clips(lib: AnimationLibrary) -> void:
+	if pistol_strafe_scene == null:
+		return
+	var instance := pistol_strafe_scene.instantiate()
+	var source_player := _find_animation_player(instance)
+	if source_player == null or source_player.get_animation_list().is_empty():
+		instance.queue_free()
+		return
+	var source_name: String = source_player.get_animation_list()[0]
+	var left: Animation = source_player.get_animation(source_name).duplicate(true)
+	_strip_hips_root_motion(left)
+	left.loop_mode = Animation.LOOP_LINEAR
+	# Mixamo "Pistol Strafe" moves toward the character's left; mirror for right.
+	var right := _mirror_mixamo_clip(left)
+	lib.add_animation("pistol_strafe_left", left)
+	lib.add_animation("pistol_strafe_right", right)
+	instance.queue_free()
+
+
+func _mirror_mixamo_clip(anim: Animation) -> Animation:
+	var out := anim.duplicate(true) as Animation
+	# Two-pass path swap avoids Left/Right collisions while renaming.
+	for track_idx in out.get_track_count():
+		var path := str(out.track_get_path(track_idx))
+		out.track_set_path(
+			track_idx,
+			NodePath(path.replace("Left", "__L__").replace("Right", "__R__"))
+		)
+	for track_idx in out.get_track_count():
+		var path := str(out.track_get_path(track_idx))
+		out.track_set_path(
+			track_idx,
+			NodePath(path.replace("__L__", "Right").replace("__R__", "Left"))
+		)
+		match out.track_get_type(track_idx):
+			Animation.TYPE_POSITION_3D:
+				for key_idx in out.track_get_key_count(track_idx):
+					var value: Vector3 = out.track_get_key_value(track_idx, key_idx)
+					out.track_set_key_value(track_idx, key_idx, Vector3(-value.x, value.y, value.z))
+			Animation.TYPE_ROTATION_3D:
+				for key_idx in out.track_get_key_count(track_idx):
+					var q: Quaternion = out.track_get_key_value(track_idx, key_idx)
+					# Reflect across YZ: (x, y, z, w) -> (x, -y, -z, w)
+					out.track_set_key_value(track_idx, key_idx, Quaternion(q.x, -q.y, -q.z, q.w))
+	return out
 
 
 func _add_clip_from_scene(
@@ -478,9 +529,10 @@ func _jump_clip_name() -> String:
 	return "loco/idle"
 
 
-func _update_animation(speed: float, on_floor: bool) -> void:
+func _update_animation(horizontal: Vector3, on_floor: bool) -> void:
 	if _anim == null:
 		return
+	var speed := horizontal.length()
 	var aiming := _is_aiming()
 	if not on_floor:
 		var jump_clip := _jump_clip_name()
@@ -500,7 +552,7 @@ func _update_animation(speed: float, on_floor: bool) -> void:
 		if speed < 0.15:
 			_play_clip("loco/pistol_aim" if _has_clip("loco/pistol_aim") else "loco/idle", 0.15)
 		else:
-			_play_clip("loco/pistol_run" if _has_clip("loco/pistol_run") else "loco/run", 0.15)
+			_play_clip(_aim_move_clip(horizontal), 0.15)
 		return
 
 	if speed < 0.15:
@@ -509,6 +561,21 @@ func _update_animation(speed: float, on_floor: bool) -> void:
 
 	var want := "loco/run" if speed >= RUN_THRESHOLD else "loco/walk"
 	_play_clip(want, 0.15)
+
+
+func _aim_move_clip(_horizontal: Vector3 = Vector3.ZERO) -> String:
+	# Use raw ADS stick/keys so velocity lag and facing lerp can't keep pistol_run.
+	# With this project's get_vector order, x = strafe (right+), y = forward+.
+	var lateral := _aim_move_input.x
+	var forward := _aim_move_input.y
+	if absf(lateral) >= absf(forward) and absf(lateral) > 0.2:
+		if lateral < 0.0 and _has_clip("loco/pistol_strafe_left"):
+			return "loco/pistol_strafe_left"
+		if lateral > 0.0 and _has_clip("loco/pistol_strafe_right"):
+			return "loco/pistol_strafe_right"
+	if _has_clip("loco/pistol_run"):
+		return "loco/pistol_run"
+	return "loco/run"
 
 
 func _play_clip(clip_name: String, blend: float) -> void:
