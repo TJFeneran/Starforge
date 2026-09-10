@@ -11,7 +11,7 @@ signal player_exited
 @export var input_action: StringName = &"interact"
 ## Local offset from this Area3D used when prompt_anchor is unset.
 @export var prompt_offset := Vector3(0.0, 1.55, 0.0)
-## Optional Marker3D / Node3D the prompt should hover on (offset ignored).
+## Optional Marker3D / Node3D the prompt should hover on (prompt_offset is local to it).
 @export var prompt_anchor: NodePath
 @export var enabled := true:
 	set(value):
