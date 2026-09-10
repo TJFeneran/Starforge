@@ -1,6 +1,7 @@
 extends Area3D
 class_name ProximityInteractable
 ## Reusable proximity + interact-action trigger. Drives InteractPrompt HUD.
+## Prompt hovers at prompt_anchor (or this node + prompt_offset) and faces the camera.
 
 signal interacted
 signal player_entered
@@ -8,6 +9,10 @@ signal player_exited
 
 @export var action_text := "Interact"
 @export var input_action: StringName = &"interact"
+## Local offset from this Area3D used when prompt_anchor is unset.
+@export var prompt_offset := Vector3(0.0, 1.55, 0.0)
+## Optional Marker3D / Node3D the prompt should hover on (prompt_offset is local to it).
+@export var prompt_anchor: NodePath
 @export var enabled := true:
 	set(value):
 		enabled = value
@@ -70,7 +75,14 @@ func _show_prompt() -> void:
 	var prompt := _prompt()
 	if prompt == null:
 		return
-	prompt.request(self, action_text, prompt.key_label_for(input_action))
+	var source: Node3D = self
+	var offset := prompt_offset
+	if not prompt_anchor.is_empty():
+		var anchor := get_node_or_null(prompt_anchor)
+		if anchor is Node3D:
+			source = anchor as Node3D
+			# prompt_offset stays relative to the chosen anchor.
+	prompt.request(self, action_text, prompt.key_label_for(input_action), source, offset)
 
 
 func _clear_player() -> void:
