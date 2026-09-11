@@ -18,7 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://cghw2aj6ld4ee" path="res://scenes/interact/proximity_interactable.tscn" id="16_embark"]
 [ext_resource type="Script" uid="uid://bpxllyl6ix8e8" path="res://scenes/lobby/vfx/gate_portal_vfx.gd" id="17_portal_vfx"]
 [ext_resource type="Script" uid="uid://d2y4rlogdog1r" path="res://scenes/lobby/modules/concept_posters.gd" id="18_posters"]
-[ext_resource type="PackedScene" path="res://scenes/lobby/props/dawnseal_display.tscn" id="19_dawnseal"]
+[ext_resource type="PackedScene" uid="uid://c2kcujuo38igp" path="res://scenes/lobby/props/dawnseal_display.tscn" id="19_dawnseal"]
+[ext_resource type="PackedScene" uid="uid://cf58a3a5c3d54" path="res://scenes/lobby/props/rare_needle_display.tscn" id="20_needle"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -462,7 +463,10 @@ transform = Transform3D(0.5480617, 0, -0.8364379, 0, 1, 0, 0.8364379, 0, 0.54806
 transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 11.429093, 0, -6)
 
 [node name="DawnsealDisplay" parent="Workshops/WorkbenchWeapons" unique_id=598073536 instance=ExtResource("19_dawnseal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, -2.68)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 2.42, -2.68)
+
+[node name="RareNeedleDisplay" parent="Workshops/WorkbenchWeapons" unique_id=1847293652 instance=ExtResource("20_needle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 2.42, -2.68)
 
 [node name="WorkbenchUtility" parent="Workshops" unique_id=1616457800 instance=ExtResource("4_bay")]
 transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 11.429093, 0, 6)
@@ -509,25 +513,16 @@ action_text = "Embark"
 prompt_offset = Vector3(0, 1.85, 0)
 enabled = false
 
-[node name="ReviewViews" type="Node3D" parent="." unique_id=1960472161]
-
-[node name="Entrance" type="Marker3D" parent="ReviewViews" unique_id=1048619310]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 15)
-
-[node name="Forge" type="Marker3D" parent="ReviewViews" unique_id=2056725531]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.8, 7)
-
-[node name="Weapons" type="Marker3D" parent="ReviewViews" unique_id=1056506166]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.4, -4)
-
 [node name="Player" parent="." unique_id=1776662509 instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 10)
 
-[node name="outpost_crate" parent="." unique_id=2142954363 instance=ExtResource("9_l1n8d")]
+[node name="OutpostCrates" type="Node3D" parent="." unique_id=207458659]
+
+[node name="outpost_crate" parent="OutpostCrates" unique_id=2142954363 instance=ExtResource("9_l1n8d")]
 transform = Transform3D(0.5946375, 0, -0.8039939, 0, 1, 0, 0.8039939, 0, 0.5946375, -13.117624, -0.011060491, 15.903343)
 
-[node name="outpost_crate2" parent="." unique_id=1869604676 instance=ExtResource("9_l1n8d")]
+[node name="outpost_crate2" parent="OutpostCrates" unique_id=1869604676 instance=ExtResource("9_l1n8d")]
 transform = Transform3D(0.92700535, 0, 0.37504822, 0, 1, 0, -0.37504822, 0, 0.92700535, -4.6758523, -0.011060491, -10.600168)
 
-[node name="forge_microscope" parent="outpost_crate2" unique_id=1482093371 instance=ExtResource("11_microscope")]
+[node name="forge_microscope" parent="OutpostCrates/outpost_crate2" unique_id=1482093371 instance=ExtResource("11_microscope")]
 transform = Transform3D(1.6143982, 0, 1.1805582, 0, 2, 0, -1.1805582, 0, 1.6143982, 0, 0.9, 0)

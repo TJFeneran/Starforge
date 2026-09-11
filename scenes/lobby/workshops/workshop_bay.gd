@@ -306,7 +306,7 @@ func _weapons() -> void:
 		_box("ClampPad" + str(side), Vector3(x - float(side) * 0.07, 1.2, -1.95), Vector3(0.045, 0.14, 0.22), _navy)
 		var screw: MeshInstance3D = _cylinder("ClampScrew" + str(side), Vector3(x + float(side) * 0.15, 1.08, -1.95), 0.05, 0.3, _metal)
 		screw.rotation_degrees.z = 90.0
-	# Clamp jaws stay open as a frame for the lobby Dawnseal turntable display.
+	# Clamp jaws stay open as a frame for the lobby gun wall plaques.
 	_box("PartsTray", Vector3(1.35, 0.95, -1.95), Vector3(0.42, 0.04, 0.6), _metal)
 	for index: int in range(3):
 		_box("Parts" + str(index), Vector3(1.35, 0.99, -2.12 + float(index) * 0.16), Vector3(0.24, 0.045, 0.07), _navy)

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cf58a3a5c3d54"]
+
+[ext_resource type="Script" uid="uid://f180dc4845b84" path="res://scenes/lobby/props/rare_needle_display.gd" id="1_script"]
+
+[node name="RareNeedleDisplay" type="Node3D" unique_id=1847293651]
+script = ExtResource("1_script")
