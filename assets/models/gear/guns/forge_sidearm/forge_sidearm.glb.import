@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bb8qk0t3c1v32"
-path="res://.godot/imported/forge_sidearm.glb-a53bc0a3348a312d204664147e6c129a.scn"
+path="res://.godot/imported/forge_sidearm.glb-4113a4b6a1f921d8b7adc138ef090985.scn"
 
 [deps]
 
-source_file="res://assets/models/weapons/forge_sidearm.glb"
-dest_files=["res://.godot/imported/forge_sidearm.glb-a53bc0a3348a312d204664147e6c129a.scn"]
+source_file="res://assets/models/gear/guns/forge_sidearm/forge_sidearm.glb"
+dest_files=["res://.godot/imported/forge_sidearm.glb-4113a4b6a1f921d8b7adc138ef090985.scn"]
 
 [params]
 

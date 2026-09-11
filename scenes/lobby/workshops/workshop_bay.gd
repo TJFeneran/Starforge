@@ -306,11 +306,7 @@ func _weapons() -> void:
 		_box("ClampPad" + str(side), Vector3(x - float(side) * 0.07, 1.2, -1.95), Vector3(0.045, 0.14, 0.22), _navy)
 		var screw: MeshInstance3D = _cylinder("ClampScrew" + str(side), Vector3(x + float(side) * 0.15, 1.08, -1.95), 0.05, 0.3, _metal)
 		screw.rotation_degrees.z = 90.0
-	# A stripped receiver/barrel assembly, not a player weapon or gameplay pickup.
-	_layered("ReceiverAssembly", Vector3(0.0, 1.12, -1.95), Vector3(0.9, 0.16, 0.2), _navy)
-	_box("ReceiverShroud", Vector3(0.14, 1.22, -1.95), Vector3(0.4, 0.055, 0.18), _bone)
-	var barrel: MeshInstance3D = _cylinder("BarrelAssembly", Vector3(-0.58, 1.15, -1.95), 0.05, 0.5, _metal)
-	barrel.rotation_degrees.z = 90.0
+	# Clamp jaws stay open as a frame for the lobby Dawnseal turntable display.
 	_box("PartsTray", Vector3(1.35, 0.95, -1.95), Vector3(0.42, 0.04, 0.6), _metal)
 	for index: int in range(3):
 		_box("Parts" + str(index), Vector3(1.35, 0.99, -2.12 + float(index) * 0.16), Vector3(0.24, 0.045, 0.07), _navy)

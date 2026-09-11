@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctgwxe242gomk"
-path.s3tc="res://.godot/imported/forge_sidearm_base_color.jpg-161e35b4e49d1e79a987539f310f3cf9.s3tc.ctex"
+path.s3tc="res://.godot/imported/forge_sidearm_base_color.jpg-1c1b7f86c90c70be09470aca1d359dd9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/models/weapons/forge_sidearm_base_color.jpg"
-dest_files=["res://.godot/imported/forge_sidearm_base_color.jpg-161e35b4e49d1e79a987539f310f3cf9.s3tc.ctex"]
+source_file="res://assets/models/gear/guns/forge_sidearm/forge_sidearm_base_color.jpg"
+dest_files=["res://.godot/imported/forge_sidearm_base_color.jpg-1c1b7f86c90c70be09470aca1d359dd9.s3tc.ctex"]
 
 [params]
 

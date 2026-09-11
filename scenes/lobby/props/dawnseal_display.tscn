@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c2kcujuo38igp"]
+
+[ext_resource type="Script" uid="uid://dekkf4tj540je" path="res://scenes/lobby/props/dawnseal_display.gd" id="1_script"]
+
+[node name="DawnsealDisplay" type="Node3D" unique_id=1152940682]
+script = ExtResource("1_script")

@@ -1,0 +1,13 @@
+{
+  "triangles": 65696,
+  "vertices": 33490,
+  "assemblies": 7,
+  "materials": 1,
+  "texture_resolution": 2048,
+  "length_m": 0.42,
+  "godot_forward": "-Z",
+  "origin": "grip attachment",
+  "source_parts": 211,
+  "uv_layout": "Overlapping padded trim atlas; not unique bake UVs",
+  "reference_interpretation": "Side silhouette prioritized; front/top reconcile depth; mirrored unseen side ornament"
+}

@@ -17,7 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://bq6n1p1wo4f6o" path="res://scenes/lobby/ui/hologram_map.tscn" id="15_map"]
 [ext_resource type="PackedScene" uid="uid://cghw2aj6ld4ee" path="res://scenes/interact/proximity_interactable.tscn" id="16_embark"]
 [ext_resource type="Script" uid="uid://bpxllyl6ix8e8" path="res://scenes/lobby/vfx/gate_portal_vfx.gd" id="17_portal_vfx"]
-[ext_resource type="Script" path="res://scenes/lobby/modules/concept_posters.gd" id="18_posters"]
+[ext_resource type="Script" uid="uid://d2y4rlogdog1r" path="res://scenes/lobby/modules/concept_posters.gd" id="18_posters"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/props/dawnseal_display.tscn" id="19_dawnseal"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -159,11 +160,12 @@ environment = SubResource("Environment_hall")
 [node name="Architecture" type="Node3D" parent="." unique_id=720120896]
 script = ExtResource("1_hall")
 
-[node name="ConceptPosters" type="Node3D" parent="."]
+[node name="ConceptPosters" type="Node3D" parent="." unique_id=886571756]
 script = ExtResource("18_posters")
 
 [node name="OrbitalExterior" type="Node3D" parent="." unique_id=999578558]
 script = ExtResource("13_space")
+
 [node name="HallLighting" type="Node3D" parent="." unique_id=7789371]
 script = ExtResource("2_cx3k0")
 
@@ -458,6 +460,9 @@ transform = Transform3D(0.5480617, 0, -0.8364379, 0, 1, 0, 0.8364379, 0, 0.54806
 
 [node name="WorkbenchWeapons" parent="Workshops" unique_id=220137898 instance=ExtResource("4_bay")]
 transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 11.429093, 0, -6)
+
+[node name="DawnsealDisplay" parent="Workshops/WorkbenchWeapons" unique_id=598073536 instance=ExtResource("19_dawnseal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, -2.68)
 
 [node name="WorkbenchUtility" parent="Workshops" unique_id=1616457800 instance=ExtResource("4_bay")]
 transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 11.429093, 0, 6)

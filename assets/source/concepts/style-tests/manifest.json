@@ -168,7 +168,7 @@
       "meshy_task_id": "01a07e93-92be-741d-aea4-d7cf6657413a",
       "credits_spent": 30,
       "meshy_model": "meshy-7",
-      "runtime_glb": "assets/models/weapons/forge_sidearm.glb",
+      "runtime_glb": "assets/models/gear/guns/forge_sidearm/forge_sidearm.glb",
       "notes": "Compact forge pulse sidearm"
     },
     {
