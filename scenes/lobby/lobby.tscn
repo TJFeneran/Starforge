@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://d2y4rlogdog1r" path="res://scenes/lobby/modules/concept_posters.gd" id="18_posters"]
 [ext_resource type="PackedScene" uid="uid://c2kcujuo38igp" path="res://scenes/lobby/props/dawnseal_display.tscn" id="19_dawnseal"]
 [ext_resource type="PackedScene" uid="uid://cf58a3a5c3d54" path="res://scenes/lobby/props/rare_needle_display.tscn" id="20_needle"]
+[ext_resource type="Script" path="res://scenes/lobby/modules/hall_posters.gd" id="21_hall_posters"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -163,6 +164,9 @@ script = ExtResource("1_hall")
 
 [node name="ConceptPosters" type="Node3D" parent="." unique_id=886571756]
 script = ExtResource("18_posters")
+
+[node name="HallPosters" type="Node3D" parent="."]
+script = ExtResource("21_hall_posters")
 
 [node name="OrbitalExterior" type="Node3D" parent="." unique_id=999578558]
 script = ExtResource("13_space")
