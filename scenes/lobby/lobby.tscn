@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bq6n1p1wo4f6o" path="res://scenes/lobby/ui/hologram_map.tscn" id="15_map"]
 [ext_resource type="PackedScene" uid="uid://cghw2aj6ld4ee" path="res://scenes/interact/proximity_interactable.tscn" id="16_embark"]
 [ext_resource type="Script" uid="uid://bpxllyl6ix8e8" path="res://scenes/lobby/vfx/gate_portal_vfx.gd" id="17_portal_vfx"]
+[ext_resource type="Script" path="res://scenes/lobby/modules/concept_posters.gd" id="18_posters"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -158,9 +159,11 @@ environment = SubResource("Environment_hall")
 [node name="Architecture" type="Node3D" parent="." unique_id=720120896]
 script = ExtResource("1_hall")
 
+[node name="ConceptPosters" type="Node3D" parent="."]
+script = ExtResource("18_posters")
+
 [node name="OrbitalExterior" type="Node3D" parent="." unique_id=999578558]
 script = ExtResource("13_space")
-
 [node name="HallLighting" type="Node3D" parent="." unique_id=7789371]
 script = ExtResource("2_cx3k0")
 

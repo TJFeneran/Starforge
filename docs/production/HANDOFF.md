@@ -87,4 +87,4 @@ Deferred lobby systems (remember these):
 - Player: `scenes/player/player_controller.gd`, `scenes/player/player.tscn`
 - Mission: `scenes/style_lab/mission_controller.gd` (shared by outpost_slice)
 - Collision proxies: `scenes/style_lab/outpost_collision.gd`
-- Plans: `docs/production/lobby-plan.md`, `docs/production/vertical-slice.md`
+- Plans: `docs/production/lobby-plan.md`, `docs/production/vertical-slice.md`, `docs/production/armor-progression-plan.md` (canonical armor design contract), `docs/production/gun-progression-plan.md` (canonical gun design contract)
