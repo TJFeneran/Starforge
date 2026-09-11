@@ -1,0 +1,5 @@
+{
+  "name": "Starforge (Godot 4.7)",
+  "user": "ubuntu",
+  "install": "./.cursor/install.sh"
+}
