@@ -52,6 +52,118 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="TabNormal"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 0, 0, 0)
+border_width_bottom = 2
+border_color = Color(1, 0.69803923, 0.21960784, 0)
+
+[sub_resource type="StyleBoxFlat" id="TabHover"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+bg_color = Color(0.09019608, 0.12941177, 0.2, 0.25)
+border_width_bottom = 2
+border_color = Color(1, 0.69803923, 0.21960784, 0.45)
+
+[sub_resource type="StyleBoxFlat" id="TabFocus"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+bg_color = Color(0.09019608, 0.12941177, 0.2, 0.35)
+border_width_bottom = 2
+border_color = Color(1, 0.69803923, 0.21960784, 1)
+
+[sub_resource type="StyleBoxFlat" id="TabPressed"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+bg_color = Color(0.14117648, 0.3529412, 0.65882355, 0.25)
+border_width_bottom = 2
+border_color = Color(1, 0.69803923, 0.21960784, 1)
+
+[sub_resource type="StyleBoxFlat" id="FieldNormal"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.050980393, 0.078431375, 0.1254902, 0.72)
+border_width_left = 3
+border_color = Color(0.8509804, 0.69803923, 0.21960784, 0.35)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="FieldHover"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.09019608, 0.12941177, 0.2, 0.85)
+border_width_left = 3
+border_color = Color(0.8509804, 0.69803923, 0.21960784, 0.85)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="FieldFocus"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.14117648, 0.2, 0.30588236, 0.7)
+border_width_left = 3
+border_color = Color(1, 0.69803923, 0.21960784, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="FieldDisabled"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.050980393, 0.078431375, 0.1254902, 0.4)
+border_width_left = 3
+border_color = Color(0.8509804, 0.8352941, 0.78039217, 0.12)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="PopupPanel"]
+content_margin_left = 6.0
+content_margin_top = 8.0
+content_margin_right = 6.0
+content_margin_bottom = 8.0
+bg_color = Color(0.09019608, 0.12941177, 0.2, 1)
+border_width_left = 3
+border_color = Color(0.8509804, 0.69803923, 0.21960784, 0.85)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="PopupHover"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.14117648, 0.2, 0.30588236, 0.9)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [resource]
 Button/colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.92)
 Button/colors/font_focus_color = Color(1, 0.95686275, 0.8392157, 1)
@@ -65,3 +177,31 @@ Button/styles/normal = SubResource("MenuButtonNormal")
 Button/styles/pressed = SubResource("MenuButtonPressed")
 Label/colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 1)
 Label/font_sizes/font_size = 18
+OptionButton/colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.92)
+OptionButton/colors/font_disabled_color = Color(0.8509804, 0.8352941, 0.78039217, 0.35)
+OptionButton/colors/font_focus_color = Color(1, 0.95686275, 0.8392157, 1)
+OptionButton/colors/font_hover_color = Color(0.8509804, 0.8352941, 0.78039217, 1)
+OptionButton/colors/font_pressed_color = Color(1, 0.95686275, 0.8392157, 1)
+OptionButton/constants/arrow_margin = 10
+OptionButton/font_sizes/font_size = 20
+OptionButton/styles/disabled = SubResource("FieldDisabled")
+OptionButton/styles/focus = SubResource("FieldFocus")
+OptionButton/styles/hover = SubResource("FieldHover")
+OptionButton/styles/normal = SubResource("FieldNormal")
+OptionButton/styles/pressed = SubResource("FieldFocus")
+PopupMenu/colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.9)
+PopupMenu/colors/font_disabled_color = Color(0.8509804, 0.8352941, 0.78039217, 0.35)
+PopupMenu/colors/font_hover_color = Color(1, 0.95686275, 0.8392157, 1)
+PopupMenu/constants/item_end_padding = 12
+PopupMenu/constants/item_start_padding = 12
+PopupMenu/constants/v_separation = 6
+PopupMenu/font_sizes/font_size = 20
+PopupMenu/styles/hover = SubResource("PopupHover")
+PopupMenu/styles/panel = SubResource("PopupPanel")
+TabButton/base_type = &"Button"
+TabButton/font_sizes/font_size = 20
+TabButton/styles/disabled = SubResource("TabNormal")
+TabButton/styles/focus = SubResource("TabFocus")
+TabButton/styles/hover = SubResource("TabHover")
+TabButton/styles/normal = SubResource("TabNormal")
+TabButton/styles/pressed = SubResource("TabPressed")

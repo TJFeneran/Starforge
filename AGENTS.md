@@ -55,7 +55,7 @@ Drive input for demos with `xdotool` (window title is `Starforge`), e.g.
 `xdotool search --name Starforge windowactivate --sync key space`.
 
 Controls: WASD move, mouse look, Space jump, Shift sprint, E interact, LMB attack,
-RMB aim, R restart mission (in the playable slice).
+RMB aim.
 
 Expected, harmless startup messages: ALSA audio fails and falls back to the dummy
 driver (headless, no sound card), and there is a non-fatal invalid-UID warning for
@@ -66,7 +66,7 @@ driver (headless, no sound card), and there is a non-fatal invalid-UID warning f
 - Verify the project imports cleanly: `godot --headless --import --path .`
 - For visual/scene changes, run the game on `:1` and capture a screenshot or recording
 as evidence (see above).
-- Test experiments in `scenes/sandbox/` or `scenes/style_lab/`, not by breaking the
-playable slice (`scenes/playable/outpost_slice.tscn`) or the lobby hub. Keep the scene
+- Test experiments in `scenes/sandbox/`, not by breaking the lobby hub or the forge
+field (`scenes/field/forge_field.tscn`). Keep the scene
 boundaries in `docs/production/HANDOFF.md` intact.
 

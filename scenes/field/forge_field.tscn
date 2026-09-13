@@ -1,0 +1,131 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/field/forge_field.gd" id="1_field"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="Material" path="res://assets/lookdev/ochre.tres" id="3_ochre"]
+[ext_resource type="PackedScene" uid="uid://c1l16bk06pp5k" path="res://assets/models/style_tests/gate_high_fidelity/forge_monument_fidelity_600k.glb" id="4_monument"]
+[ext_resource type="Script" uid="uid://c16kkqkhmj74v" path="res://scenes/lobby/modules/monument_stairs.gd" id="5_stairs"]
+[ext_resource type="PackedScene" uid="uid://cghw2aj6ld4ee" path="res://scenes/interact/proximity_interactable.tscn" id="6_interact"]
+[ext_resource type="Shader" uid="uid://kgjsu8n7pyom" path="res://assets/BinbunVFX/GodotSkies/shader/main.gdshader" id="7_sky_shader"]
+[ext_resource type="Texture2D" uid="uid://dy4tvvd6jbv0g" path="res://assets/BinbunVFX/GodotSkies/textures/clouds/clouds_01.tres" id="8_clouds_01"]
+[ext_resource type="Texture2D" uid="uid://y2rosh6pwqt3" path="res://assets/BinbunVFX/GodotSkies/textures/clouds/clouds_03.tres" id="9_clouds_03"]
+
+[sub_resource type="FastNoiseLite" id="StarNoise_a"]
+noise_type = 0
+seed = 11
+frequency = 0.08
+
+[sub_resource type="NoiseTexture2D" id="StarTex_a"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("StarNoise_a")
+
+[sub_resource type="FastNoiseLite" id="StarNoise_b"]
+seed = 23
+frequency = 0.01
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="StarTex_b"]
+width = 512
+height = 512
+seamless = true
+noise = SubResource("StarNoise_b")
+
+[sub_resource type="ShaderMaterial" id="SkyMaterial_binbun"]
+shader = ExtResource("7_sky_shader")
+shader_parameter/sky_day = Color(0.08, 0.16, 0.34, 1)
+shader_parameter/horizon_day = Color(0.38, 0.5, 0.66, 1)
+shader_parameter/horizon_sunset = Color(0.95, 0.5, 0.18, 1)
+shader_parameter/sky_sunset = Color(0.14, 0.16, 0.36, 1)
+shader_parameter/horizon_night = Color(0.1, 0.15, 0.2, 1)
+shader_parameter/sky_night = Color(0.05, 0.1, 0.15, 1)
+shader_parameter/day_night_mix = 0.8
+shader_parameter/use_directional_light = true
+shader_parameter/horizon_exponent = 2.0
+shader_parameter/sunset_amount_exponent = 0.7
+shader_parameter/night_amount_exponent = 4.0
+shader_parameter/cloud_tex_01 = ExtResource("8_clouds_01")
+shader_parameter/cloud_tex_02 = ExtResource("9_clouds_03")
+shader_parameter/cloud_color = Color(0.72, 0.74, 0.8, 1)
+shader_parameter/cloud_tiling = Vector2(1, 1)
+shader_parameter/wind_speed = Vector2(0.4, 0.15)
+shader_parameter/cloud_density = 0.75
+shader_parameter/cloud_depth = 2.0
+shader_parameter/cloud_shape_exponent = 2.0
+shader_parameter/cloud_occlude_exponent = 1.0
+shader_parameter/night_noise_01 = SubResource("StarTex_a")
+shader_parameter/night_noise_02 = SubResource("StarTex_b")
+shader_parameter/sun_scale = 0.05
+shader_parameter/sun_strength = 15.0
+shader_parameter/sun_color = Color(1, 0.88, 0.62, 1)
+shader_parameter/moon_scale = 0.03
+shader_parameter/moon_strength = 15.0
+shader_parameter/moon_color = Color(0.5, 0.55, 0.7, 1)
+
+[sub_resource type="Sky" id="Sky_binbun"]
+sky_material = SubResource("SkyMaterial_binbun")
+
+[sub_resource type="Environment" id="Environment_field"]
+background_mode = 2
+sky = SubResource("Sky_binbun")
+ambient_light_source = 3
+ambient_light_color = Color(0.22, 0.31, 0.52, 1)
+ambient_light_energy = 0.78
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.65
+
+[sub_resource type="BoxMesh" id="GroundMesh"]
+size = Vector3(140, 0.5, 140)
+
+[sub_resource type="BoxShape3D" id="GroundShape"]
+size = Vector3(140, 2, 140)
+
+[node name="ForgeField" type="Node3D"]
+script = ExtResource("1_field")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_field")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.81915206, 0.4262504, -0.38379753, 0, 0.66913056, 0.74314487, 0.57357645, -0.6087487, 0.54811966, 0, 0, 0)
+light_color = Color(1, 0.91, 0.76, 1)
+light_energy = 1.25
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+material_override = ExtResource("3_ochre")
+mesh = SubResource("GroundMesh")
+
+[node name="Collision" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("GroundShape")
+
+[node name="ForgeMonument" type="Node3D" parent="."]
+
+[node name="Monument" parent="ForgeMonument" instance=ExtResource("4_monument")]
+transform = Transform3D(-1.35, 0, -1.1802075e-07, 0, 1.35, 0, 1.1802075e-07, 0, -1.35, 0, 0, 0)
+
+[node name="Stairs" type="StaticBody3D" parent="ForgeMonument"]
+collision_mask = 0
+script = ExtResource("5_stairs")
+
+[node name="MonumentGlow" type="OmniLight3D" parent="ForgeMonument"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68, 0)
+light_color = Color(1, 0.7, 0.35, 1)
+light_energy = 2.2
+omni_range = 8.0
+
+[node name="ReturnInteract" parent="ForgeMonument" instance=ExtResource("6_interact")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 3.35)
+action_text = "Return to Lobby"
+prompt_offset = Vector3(0, 1.85, 0)
+
+[node name="Loot" type="Node3D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 12)

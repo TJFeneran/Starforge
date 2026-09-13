@@ -34,7 +34,7 @@ func _process(_delta: float) -> bool:
 		var destination := MapDestination.new()
 		destination.title = "Frontier Outpost"
 		destination.available = true
-		destination.scene_path = "res://scenes/playable/outpost_slice.tscn"
+		destination.scene_path = "res://scenes/field/forge_field.tscn"
 		_lobby.get_node("HologramMap").destination_selected.emit(destination)
 	if frames == (240 if _armed_preview else 140):
 		_capture.call_deferred()

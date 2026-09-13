@@ -11,7 +11,8 @@ Godot 4.7 third-person space-fantasy game. Visual direction is locked in `docs/a
 - `project.godot` → `res://scenes/main.tscn` → `res://scenes/lobby/lobby.tscn` (forge hall)
 - Previous hangar archived at `res://scenes/lobby/lobby_legacy.tscn`
 - Renderer: **Forward+** (switched from Compatibility so shadows work)
-- Resolution: 1920×1080
+- UI base resolution 1920×1080 with `canvas_items` stretch (aspect `expand`): 2D/UI scales to the window (4K = 2×), 3D renders at native window resolution
+- Player-facing display mode / resolution live in the Options menu (`GameSettings` autoload, persisted to `user://settings.cfg`); `project.godot` only decides the first launch
 
 ## Scene boundaries (do not collapse these)
 
@@ -20,8 +21,7 @@ Godot 4.7 third-person space-fantasy game. Visual direction is locked in `docs/a
 | `scenes/main.tscn` | Launch wrapper only |
 | `scenes/lobby/lobby.tscn` | **Active work** — forge hall hub / staging area |
 | `scenes/lobby/lobby_legacy.tscn` | Archived crate-and-wall hangar |
-| `scenes/playable/outpost_slice.tscn` | Playable mission vertical slice (independent of style_lab) |
-| `scenes/style_lab/style_lab.tscn` | Art / environment sandbox |
+| `scenes/field/forge_field.tscn` | Open field reached via the gate — scattered loot VFX, monument returns to lobby |
 | `scenes/sandbox/controller_sandbox.tscn` | Isolated controller / weapon tests |
 
 ## Lobby forge hall — current state
@@ -33,8 +33,8 @@ Present now:
 - Four recessed workshops only (`workshop_bay.tscn`): Weapons / Utility (east), Armor / Outfit (west)
 - **No World / Deploy bench** — deployment moved off the workshop row
 - Central forge reactor + navigation globe (`forge_reactor.tscn`); E on the globe opens the hologram deployment map
-- Hologram map (`scenes/lobby/ui/hologram_map.*` + `MapDestination`) marks a destination; only *Frontier Outpost* is available (loads `outpost_slice`)
-- Marking a destination arms the rear Forge Monument gate (glow + portal/gem VFX); E embark at the gate loads the marked scene
+- Hologram map (`scenes/lobby/ui/hologram_map.*` + `MapDestination`) marks a destination; only *Frontier Outpost* is available (loads `scenes/field/forge_field.tscn`)
+- Marking a destination arms the rear Forge Monument gate (glow + portal/gem VFX); E embark at the gate wipes (`SceneTransition` autoload, BinbunVFX TransitionWipe) into the marked scene
 - Shared interact stack: `ProximityInteractable` + `InteractPrompt` (hold-to-interact, world-anchored billboard)
 - Monument approach stairs (`monument_stairs.gd`), planters, crate + microscope prop near the gate
 - Forward+ lighting / SSAO; authored collision proxies (no auto mesh AABB)
@@ -47,12 +47,12 @@ Deferred lobby systems (remember these):
 - Richer map destinations / globe visual reflecting selection (stub map is enough for outpost launch)
 - Persist player state across lobby ↔ mission
 
-## Playable mission slice (stable enough, not current focus)
+## Forge field (gate destination)
 
-`scenes/playable/outpost_slice.tscn`:
-- Objectives: attune beacon → monument → canopy → rift signal → complete
-- Restart with `R` when DONE (deferred reload; zone `monitoring` uses `set_deferred`)
-- Combat stub: forge sidearm + rift skitter + HP HUD + crosshair
+`scenes/field/forge_field.tscn` (`forge_field.gd`):
+- Open ochre ground under the BinbunVFX GodotSkies sky
+- Seeded scatter of BinbunVFX loot VFX (floating + ground variants, all rarities)
+- Forge monument at the origin; E at its base returns to the lobby through the same wipe
 - Player controller: third-person, ADS pistol strafe locomotion, weapon follows `RightHand`
 
 ## Known soft spots
@@ -66,7 +66,7 @@ Deferred lobby systems (remember these):
 ## Production rules we agreed
 
 1. Freeze broad asset churn; promote assets only via checklist in `docs/production/vertical-slice.md`
-2. Test experiments in sandbox / style_lab, not by breaking the playable or lobby hubs
+2. Test experiments in `scenes/sandbox/`, not by breaking the lobby hub or the forge field
 3. Prefer small, visible milestones over entangled sandbox+gameplay scenes
 4. Confirm Meshy credit spend before generation
 
@@ -85,6 +85,7 @@ Deferred lobby systems (remember these):
 - Deploy flow: `scenes/lobby/ui/hologram_map.gd`, `scenes/lobby/ui/map_destination.gd`, gate VFX under `scenes/lobby/vfx/`
 - Interact: `scenes/interact/proximity_interactable.gd`, `scenes/ui/interact_prompt.*`
 - Player: `scenes/player/player_controller.gd`, `scenes/player/player.tscn`
-- Mission: `scenes/style_lab/mission_controller.gd` (shared by outpost_slice)
-- Collision proxies: `scenes/style_lab/outpost_collision.gd`
+- Field: `scenes/field/forge_field.gd`; scene wipe: `scenes/ui/scene_transition.*`
+- Menus: `scenes/ui/welcome_screen.*`, `scenes/ui/pause_menu.*`, options overlay `scenes/ui/options_menu.*` (General / Video / Audio tabs; only Video populated), settings state `scenes/settings/game_settings.gd`; shared theme `assets/ui/starforge_ui_theme.tres`
+- Collision proxies (legacy lobby): `scenes/lobby/modules/outpost_collision.gd`
 - Plans: `docs/production/lobby-plan.md`, `docs/production/vertical-slice.md`, `docs/production/armor-progression-plan.md` (canonical armor design contract), `docs/production/gun-progression-plan.md` (canonical gun design contract)

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://jb7fng5bylm7" path="res://scenes/lobby/modules/hall_fixture.tscn" id="3_1pfjy"]
 [ext_resource type="PackedScene" uid="uid://c1l16bk06pp5k" path="res://assets/models/style_tests/gate_high_fidelity/forge_monument_fidelity_600k.glb" id="3_portal"]
-[ext_resource type="PackedScene" uid="uid://yn37ia4vbhx8" path="res://scenes/lobby/workshops/workshop_bay.tscn" id="4_bay"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/workshops/workshop_bay.tscn" id="4_bay"]
 [ext_resource type="PackedScene" uid="uid://c0hh3od2cb2kl" path="res://scenes/lobby/vfx/forge_reactor.tscn" id="5_reactor"]
 [ext_resource type="Script" uid="uid://c16kkqkhmj74v" path="res://scenes/lobby/modules/monument_stairs.gd" id="6_stairs"]
 [ext_resource type="PackedScene" path="res://scenes/lobby/props/outpost_crate.tscn" id="9_l1n8d"]
@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://d2y4rlogdog1r" path="res://scenes/lobby/modules/concept_posters.gd" id="18_posters"]
 [ext_resource type="PackedScene" uid="uid://c2kcujuo38igp" path="res://scenes/lobby/props/dawnseal_display.tscn" id="19_dawnseal"]
 [ext_resource type="PackedScene" uid="uid://cf58a3a5c3d54" path="res://scenes/lobby/props/rare_needle_display.tscn" id="20_needle"]
-[ext_resource type="Script" path="res://scenes/lobby/modules/hall_posters.gd" id="21_hall_posters"]
+[ext_resource type="Script" uid="uid://cj14du4c3lji2" path="res://scenes/lobby/modules/hall_posters.gd" id="21_hall_posters"]
 [ext_resource type="PackedScene" path="res://scenes/lobby/lobby_ambience.tscn" id="22_ambience"]
 [ext_resource type="AudioStream" path="res://assets/audio/lobby/122972__zimbot__portal_continuous_rumble.wav" id="23_portal_rumble"]
 
@@ -167,7 +167,7 @@ script = ExtResource("1_hall")
 [node name="ConceptPosters" type="Node3D" parent="." unique_id=886571756]
 script = ExtResource("18_posters")
 
-[node name="HallPosters" type="Node3D" parent="."]
+[node name="HallPosters" type="Node3D" parent="." unique_id=366386903]
 script = ExtResource("21_hall_posters")
 
 [node name="OrbitalExterior" type="Node3D" parent="." unique_id=999578558]

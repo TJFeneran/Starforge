@@ -2,7 +2,7 @@
 
 Third-person space-fantasy game built in **Godot 4.7** (Forward+ / Vulkan). Bright frontier settlements under monumental forge tech — see [`docs/art/visual-bible.md`](docs/art/visual-bible.md).
 
-Entry scene: `scenes/main.tscn` (welcome screen) → forge-hall lobby. Playable mission slice: `scenes/playable/outpost_slice.tscn`.
+Entry scene: `scenes/main.tscn` (welcome screen) → forge-hall lobby. Gate destination: `scenes/field/forge_field.tscn`.
 
 ## Requirements
 
@@ -105,8 +105,8 @@ No extra SDKs are required for desktop exports. Android/iOS need the usual Godot
 | --- | --- |
 | `scenes/main.tscn` | Launch / welcome |
 | `scenes/lobby/` | Forge-hall hub |
-| `scenes/playable/outpost_slice.tscn` | Playable vertical slice |
-| `scenes/style_lab/`, `scenes/sandbox/` | Art and controller experiments — do not ship from these |
+| `scenes/field/forge_field.tscn` | Open field reached through the lobby gate |
+| `scenes/sandbox/` | Controller experiments — do not ship from these |
 | `assets/models/` | Runtime GLBs Godot imports |
 | `assets/source/` | Meshy/Mixamo originals (`.gdignore` — not imported) |
 | `tools/` | Blender/Godot helper scripts |

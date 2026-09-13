@@ -29,7 +29,7 @@ func _ready() -> void:
 	var prompt := _prompt()
 	var close_label := "Esc"
 	if prompt:
-		close_label = str(prompt.key_label_for(&"ui_cancel")).replace("Escape", "Esc")
+		close_label = str(prompt.key_label_for(&"ui_cancel")).replacen("Escape", "Esc")
 	_close_key.text = "%s  Close" % close_label
 	_seed_stub_destinations()
 	_rebuild_list()
@@ -97,7 +97,7 @@ func _seed_stub_destinations() -> void:
 		"Frontier Outpost",
 		"Secure the beacon and push the rift back from the outer wall.",
 		true,
-		"res://scenes/playable/outpost_slice.tscn"
+		"res://scenes/field/forge_field.tscn"
 	))
 	_destinations.append(_make_dest(
 		"rift_scar",

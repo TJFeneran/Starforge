@@ -1,13 +1,12 @@
 extends CanvasLayer
 ## Monument-frame pause overlay. Freezes + blurs the current frame, then shows
-## Resume / Options / Exit. Options is a placeholder until settings exist.
+## Resume / Options / Exit. Options opens the shared OptionsMenu overlay.
 
 @onready var _root: Control = $Root
 @onready var _freeze: TextureRect = %FreezeFrame
 @onready var _resume: Button = %ResumeButton
 @onready var _options: Button = %OptionsButton
 @onready var _exit: Button = %ExitButton
-@onready var _options_note: Label = %OptionsNote
 
 var _open := false
 var _busy := false
@@ -22,7 +21,6 @@ func _ready() -> void:
 	_resume.pressed.connect(resume)
 	_options.pressed.connect(_on_options)
 	_exit.pressed.connect(_on_exit)
-	_options_note.visible = false
 	MenuSFX.bind_button(_resume)
 	MenuSFX.bind_button(_options)
 	MenuSFX.bind_button(_exit)
@@ -30,7 +28,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("ui_cancel"):
 		return
-	if _is_welcome() or _busy or DeathOverlay.is_open():
+	if _is_welcome() or _busy or DeathOverlay.is_open() or OptionsMenu.is_open():
 		return
 	# Focused overlays (hologram map, future bench UIs) own Esc first.
 	var prompt := _prompt()
@@ -55,7 +53,6 @@ func open_pause() -> void:
 	await _capture_freeze_frame()
 	_open = true
 	_root.visible = true
-	_options_note.visible = false
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_resume.grab_focus()
@@ -66,7 +63,6 @@ func resume() -> void:
 		return
 	_open = false
 	_root.visible = false
-	_options_note.visible = false
 	get_tree().paused = false
 	var prompt := _prompt()
 	if prompt:
@@ -75,8 +71,7 @@ func resume() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_options() -> void:
-	_options_note.visible = true
-	_options_note.text = "Options — coming soon"
+	OptionsMenu.open_options(_options)
 
 func _on_exit() -> void:
 	get_tree().paused = false

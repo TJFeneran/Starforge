@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/scene_transition.gd" id="1_script"]
+[ext_resource type="Shader" path="res://assets/BinbunVFX/TransitionWipe/transition.gdshader" id="2_wipe_shader"]
+
+[sub_resource type="Gradient" id="WipeGradient"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="WipeGradientTex"]
+gradient = SubResource("WipeGradient")
+width = 256
+height = 4
+fill_from = Vector2(0, 0)
+fill_to = Vector2(1, 0)
+
+[sub_resource type="Gradient" id="ShapeGradient"]
+offsets = PackedFloat32Array(0, 0.9)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="ShapeTex"]
+gradient = SubResource("ShapeGradient")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ShaderMaterial" id="WipeMaterial"]
+shader = ExtResource("2_wipe_shader")
+shader_parameter/base_color = Color(0.03, 0.05, 0.11, 1)
+shader_parameter/node_resolution = Vector2(1600, 900)
+shader_parameter/factor = 0.0
+shader_parameter/width = 0.45
+shader_parameter/gradient_texture = SubResource("WipeGradientTex")
+shader_parameter/gradient_fixed = false
+shader_parameter/shape_texture = SubResource("ShapeTex")
+shader_parameter/shape_tiling = 22.0
+shader_parameter/shape_rotation = 0.0
+shader_parameter/shape_scroll = Vector2(0, 0)
+shader_parameter/shape_feathering = 0.12
+shader_parameter/shape_treshold = 1.0
+
+[node name="SceneTransition" type="CanvasLayer"]
+process_mode = 3
+layer = 120
+script = ExtResource("1_script")
+
+[node name="Wipe" type="ColorRect" parent="."]
+material = SubResource("WipeMaterial")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 1)

@@ -73,7 +73,7 @@ func _run() -> void:
 		dest.id = "frontier_outpost"
 		dest.title = "Frontier Outpost"
 		dest.available = true
-		dest.scene_path = "res://scenes/playable/outpost_slice.tscn"
+		dest.scene_path = "res://scenes/field/forge_field.tscn"
 		map.destination_selected.emit(dest)
 		await process_frame
 

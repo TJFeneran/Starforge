@@ -3,6 +3,10 @@ extends Node3D
 ## Authored 10 m wide x 8 m deep workshop. Front is local +Z; parent owns floor.
 ## Instance workshop_bay.tscn, set purpose, and position/rotate the root.
 ## build() synchronously rebuilds only Visual/Collision content; changes also defer rebuild.
+## BenchInteract (ProximityInteractable) shows the E prompt in front of the bay and
+## relays a completed hold as bench_interacted(purpose); the hub decides what opens.
+
+signal bench_interacted(purpose: String)
 
 @export_enum("weapons", "armor", "utility", "outfit", "deploy") var purpose: String = "weapons":
 	set(value):
@@ -31,6 +35,13 @@ var _lamp: StandardMaterial3D
 
 func _ready() -> void:
 	build()
+	var interact := get_node_or_null("BenchInteract")
+	if interact and not Engine.is_editor_hint() and not interact.interacted.is_connected(_on_bench_interacted):
+		interact.interacted.connect(_on_bench_interacted)
+
+
+func _on_bench_interacted() -> void:
+	bench_interacted.emit(purpose if PURPOSES.has(purpose) else "weapons")
 
 
 func _queue_build() -> void:
@@ -80,6 +91,9 @@ func build() -> void:
 		_:
 			_weapons()
 	_sign(selected)
+	var interact := get_node_or_null("BenchInteract")
+	if interact:
+		interact.action_text = "Open %s Bench" % selected.capitalize()
 
 
 func _clear(parent: Node) -> void:

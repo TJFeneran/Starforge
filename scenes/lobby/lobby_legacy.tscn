@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bnl41h46vjo5o" path="res://assets/models/outpost_kit/outpost_wall_bay.glb" id="7_wall"]
 [ext_resource type="PackedScene" uid="uid://buli5i60gedr0" path="res://assets/models/outpost_kit/outpost_crate.glb" id="8_crate"]
 [ext_resource type="PackedScene" uid="uid://cux7kwpnfwrn7" path="res://assets/models/outpost_kit/outpost_planter.glb" id="9_planter"]
-[ext_resource type="Script" uid="uid://cgwrlgs5kmb7c" path="res://scenes/style_lab/outpost_collision.gd" id="11_collision"]
+[ext_resource type="Script" uid="uid://cgwrlgs5kmb7c" path="res://scenes/lobby/modules/outpost_collision.gd" id="11_collision"]
 
 [sub_resource type="Environment" id="Environment_lobby"]
 background_mode = 1

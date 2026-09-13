@@ -17,19 +17,22 @@ run/max_fps=120
 
 [autoload]
 
+GameSettings="*res://scenes/settings/game_settings.gd"
 AmbientBed="*res://scenes/audio/ambient_bed.tscn"
 MenuSFX="*res://scenes/audio/menu_sfx.tscn"
 InteractPrompt="*res://scenes/ui/interact_prompt.tscn"
 PauseMenu="*res://scenes/ui/pause_menu.tscn"
+OptionsMenu="*res://scenes/ui/options_menu.tscn"
+SceneTransition="*res://scenes/ui/scene_transition.tscn"
 DeathOverlay="*res://scenes/ui/death_overlay.tscn"
 
 [display]
 
-window/size/viewport_width=3840
-window/size/viewport_height=2160
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/borderless=true
-window/size/window_width_override=1920
-window/size/window_height_override=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [gui]
 

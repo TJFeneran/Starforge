@@ -115,14 +115,6 @@ alignment = 0
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="OptionsNote" type="Label" parent="LeftRail/RailLayout"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8509804, 0.8352941, 0.78039217, 0.5)
-theme_override_font_sizes/font_size = 14
-text = "Options — coming soon"
-
 [node name="StudioMark" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3

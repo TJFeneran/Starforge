@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/lobby/workshops/workshop_bay.gd" id="1_bay"]
 [ext_resource type="Shader" path="res://assets/materials/lobby/workshop_plaque.gdshader" id="2_1fgkg"]
+[ext_resource type="PackedScene" uid="uid://bproxinteract01" path="res://scenes/interact/proximity_interactable.tscn" id="3_interact"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cprye"]
 albedo_color = Color(0.8509804, 0.8352941, 0.78039217, 1)
@@ -898,3 +899,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
 
 [node name="InspectionAnchor" type="Marker3D" parent="." unique_id=242168602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, -1.8)
+
+[node name="BenchInteract" parent="." instance=ExtResource("3_interact")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2)
+action_text = "Open Weapons Bench"
+prompt_offset = Vector3(0, 1.7, -2.6)

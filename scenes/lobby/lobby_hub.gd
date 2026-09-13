@@ -31,6 +31,16 @@ func _ready() -> void:
 		_embark_interact.enabled = false
 		_embark_interact.interacted.connect(_on_embark_interacted)
 	_set_gate_armed(false)
+	var workshops := get_node_or_null("Workshops")
+	if workshops:
+		for bay in workshops.get_children():
+			if bay.has_signal("bench_interacted"):
+				bay.bench_interacted.connect(_on_bench_interacted)
+
+
+func _on_bench_interacted(purpose: String) -> void:
+	# Bench UIs (loadouts, gadgets, cosmetics) are deferred; the prompt is the stub.
+	print("Workshop bench '%s' interacted — focused UI not built yet." % purpose)
 
 
 func _on_map_opened() -> void:
@@ -68,9 +78,16 @@ func _on_embark_interacted() -> void:
 		push_error("Marked destination scene missing: %s" % _marked.scene_path)
 		return
 	_launching = true
-	if _embark_interact:
-		_embark_interact.enabled = false
-	get_tree().change_scene_to_file(_marked.scene_path)
+	var scene_path := _marked.scene_path
+	# Consume the marked destination and shut the gate as the wipe closes in,
+	# so the portal is collapsing on departure and the lobby reloads disarmed.
+	_marked = null
+	_set_gate_armed(false)
+	var transition := get_node_or_null("/root/SceneTransition")
+	if transition and transition.has_method("change_scene"):
+		transition.change_scene(scene_path)
+	else:
+		get_tree().change_scene_to_file(scene_path)
 
 
 func _set_gate_armed(armed: bool) -> void:
