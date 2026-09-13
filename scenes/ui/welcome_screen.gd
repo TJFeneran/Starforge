@@ -15,6 +15,9 @@ func _ready() -> void:
 	_options.pressed.connect(_on_options)
 	_exit.pressed.connect(_on_exit)
 	_options_note.visible = false
+	MenuSFX.bind_button(_start)
+	MenuSFX.bind_button(_options)
+	MenuSFX.bind_button(_exit)
 	_start.grab_focus()
 
 func _on_start() -> void:

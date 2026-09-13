@@ -23,11 +23,14 @@ func _ready() -> void:
 	_options.pressed.connect(_on_options)
 	_exit.pressed.connect(_on_exit)
 	_options_note.visible = false
+	MenuSFX.bind_button(_resume)
+	MenuSFX.bind_button(_options)
+	MenuSFX.bind_button(_exit)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("ui_cancel"):
 		return
-	if _is_welcome() or _busy:
+	if _is_welcome() or _busy or DeathOverlay.is_open():
 		return
 	# Focused overlays (hologram map, future bench UIs) own Esc first.
 	var prompt := _prompt()
@@ -40,7 +43,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 func open_pause() -> void:
-	if _open or _busy or _is_welcome():
+	if _open or _busy or _is_welcome() or DeathOverlay.is_open():
 		return
 	var prompt := _prompt()
 	if prompt != null and prompt.is_modal_blocking():

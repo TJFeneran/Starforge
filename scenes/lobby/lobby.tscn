@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://c2kcujuo38igp" path="res://scenes/lobby/props/dawnseal_display.tscn" id="19_dawnseal"]
 [ext_resource type="PackedScene" uid="uid://cf58a3a5c3d54" path="res://scenes/lobby/props/rare_needle_display.tscn" id="20_needle"]
 [ext_resource type="Script" path="res://scenes/lobby/modules/hall_posters.gd" id="21_hall_posters"]
+[ext_resource type="PackedScene" path="res://scenes/lobby/lobby_ambience.tscn" id="22_ambience"]
+[ext_resource type="AudioStream" path="res://assets/audio/lobby/122972__zimbot__portal_continuous_rumble.wav" id="23_portal_rumble"]
 
 [sub_resource type="Environment" id="Environment_hall"]
 background_mode = 1
@@ -459,6 +461,8 @@ transform = Transform3D(0.5480617, 0, -0.8364379, 0, 1, 0, 0.8364379, 0, 0.54806
 
 [node name="CentralForge" parent="." unique_id=409337439 instance=ExtResource("5_reactor")]
 
+[node name="LobbyAmbience" parent="." instance=ExtResource("22_ambience")]
+
 [node name="HologramMap" parent="." unique_id=1115098247 instance=ExtResource("15_map")]
 
 [node name="Workshops" type="Node3D" parent="." unique_id=219987434]
@@ -497,6 +501,16 @@ script = ExtResource("12_gem_vfx")
 [node name="PortalVFX" type="Node3D" parent="ForgeMonumentPortal" unique_id=1608321029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5347395, 2.0500002)
 script = ExtResource("17_portal_vfx")
+
+[node name="PortalRumble" type="AudioStreamPlayer3D" parent="ForgeMonumentPortal/PortalVFX"]
+process_mode = 3
+stream = ExtResource("23_portal_rumble")
+bus = &"SFX"
+volume_db = 11.5
+max_db = 12.0
+max_distance = 55.0
+unit_size = 18.0
+attenuation_model = 0
 
 [node name="PortalGlow" type="OmniLight3D" parent="ForgeMonumentPortal" unique_id=641217743]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6847394, 0)

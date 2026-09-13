@@ -4,6 +4,8 @@ class_name ProximityInteractable
 ## Prompt hovers at prompt_anchor (or this node + prompt_offset) and faces the camera.
 
 signal interacted
+signal hold_started
+signal hold_cancelled
 signal player_entered
 signal player_exited
 
@@ -57,7 +59,10 @@ func _process(delta: float) -> void:
 		return
 	if _hold_completed:
 		return
+	var starting := _hold_time <= 0.0
 	_hold_time = minf(_hold_time + delta, hold_duration)
+	if starting:
+		hold_started.emit()
 	var progress := 0.0 if hold_duration <= 0.0 else _hold_time / hold_duration
 	if prompt and prompt.has_method("set_hold_progress"):
 		prompt.set_hold_progress(progress)
@@ -124,10 +129,13 @@ func _show_prompt() -> void:
 
 
 func _reset_hold(prompt: Node) -> void:
+	var was_holding := _hold_time > 0.0 and not _hold_completed
 	_hold_time = 0.0
 	_hold_completed = false
 	if prompt and prompt.has_method("set_hold_progress"):
 		prompt.set_hold_progress(0.0)
+	if was_holding:
+		hold_cancelled.emit()
 
 
 func _clear_player() -> void:

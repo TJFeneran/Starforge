@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://cojvofv4ifh58" path="res://assets/lookdev/world_globe_hologram.gdshader" id="5_hmkla"]
 [ext_resource type="Shader" path="res://assets/materials/lobby/globe_orbit_halo.gdshader" id="6_halo"]
 [ext_resource type="PackedScene" path="res://scenes/interact/proximity_interactable.tscn" id="7_interact"]
+[ext_resource type="AudioStream" path="res://assets/audio/lobby/850262__cvltiv8r__orbiting-plasma-burst-and-trail-fx.wav" id="8_globe_sfx"]
 
 [sub_resource type="StandardMaterial3D" id="DarkMetal"]
 albedo_color = Color(0.055, 0.067, 0.08, 1)
@@ -324,3 +325,13 @@ mesh = SubResource("NavigationRingB")
 action_text = "Open Map"
 prompt_anchor = NodePath("../Globe")
 prompt_offset = Vector3(0, 0.55, 0)
+
+[node name="InteractSFX" type="AudioStreamPlayer3D" parent="Navigation"]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16, 0)
+stream = ExtResource("8_globe_sfx")
+bus = &"SFX"
+max_distance = 28.0
+unit_size = 5.0
+attenuation_model = 0
+volume_db = -8.0

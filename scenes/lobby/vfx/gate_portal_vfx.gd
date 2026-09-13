@@ -16,9 +16,22 @@ var _material: ShaderMaterial
 var _embers: GPUParticles3D
 var _burst: GPUParticles3D
 var _light: OmniLight3D
+var _rumble: AudioStreamPlayer3D
+var _rumble_base_db := 11.5
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	_rumble = get_node_or_null("PortalRumble") as AudioStreamPlayer3D
+	if _rumble:
+		_rumble.process_mode = Node.PROCESS_MODE_ALWAYS
+		_rumble_base_db = _rumble.volume_db
+		if _rumble.stream != null:
+			var stream := _rumble.stream.duplicate()
+			var wav := stream as AudioStreamWAV
+			if wav != null:
+				wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+			_rumble.stream = stream
 	_surface = MeshInstance3D.new()
 	_surface.name = "EnergyAperture"
 	var quad := QuadMesh.new()
@@ -55,9 +68,13 @@ func set_armed(armed: bool) -> void:
 	if _transition and _transition.is_valid():
 		_transition.kill()
 	_transition = create_tween()
+	_transition.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	if armed:
 		_surface.visible = true
 		_embers.emitting = true
+		# Rumble is started when the map opens; keep it looping while armed.
+		if _rumble and _rumble.playing:
+			_rumble.volume_db = _rumble_base_db
 		# Gather from a pinprick, flare on reaching full diameter, then settle.
 		_transition.tween_method(_set_activation, _activation, 1.0, 0.7).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		_transition.parallel().tween_method(_set_ignition, _ignition, 1.0, 0.45).set_delay(0.25)
@@ -68,7 +85,10 @@ func set_armed(armed: bool) -> void:
 		_burst.emitting = false
 		_transition.tween_method(_set_activation, _activation, 0.0, 0.4)
 		_transition.parallel().tween_method(_set_ignition, _ignition, 0.0, 0.4)
-		_transition.tween_callback(func() -> void: _surface.visible = false)
+		_transition.tween_callback(func() -> void:
+			_surface.visible = false
+			stop_rumble()
+		)
 
 
 func is_armed() -> bool:
@@ -77,6 +97,20 @@ func is_armed() -> bool:
 
 func get_activation() -> float:
 	return _activation
+
+
+func start_rumble() -> void:
+	if _rumble == null:
+		return
+	_rumble.volume_db = _rumble_base_db
+	if not _rumble.playing:
+		_rumble.play()
+
+
+func stop_rumble() -> void:
+	if _rumble == null:
+		return
+	_rumble.stop()
 
 
 func _set_activation(value: float) -> void:

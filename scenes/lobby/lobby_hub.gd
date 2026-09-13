@@ -3,6 +3,7 @@ extends Node3D
 
 @onready var _map: CanvasLayer = $HologramMap
 @onready var _globe_interact: Area3D = $CentralForge/Navigation/MapInteract
+@onready var _globe_sfx: AudioStreamPlayer3D = $CentralForge/Navigation/InteractSFX
 @onready var _embark_interact: ProximityInteractable = $ForgeMonumentPortal/EmbarkInteract
 @onready var _portal_glow: OmniLight3D = $ForgeMonumentPortal/PortalGlow
 @onready var _gem_vfx: Node3D = $ForgeMonumentPortal/GemVFX
@@ -20,12 +21,32 @@ func _ready() -> void:
 		_idle_glow_range = _portal_glow.omni_range
 	if _globe_interact and _globe_interact.has_signal("interacted"):
 		_globe_interact.interacted.connect(_on_globe_interacted)
+	if _map.has_signal("opened"):
+		_map.opened.connect(_on_map_opened)
+	if _map.has_signal("closed"):
+		_map.closed.connect(_on_map_closed)
 	if _map.has_signal("destination_selected"):
 		_map.destination_selected.connect(_on_destination_selected)
 	if _embark_interact:
 		_embark_interact.enabled = false
 		_embark_interact.interacted.connect(_on_embark_interacted)
 	_set_gate_armed(false)
+
+
+func _on_map_opened() -> void:
+	if _globe_sfx:
+		_globe_sfx.pitch_scale = randf_range(0.97, 1.03)
+		_globe_sfx.play()
+	if _portal_vfx and _portal_vfx.has_method("start_rumble"):
+		_portal_vfx.start_rumble()
+
+
+func _on_map_closed() -> void:
+	# Keep looping after selection while the gate stays open; stop on cancel.
+	if _portal_vfx and _portal_vfx.has_method("is_armed") and _portal_vfx.is_armed():
+		return
+	if _portal_vfx and _portal_vfx.has_method("stop_rumble"):
+		_portal_vfx.stop_rumble()
 
 
 func _on_globe_interacted() -> void:

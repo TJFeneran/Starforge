@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkfui46fxsoq0"
-path="res://.godot/imported/forge_microscope_balanced_15k_Image_0.jpg-224023a53b95f7a017d863b194b196bf.ctex"
+path.s3tc="res://.godot/imported/forge_microscope_balanced_15k_Image_0.jpg-224023a53b95f7a017d863b194b196bf.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "a5aceac5dedd453f618b7d5d59bc1ef3"
@@ -14,11 +15,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/props/microscope_options/forge_microscope_balanced_15k_Image_0.jpg"
-dest_files=["res://.godot/imported/forge_microscope_balanced_15k_Image_0.jpg-224023a53b95f7a017d863b194b196bf.ctex"]
+dest_files=["res://.godot/imported/forge_microscope_balanced_15k_Image_0.jpg-224023a53b95f7a017d863b194b196bf.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

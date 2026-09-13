@@ -47,6 +47,11 @@ const HOLSTER_OFFSET := Vector3(0.07, 0.02, 0.14)
 @export var pistol_jump_scene: PackedScene
 @export var pistol_strafe_scene: PackedScene ## Mixamo Pistol Strafe; opposite side is mirrored at install.
 @export var pulse_bolt_scene: PackedScene
+@export var run_stream: AudioStream
+@export var stairs_run_stream: AudioStream
+@export var land_stream: AudioStream
+@export_range(-40.0, 6.0, 0.1) var footstep_volume_db: float = -8.0
+@export_range(-40.0, 6.0, 0.1) var land_volume_db: float = -6.0
 
 @onready var _yaw: Node3D = $CameraYaw
 @onready var _spring: SpringArm3D = $CameraYaw/SpringArm3D
@@ -55,6 +60,8 @@ const HOLSTER_OFFSET := Vector3(0.07, 0.02, 0.14)
 @onready var _model_root: Node3D = $Visual/Model
 @onready var _health: Health = $Health
 @onready var _weapon: Node3D = $Visual/WeaponAnchor/ForgeSidearm
+@onready var _footsteps: AudioStreamPlayer3D = $Footsteps
+@onready var _land_sfx: AudioStreamPlayer3D = $LandImpact
 
 var _anim: AnimationPlayer
 var _skeleton: Skeleton3D
@@ -74,6 +81,9 @@ var _spring_base_length := 5.0
 var _attack_timer := 0.0
 var _weapon_drawn := false
 var _aim_move_input := Vector2.ZERO
+var _run_loop_stream: AudioStream
+var _stairs_loop_stream: AudioStream
+var _on_stairs_audio := false
 
 
 func _ready() -> void:
@@ -89,6 +99,7 @@ func _ready() -> void:
 	_play_clip("loco/idle", 0.0)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_health.died.connect(_on_player_died)
+	_setup_run_loop()
 
 
 func _input(event: InputEvent) -> void:
@@ -117,6 +128,7 @@ func _physics_process(delta: float) -> void:
 	_attack_timer = maxf(0.0, _attack_timer - delta)
 	if _health.is_dead:
 		velocity = Vector3.ZERO
+		_stop_run_loop()
 		return
 
 	# Backup path if _input missed the press (focus quirks).
@@ -183,12 +195,108 @@ func _physics_process(delta: float) -> void:
 	if on_floor and not _was_on_floor:
 		_land_timer = JUMP_LAND_TIME
 		_jump_timer = 0.0
+		_play_land_impact()
 	_was_on_floor = on_floor
 	_update_jump_visual(delta, on_floor, horizontal.length())
 	_update_animation(horizontal, on_floor)
+	_update_run_footsteps(delta, horizontal.length(), on_floor)
 	# Follow the animated hand after AnimationPlayer updates the skeleton.
 	call_deferred("_update_weapon_follow")
 	_update_camera_feel(delta, horizontal.length(), on_floor)
+
+
+func _setup_run_loop() -> void:
+	if _footsteps == null:
+		return
+	_run_loop_stream = _prepare_loop_stream(run_stream)
+	_stairs_loop_stream = _prepare_loop_stream(stairs_run_stream)
+	var initial := _run_loop_stream if _run_loop_stream != null else _stairs_loop_stream
+	if initial == null:
+		return
+	_footsteps.stream = initial
+	_footsteps.volume_db = footstep_volume_db
+	_footsteps.bus = &"SFX"
+	_on_stairs_audio = false
+
+
+func _prepare_loop_stream(stream: AudioStream) -> AudioStream:
+	if stream == null:
+		return null
+	var wav := stream as AudioStreamWAV
+	if wav != null:
+		wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		var bytes_per_frame := 2 if not wav.stereo else 4
+		if wav.format == AudioStreamWAV.FORMAT_8_BITS:
+			bytes_per_frame = 1 if not wav.stereo else 2
+		if bytes_per_frame > 0 and wav.data.size() > 0:
+			wav.loop_begin = 0
+			wav.loop_end = maxi(int(wav.data.size() / float(bytes_per_frame)) - 1, 1)
+		return wav
+	var ogg := stream as AudioStreamOggVorbis
+	if ogg != null:
+		ogg.loop = true
+		return ogg
+	return stream
+
+
+func _update_run_footsteps(_delta: float, speed: float, on_floor: bool) -> void:
+	if _footsteps == null:
+		return
+	var running := on_floor and speed >= RUN_THRESHOLD
+	if not running:
+		_stop_run_loop()
+		_on_stairs_audio = false
+		return
+	var want_stairs := _is_on_stairs() and _stairs_loop_stream != null
+	var want_stream: AudioStream = _stairs_loop_stream if want_stairs else _run_loop_stream
+	if want_stream == null:
+		_stop_run_loop()
+		return
+	if _footsteps.stream != want_stream or want_stairs != _on_stairs_audio:
+		_footsteps.stream = want_stream
+		_footsteps.volume_db = footstep_volume_db
+		_on_stairs_audio = want_stairs
+		_footsteps.play()
+	elif not _footsteps.playing:
+		_footsteps.play()
+
+
+## Stair ramps / monument approach: tilted floor or stair-named colliders.
+func _is_on_stairs() -> bool:
+	if not is_on_floor():
+		return false
+	if get_floor_normal().y < 0.985:
+		return true
+	for i in get_slide_collision_count():
+		var col := get_slide_collision(i)
+		var node := col.get_collider() as Node
+		if _node_looks_like_stairs(node):
+			return true
+	return false
+
+
+func _node_looks_like_stairs(node: Node) -> bool:
+	var cur := node
+	while cur != null:
+		var n := String(cur.name)
+		if n.contains("Stair") or n.contains("stair") or n == "Approach" or n.ends_with("Ramp"):
+			return true
+		cur = cur.get_parent()
+	return false
+
+
+func _stop_run_loop() -> void:
+	if _footsteps != null and _footsteps.playing:
+		_footsteps.stop()
+
+
+func _play_land_impact() -> void:
+	if _land_sfx == null or land_stream == null:
+		return
+	_land_sfx.stream = land_stream
+	_land_sfx.volume_db = land_volume_db + randf_range(-1.0, 1.0)
+	_land_sfx.pitch_scale = randf_range(0.96, 1.04)
+	_land_sfx.play()
 
 
 func _step_up(wish: Vector3) -> void:
@@ -367,6 +475,9 @@ func _try_attack() -> void:
 		push_warning("pulse_bolt_scene is not assigned")
 		return
 
+	if _weapon and _weapon.has_method("play_fire"):
+		_weapon.play_fire()
+
 	var bolt := pulse_bolt_scene.instantiate()
 	var host: Node = get_tree().current_scene
 	if host == null:
@@ -378,6 +489,7 @@ func _try_attack() -> void:
 
 func _on_player_died() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	DeathOverlay.show_death()
 
 
 func _install_locomotion_animations() -> void:

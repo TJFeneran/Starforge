@@ -25,6 +25,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_root.visible = false
 	_select_button.pressed.connect(_on_select_pressed)
+	MenuSFX.bind_button(_select_button)
 	var prompt := _prompt()
 	var close_label := "Esc"
 	if prompt:
@@ -145,6 +146,7 @@ func _rebuild_list() -> void:
 		button.pressed.connect(func() -> void: _select_destination(dest_id))
 		_list.add_child(button)
 		_buttons[dest.id] = button
+		MenuSFX.bind_button(button)
 
 
 func _select_destination(dest_id: String) -> void:

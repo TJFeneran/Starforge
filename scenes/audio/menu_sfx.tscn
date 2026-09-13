@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/audio/menu_sfx.gd" id="1_script"]
+
+[node name="MenuSFX" type="Node"]
+script = ExtResource("1_script")
+hover_volume_db = -10.0

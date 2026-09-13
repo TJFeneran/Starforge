@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/audio/ambient_bed.gd" id="1_script"]
+
+[node name="AmbientBed" type="Node"]
+script = ExtResource("1_script")
+volume_db = -6.0
+fade_in_sec = 1.5
+loop_crossfade_sec = 2.0
