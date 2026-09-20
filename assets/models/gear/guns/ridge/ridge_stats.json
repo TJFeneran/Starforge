@@ -1,0 +1,18 @@
+{
+  "id": "ridge",
+  "length_m": 0.79,
+  "triangles": 12128,
+  "editable_mesh_parts": 77,
+  "runtime_meshes": 6,
+  "reference": "meshy_views_v2/gun_rifle_common_ridge",
+  "forward": "Godot -Z",
+  "origin": "grip center",
+  "animations": [
+    "Fire",
+    "Reload"
+  ],
+  "emissive": false,
+  "materials": 6,
+  "textures": "512px packed basecolor, ORM, normal; procedural wear baked reproducibly",
+  "limitations": "Authored interpretation of v2 views; shared tiled UVs; animation assembly travel only"
+}

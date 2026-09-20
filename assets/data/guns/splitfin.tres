@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="GunDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/gun_definition.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/guns/splitfin/splitfin.glb" id="2_model"]
+
+[resource]
+script = ExtResource("1_script")
+gun_id = "gun_energy_rare_splitfin"
+display_name = "Splitfin Beam"
+tier = "rare"
+family = "energy"
+slot = "primary"
+payload = "continuous beam; one damage tick every 0.20 s"
+damage_type = "energy"
+model = ExtResource("2_model")
+model_scale = 1.0
+muzzle_offset = Vector3(0, 0.0, -0.52)
+first_person_offset = Vector3(0.4, -0.27, -0.76)
+first_person_ads_offset = Vector3(0.14, -0.19, -0.74)
+fire_mode = "beam"
+effect_style = "beam"
+effect_color = Color(1.00000000, 0.72549020, 0.31372549, 1)
+effect_size = 1.0
+damage = 30.0
+shots_per_trigger = 1
+fire_interval = 0.2
+burst_spacing = 0.0
+charge_time = 0.0
+recovery_time = 0.0
+projectile_speed = 0.0
+projectile_lifetime = 0.0
+max_range = 45.0
+magazine = 0
+reload_time = 0.0
+spread_ads = 0.0
+spread_hip = 0.0
+recoil_degrees = 0.0
+falloff_start = 35.0
+falloff_end = 45.0
+minimum_damage_fraction = 0.7
+heat_capacity = 100.0
+heat_per_tick = 5.0
+heat_cool_per_second = 25.0
+overheat_lockout = 2.0
+echo_every_triggers = 0
+echo_damage = 0.0
+weakpoint_multiplier = 1.0
+mark_duration = 0.0
+mark_bonus_damage = 0.0
+settle_aim_seconds = 0.0
+settled_spread_ads = 0.0
+pierce_targets = 2
+pierce_damage_fraction = 0.5
+aoe_radius = 0.0
+aoe_damage = 0.0
+aoe_max_targets = 0

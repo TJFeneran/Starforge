@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="GunDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/gun_definition.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/guns/ridge/ridge.glb" id="2_model"]
+
+[resource]
+script = ExtResource("1_script")
+gun_id = "gun_rifle_common_ridge"
+display_name = "Ridge Repeater"
+tier = "common"
+family = "rifle"
+slot = "primary"
+payload = "automatic ballistic rounds"
+damage_type = "kinetic"
+model = ExtResource("2_model")
+model_scale = 1.0
+muzzle_offset = Vector3(0, 0.13, -0.52)
+first_person_offset = Vector3(0.38, -0.34, -0.84)
+first_person_ads_offset = Vector3(0.13, -0.22, -0.81)
+fire_mode = "auto"
+effect_style = "tracer"
+effect_color = Color(1.00000000, 0.83529412, 0.60784314, 1)
+effect_size = 0.65
+damage = 20.0
+shots_per_trigger = 1
+fire_interval = 0.1
+burst_spacing = 0.0
+charge_time = 0.0
+recovery_time = 0.0
+projectile_speed = 90.0
+projectile_lifetime = 0.8
+max_range = 72.0
+magazine = 30
+reload_time = 2.0
+spread_ads = 1.1
+spread_hip = 4.5
+recoil_degrees = 0.65
+falloff_start = 45.0
+falloff_end = 72.0
+minimum_damage_fraction = 0.75
+heat_capacity = 0.0
+heat_per_tick = 0.0
+heat_cool_per_second = 0.0
+overheat_lockout = 0.0
+echo_every_triggers = 0
+echo_damage = 0.0
+weakpoint_multiplier = 1.0
+mark_duration = 0.0
+mark_bonus_damage = 0.0
+settle_aim_seconds = 0.0
+settled_spread_ads = 0.0
+pierce_targets = 1
+pierce_damage_fraction = 0.0
+aoe_radius = 0.0
+aoe_damage = 0.0
+aoe_max_targets = 0

@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="GunDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/gun_definition.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/guns/longpath/longpath.glb" id="2_model"]
+
+[resource]
+script = ExtResource("1_script")
+gun_id = "gun_rifle_uncommon_longpath"
+display_name = "Longpath"
+tier = "uncommon"
+family = "rifle"
+slot = "primary"
+payload = "semi-auto high-velocity rounds"
+damage_type = "kinetic"
+model = ExtResource("2_model")
+model_scale = 0.9
+muzzle_offset = Vector3(0, 0.11, -0.88)
+first_person_offset = Vector3(0.39, -0.33, -0.94)
+first_person_ads_offset = Vector3(0.13, -0.22, -0.92)
+fire_mode = "semi"
+effect_style = "rail"
+effect_color = Color(0.48627451, 0.85882353, 1.00000000, 1)
+effect_size = 0.75
+damage = 45.0
+shots_per_trigger = 1
+fire_interval = 0.22
+burst_spacing = 0.0
+charge_time = 0.0
+recovery_time = 0.0
+projectile_speed = 130.0
+projectile_lifetime = 0.9
+max_range = 117.0
+magazine = 12
+reload_time = 2.2
+spread_ads = 0.65
+spread_hip = 6.0
+recoil_degrees = 2.2
+falloff_start = 75.0
+falloff_end = 117.0
+minimum_damage_fraction = 0.8
+heat_capacity = 0.0
+heat_per_tick = 0.0
+heat_cool_per_second = 0.0
+overheat_lockout = 0.0
+echo_every_triggers = 0
+echo_damage = 0.0
+weakpoint_multiplier = 1.0
+mark_duration = 0.0
+mark_bonus_damage = 0.0
+settle_aim_seconds = 0.5
+settled_spread_ads = 0.2
+pierce_targets = 1
+pierce_damage_fraction = 0.0
+aoe_radius = 0.0
+aoe_damage = 0.0
+aoe_max_targets = 0

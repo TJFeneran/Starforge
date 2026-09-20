@@ -1,0 +1,35 @@
+{
+  "length_m": 0.32,
+  "triangles": 43904,
+  "editable_mesh_parts": 173,
+  "assemblies": [
+    "Receiver",
+    "Slide",
+    "Grip",
+    "Trigger",
+    "Muzzle",
+    "Controls",
+    "Core"
+  ],
+  "materials": 6,
+  "textures": "Five sets of 1024px base color, ORM, tangent normal",
+  "emissive": true,
+  "animations": [
+    "Fire_Recoil",
+    "Core_Idle_Pulse"
+  ],
+  "forward": "Godot -Z",
+  "origin": "grip center",
+  "blender_bounds_min": [
+    -0.06391819566488266,
+    -0.014943553134799004,
+    -0.07754532247781754
+  ],
+  "blender_bounds_max": [
+    0.06391819566488266,
+    0.30505645275115967,
+    0.17567040026187897
+  ],
+  "reference": "meshy_views_v2/gun_sidearm_uncommon_echo",
+  "limitations": "Reference-guided interpretation; Echo side inferred from three-quarter plus front/top. Per-face overlapping UVs. No collision or gameplay hookup."
+}

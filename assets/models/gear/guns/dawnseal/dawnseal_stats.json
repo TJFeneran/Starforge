@@ -1,13 +1,19 @@
 {
-  "triangles": 65696,
-  "vertices": 33490,
-  "assemblies": 7,
-  "materials": 1,
+  "triangles": 72400,
+  "vertices": 37078,
+  "assemblies": 8,
+  "materials": 2,
+  "animations": [
+    "Fire",
+    "Charge"
+  ],
+  "emission_material": "Dawnseal_Solar_Chamber_Emission",
+  "reference": "meshy_views_v2/gun_sidearm_legendary_dawnseal",
   "texture_resolution": 2048,
   "length_m": 0.42,
   "godot_forward": "-Z",
   "origin": "grip attachment",
-  "source_parts": 211,
+  "source_parts": 257,
   "uv_layout": "Overlapping padded trim atlas; not unique bake UVs",
   "reference_interpretation": "Side silhouette prioritized; front/top reconcile depth; mirrored unseen side ornament"
 }

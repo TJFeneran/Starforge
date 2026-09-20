@@ -2,7 +2,7 @@
 
 ## Active lobby — forge hall (2026-09-10)
 
-`project.godot` → `scenes/main.tscn` → `scenes/lobby/lobby.tscn`. The previous crate-and-wall hangar is archived at `scenes/lobby/lobby_legacy.tscn`.
+`project.godot` → `scenes/main.tscn` → `scenes/lobby/lobby.tscn`.
 
 - Layout: enclosed hall with four recessed side workshops, central circulation, rear transit vault/gate. Shell, windows, catwalks, and stairwells are owned by `scenes/lobby/modules/forge_hall.gd`. Floor pattern is procedural world-space PBR shading in `assets/materials/lobby/hall_floor.gdshader`.
 - Entry wall concept posters: `scenes/lobby/modules/concept_posters.gd` scatters gear concept sheets on the hall face of the large entry door wall (flanking panels, near eye height). Runtime textures live in `assets/textures/lobby/gear_concepts/` (copied from `assets/source/concepts/gear/`).
@@ -13,7 +13,7 @@
 - Deploy flow (replaces the old World / Deploy bench): globe E → `HologramMap` UI → mark `MapDestination` → arms Forge Monument embark → E loads `scene_path` (`lobby_hub.gd`). Stub destinations live in `hologram_map.gd`; only Frontier Outpost is available.
 - Interact stack: `scenes/interact/proximity_interactable.tscn` + `scenes/ui/interact_prompt.*`.
 - Collision: authored proxies, flush floors, no automatic per-mesh AABB generation. Camera retreat and capsule route checks live in `tools/review_lobby.gd`.
-- Review: `godot --path . --script tools/review_lobby.gd` captures fixed 1080p views and reports timing/collision checks. Add `-- --baseline` for `lobby_legacy.tscn`. Images are written outside the repo to `/tmp/starforge-lobby-review/`.
+- Review: `godot --path . --script tools/review_lobby.gd` captures fixed 1080p views and reports timing/collision checks. Images are written outside the repo to `/tmp/starforge-lobby-review/`.
 
 ## Station layout
 

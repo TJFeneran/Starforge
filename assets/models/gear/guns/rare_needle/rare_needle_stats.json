@@ -1,18 +1,24 @@
 {
   "dimensions_m": {
     "width": 0.06761999428272247,
-    "length": 0.6741864681243896,
+    "length": 0.6751499772071838,
     "height": 0.20609170198440552
   },
-  "triangles": 29364,
-  "assemblies": 8,
-  "source_parts": 110,
+  "triangles": 33572,
+  "assemblies": 9,
+  "source_parts": 126,
   "materials": 7,
   "godot_forward": "-Z",
   "origin": "Same grip attachment as Dawnseal",
   "blender_only": true,
   "dawnseal_reference_length_m": 0.41731,
-  "length_ratio_to_dawnseal": 1.615553109497471,
-  "source_concepts": "assets/source/concepts/gear/meshy_views/gun_sidearm_rare_needle",
-  "materials_note": "Native glTF metallic/roughness materials; no external textures required"
+  "length_ratio_to_dawnseal": 1.617861966421087,
+  "source_concepts": "assets/source/concepts/gear/meshy_views_v2/gun_sidearm_rare_needle",
+  "animations": [
+    "Fire"
+  ],
+  "animation_seconds": 0.4,
+  "embedded_images": 18,
+  "emissive": true,
+  "materials_note": "Six 512px basecolor/ORM/normal sets, embedded in GLB; independently controllable cyan emission"
 }

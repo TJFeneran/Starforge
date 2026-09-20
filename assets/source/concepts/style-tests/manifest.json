@@ -164,12 +164,11 @@
       "id": "forge_sidearm",
       "role": "hero_weapon",
       "file": "forge_sidearm.png",
-      "status": "imported_combat_stub",
+      "status": "retired_replaced_by_emberflint",
       "meshy_task_id": "01a07e93-92be-741d-aea4-d7cf6657413a",
       "credits_spent": 30,
       "meshy_model": "meshy-7",
-      "runtime_glb": "assets/models/gear/guns/forge_sidearm/forge_sidearm.glb",
-      "notes": "Compact forge pulse sidearm"
+      "notes": "Historical style test concept; runtime starter replaced by Emberflint."
     },
     {
       "id": "forge_microscope",

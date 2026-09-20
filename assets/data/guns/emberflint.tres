@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="GunDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/gun_definition.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/guns/emberflint/emberflint.glb" id="2_model"]
+
+[resource]
+script = ExtResource("1_script")
+gun_id = "gun_sidearm_starter_emberflint"
+display_name = "Emberflint"
+tier = "starter"
+family = "sidearm"
+slot = "sidearm"
+payload = "single forge pulse bolt"
+damage_type = "kinetic_energy"
+model = ExtResource("2_model")
+model_scale = 1.0
+muzzle_offset = Vector3(0, 0.082, -0.247)
+first_person_offset = Vector3(0.28, -0.24, -0.49)
+first_person_ads_offset = Vector3(0.1, -0.18, -0.48)
+fire_mode = "semi"
+effect_style = "pulse"
+effect_color = Color(1.00000000, 0.69803922, 0.21960784, 1)
+effect_size = 1.0
+damage = 34.0
+shots_per_trigger = 1
+fire_interval = 0.28
+burst_spacing = 0.0
+charge_time = 0.0
+recovery_time = 0.0
+projectile_speed = 42.0
+projectile_lifetime = 0.55
+max_range = 23.1
+magazine = 10
+reload_time = 1.35
+spread_ads = 1.5
+spread_hip = 4.0
+recoil_degrees = 1.8
+falloff_start = 23.1
+falloff_end = 23.1
+minimum_damage_fraction = 1.0
+heat_capacity = 0.0
+heat_per_tick = 0.0
+heat_cool_per_second = 0.0
+overheat_lockout = 0.0
+echo_every_triggers = 0
+echo_damage = 0.0
+weakpoint_multiplier = 1.0
+mark_duration = 0.0
+mark_bonus_damage = 0.0
+settle_aim_seconds = 0.0
+settled_spread_ads = 0.0
+pierce_targets = 1
+pierce_damage_fraction = 0.0
+aoe_radius = 0.0
+aoe_damage = 0.0
+aoe_max_targets = 0

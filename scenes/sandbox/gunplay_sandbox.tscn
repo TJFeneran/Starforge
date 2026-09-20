@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/sandbox/gunplay_sandbox.gd" id="1_sandbox"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="Material" path="res://assets/lookdev/ochre.tres" id="2_ochre"]
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(18, 0.2, 18)
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(18, 0.2, 18)
+
+[node name="GunplaySandbox" type="Node3D"]
+script = ExtResource("1_sandbox")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.9, 0.6, 0)
+light_energy = 1.5
+
+[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("FloorMesh")
+material_override = ExtResource("2_ochre")
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("FloorShape")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="ShortcutHints" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="Panel" type="ColorRect" parent="ShortcutHints"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1120.0
+offset_bottom = 132.0
+color = Color(0.025, 0.045, 0.075, 0.9)
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="ShortcutHints/Panel"]
+offset_left = 14.0
+offset_top = 8.0
+offset_right = 1090.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(1, 0.93, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+text = "TAB next gun  ·  SHIFT+TAB previous  ·  1–9 select\nRMB aim  ·  LMB fire  ·  R reload"

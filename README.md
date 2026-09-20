@@ -74,13 +74,17 @@ Window is 1920×1080 (internal render 3840×2160).
 | --- | --- |
 | Move | WASD |
 | Look | Mouse |
+| Camera zoom | Wheel up to move closer; wheel down to move back (final inward step enters first person) |
 | Jump | Space |
 | Sprint | Shift |
 | Interact | E |
-| Attack | LMB |
+| Fire | LMB while aiming, or LMB directly in first person |
 | Aim | RMB |
-| Restart mission | R (playable slice, when complete) |
+| Select gun | 1–9 |
+| Reload | R (guns with magazines) |
 | Pause | Esc |
+
+For gunplay testing, run `res://scenes/sandbox/gunplay_sandbox.tscn` (F6). Use 1–9 or Tab / Shift+Tab to change guns.
 
 ## Build / export
 
@@ -106,18 +110,20 @@ No extra SDKs are required for desktop exports. Android/iOS need the usual Godot
 | `scenes/main.tscn` | Launch / welcome |
 | `scenes/lobby/` | Forge-hall hub |
 | `scenes/field/forge_field.tscn` | Open field reached through the lobby gate |
-| `scenes/sandbox/` | Controller experiments — do not ship from these |
+| `scenes/sandbox/gunplay_sandbox.tscn` | Isolated gunplay testing |
 | `assets/models/` | Runtime GLBs Godot imports |
-| `assets/source/` | Meshy/Mixamo originals (`.gdignore` — not imported) |
+| `assets/source/` | Editable Blender sources, concept references, and original external assets (`.gdignore` — not imported) |
 | `tools/` | Blender/Godot helper scripts |
 | `docs/` | Art bible, pipeline, production notes |
 
-`.blend` working files are gitignored. Runtime GLBs under `assets/models/` are what the game loads.
+Runtime GLBs under `assets/models/` are what the game loads. Gun `.blend` sources and their reproducible build scripts are kept under `assets/source/blender/` and `tools/`.
 
 ## Docs
 
 - [`docs/production/HANDOFF.md`](docs/production/HANDOFF.md) — current status and scene boundaries
 - [`docs/art/visual-bible.md`](docs/art/visual-bible.md) — visual direction
 - [`docs/art/meshy-pipeline.md`](docs/art/meshy-pipeline.md) — Meshy → Blender → Godot
+- [`docs/art/gun-blender-pipeline.md`](docs/art/gun-blender-pipeline.md) — authored Blender → Godot guns
+- [`docs/production/gun-reference-sheet.md`](docs/production/gun-reference-sheet.md) — nine-gun art and numeric progression reference
 - [`docs/production/vertical-slice.md`](docs/production/vertical-slice.md) — playable-slice rules
 - [`assets/README.md`](assets/README.md) — asset folder layout

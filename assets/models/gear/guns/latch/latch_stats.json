@@ -1,0 +1,34 @@
+{
+  "length_m": 0.34,
+  "triangles": 14360,
+  "editable_mesh_parts": 70,
+  "assemblies": [
+    "Receiver",
+    "Slide",
+    "Grip",
+    "Trigger",
+    "Muzzle",
+    "Controls",
+    "Core"
+  ],
+  "materials": 5,
+  "textures": "Five sets of 1024px base color, ORM, tangent normal",
+  "emissive": false,
+  "animations": [
+    "Fire_Recoil"
+  ],
+  "forward": "Godot -Z",
+  "origin": "grip center",
+  "blender_bounds_min": [
+    -0.03502487763762474,
+    -0.06383118778467178,
+    -0.0452193021774292
+  ],
+  "blender_bounds_max": [
+    0.03502487763762474,
+    0.2761687934398651,
+    0.14123612642288208
+  ],
+  "reference": "meshy_views_v2/gun_sidearm_common_latch",
+  "limitations": "Reference-guided interpretation. Per-face overlapping UVs. No collision or gameplay hookup."
+}

@@ -18,9 +18,10 @@ const JUMP_TAKEOFF_TIME := 0.10
 const JUMP_LAND_TIME := 0.22
 const JUMP_VISUAL_LIFT := 0.12
 const JUMP_VISUAL_TUCK := 0.22
-const ATTACK_DAMAGE := 34.0
-const ATTACK_RANGE := 14.0
-const ATTACK_COOLDOWN := 0.28
+const ZOOM_STEP := 0.65
+const MIN_THIRD_PERSON_DISTANCE := 1.25
+const FIRST_PERSON_DISTANCE := 0.05
+const BODY_HIDE_DISTANCE := 1.0
 
 const HAND_BONE_CANDIDATES := [
 	"mixamorig_RightHand",
@@ -37,6 +38,7 @@ const HIP_BONE_CANDIDATES := [
 ## Holster offset in the character visual's local space (right hip).
 ## Positive Z sits toward the back of the thigh for this mesh facing.
 const HOLSTER_OFFSET := Vector3(0.07, 0.02, 0.14)
+const PRIMARY_STOW_OFFSET := Vector3(-0.16, 0.90, 0.39)
 
 @export var walk_scene: PackedScene
 @export var run_scene: PackedScene
@@ -46,7 +48,6 @@ const HOLSTER_OFFSET := Vector3(0.07, 0.02, 0.14)
 @export var pistol_run_scene: PackedScene
 @export var pistol_jump_scene: PackedScene
 @export var pistol_strafe_scene: PackedScene ## Mixamo Pistol Strafe; opposite side is mirrored at install.
-@export var pulse_bolt_scene: PackedScene
 @export var run_stream: AudioStream
 @export var stairs_run_stream: AudioStream
 @export var land_stream: AudioStream
@@ -59,7 +60,7 @@ const HOLSTER_OFFSET := Vector3(0.07, 0.02, 0.14)
 @onready var _visual: Node3D = $Visual
 @onready var _model_root: Node3D = $Visual/Model
 @onready var _health: Health = $Health
-@onready var _weapon: Node3D = $Visual/WeaponAnchor/ForgeSidearm
+@onready var _weapon: GunMount = $Visual/WeaponAnchor/GunMount
 @onready var _footsteps: AudioStreamPlayer3D = $Footsteps
 @onready var _land_sfx: AudioStreamPlayer3D = $LandImpact
 
@@ -78,8 +79,9 @@ var _base_model_position := Vector3.ZERO
 var _base_model_rotation := Vector3.ZERO
 var _base_fov := 55.0
 var _spring_base_length := 5.0
-var _attack_timer := 0.0
-var _weapon_drawn := false
+var _zoom_distance := 5.0
+var _first_person := false
+var _suppress_attack_until_release := false
 var _aim_move_input := Vector2.ZERO
 var _run_loop_stream: AudioStream
 var _stairs_loop_stream: AudioStream
@@ -91,10 +93,13 @@ func _ready() -> void:
 	_camera.current = true
 	_base_fov = _camera.fov
 	_spring_base_length = _spring.spring_length
+	_zoom_distance = _spring_base_length
 	_install_locomotion_animations()
 	_base_visual_position = _visual.position
 	_base_model_position = _model_root.position
 	_base_model_rotation = _model_root.rotation
+	_weapon.set_shooter(self)
+	_weapon.recoil.connect(_on_gun_recoil)
 	_setup_weapon_follow()
 	_play_clip("loco/idle", 0.0)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -119,21 +124,55 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
 		if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		else:
-			_try_attack()
+			_suppress_attack_until_release = true
 		get_viewport().set_input_as_handled()
+	elif event.is_action_released("attack"):
+		_suppress_attack_until_release = false
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventMouseButton or not event.pressed:
+		return
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED or _health.is_dead:
+		return
+	if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if not _first_person:
+			if _zoom_distance <= MIN_THIRD_PERSON_DISTANCE + 0.001:
+				_first_person = true
+			else:
+				_zoom_distance = maxf(MIN_THIRD_PERSON_DISTANCE, _zoom_distance - ZOOM_STEP)
+	elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		if _first_person:
+			_first_person = false
+			_zoom_distance = MIN_THIRD_PERSON_DISTANCE
+		else:
+			_zoom_distance = minf(_spring_base_length, _zoom_distance + ZOOM_STEP)
+	else:
+		return
+	get_viewport().set_input_as_handled()
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event.is_pressed() or event.is_echo() or Input.mouse_mode != Input.MOUSE_MODE_CAPTURED or _health.is_dead:
+		return
+	if event.keycode >= KEY_1 and event.keycode <= KEY_9:
+		_weapon.equip(event.keycode - KEY_1)
+	elif event.keycode == KEY_R:
+		_weapon.reload()
+	else:
+		return
+	get_viewport().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:
-	_attack_timer = maxf(0.0, _attack_timer - delta)
 	if _health.is_dead:
+		_weapon.process_trigger(delta, false, false, _camera.global_position, -_camera.global_transform.basis.z)
 		velocity = Vector3.ZERO
 		_stop_run_loop()
 		return
 
-	# Backup path if _input missed the press (focus quirks).
-	if Input.is_action_just_pressed("attack") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		_try_attack()
+	if not Input.is_action_pressed("attack"):
+		_suppress_attack_until_release = false
 
 	var on_floor := is_on_floor()
 	if on_floor and not _was_on_floor:
@@ -202,6 +241,11 @@ func _physics_process(delta: float) -> void:
 	_update_run_footsteps(delta, horizontal.length(), on_floor)
 	# Follow the animated hand after AnimationPlayer updates the skeleton.
 	call_deferred("_update_weapon_follow")
+	var fire_allowed := Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and (_is_aiming() or _first_person)
+	_weapon.process_trigger(
+		delta, fire_allowed and not _suppress_attack_until_release and Input.is_action_pressed("attack"),
+		_is_aiming(), _camera.global_position, -_camera.global_transform.basis.z
+	)
 	_update_camera_feel(delta, horizontal.length(), on_floor)
 
 
@@ -393,40 +437,21 @@ func _setup_weapon_follow() -> void:
 	if _hip_bone_idx < 0:
 		push_warning("Missing hip bone for weapon holster")
 
-	_weapon_drawn = false
-	_apply_weapon_grip_pose(false)
 	_update_weapon_follow()
-
-
-func _apply_weapon_grip_pose(drawn: bool) -> void:
-	# The imported weapon mesh is authored along +X. Rotate so the barrel
-	# points along the weapon root's local -Z; then the root aims the barrel.
-	var model := _weapon.get_node_or_null("Model") as Node3D
-	if model == null:
-		return
-	model.transform = Transform3D.IDENTITY
-	model.rotation_degrees = Vector3(0.0, 90.0, 0.0)
-	if drawn:
-		# Handle sits in the palm; muzzle ahead of the hand.
-		model.position = Vector3(0.0, -0.08, 0.13)
-	else:
-		# Holstered: keep the mesh centered on the hip attach point.
-		model.position = Vector3(0.0, 0.0, 0.02)
-
-	var muzzle := _weapon.get_node_or_null("Muzzle") as Marker3D
-	if muzzle:
-		muzzle.position = Vector3(0.0, 0.03, -0.2)
 
 
 func _update_weapon_follow() -> void:
 	if _skeleton == null or _weapon == null:
 		return
 
-	var aiming := _is_aiming()
-	if aiming != _weapon_drawn:
-		_weapon_drawn = aiming
-		_apply_weapon_grip_pose(aiming)
+	if _first_person:
+		# Each gun keeps a separate first-person offset; large rifles and the
+		# Monument chamber need more room than the compact starter pistol.
+		var offset := _weapon.definition.first_person_ads_offset if _is_aiming() else _weapon.definition.first_person_offset
+		_weapon.global_transform = _camera.global_transform * Transform3D(Basis.IDENTITY, offset)
+		return
 
+	var aiming := _is_aiming()
 	if aiming:
 		if _hand_bone_idx < 0:
 			return
@@ -441,6 +466,16 @@ func _update_weapon_follow() -> void:
 		_weapon.global_transform = Transform3D(Basis.looking_at(aim, up), hand_pose.origin)
 		return
 
+	if _weapon.definition.slot == "primary":
+		# Long guns rest diagonally across the back instead of crossing the leg.
+		var visual_basis := _visual.global_transform.basis
+		var stow_origin := _visual.global_position + visual_basis * PRIMARY_STOW_OFFSET
+		var barrel_direction := (visual_basis.y + visual_basis.x * 0.35).normalized()
+		_weapon.global_transform = Transform3D(
+			Basis.looking_at(barrel_direction, -visual_basis.z), stow_origin
+		)
+		return
+
 	if _hip_bone_idx < 0:
 		return
 	var hip_pose: Transform3D = (
@@ -448,43 +483,21 @@ func _update_weapon_follow() -> void:
 	)
 	var visual_basis := _visual.global_transform.basis
 	var holster_origin: Vector3 = hip_pose.origin + visual_basis * HOLSTER_OFFSET
-	# Mesh barrel ends up along weapon +Z after the grip rotation, so look "up"
-	# to put the barrel down the leg.
+	# Aim the authored -Z barrel down the leg while holstered.
 	var up := visual_basis.y.normalized()
 	var forward := -visual_basis.z.normalized()
-	_weapon.global_transform = Transform3D(Basis.looking_at(up, forward), holster_origin)
+	_weapon.global_transform = Transform3D(Basis.looking_at(-up, forward), holster_origin)
 
 
 func _is_aiming() -> bool:
 	return Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and Input.is_action_pressed("aim")
 
 
-func _try_attack() -> void:
-	if _health.is_dead or _attack_timer > 0.0:
-		return
-	if not _is_aiming():
-		return
-	_attack_timer = ATTACK_COOLDOWN
-
-	var aim_dir := -_camera.global_transform.basis.z.normalized()
-	var origin := _camera.global_position
-	if _weapon and _weapon.has_method("get_muzzle_global"):
-		origin = _weapon.get_muzzle_global()
-
-	if pulse_bolt_scene == null:
-		push_warning("pulse_bolt_scene is not assigned")
-		return
-
-	if _weapon and _weapon.has_method("play_fire"):
-		_weapon.play_fire()
-
-	var bolt := pulse_bolt_scene.instantiate()
-	var host: Node = get_tree().current_scene
-	if host == null:
-		host = get_tree().root
-	host.add_child(bolt)
-	if bolt.has_method("launch"):
-		bolt.launch(origin, aim_dir, ATTACK_DAMAGE)
+func _on_gun_recoil(amount_degrees: float) -> void:
+	_spring.rotation.x = clampf(
+		_spring.rotation.x - deg_to_rad(amount_degrees) * 0.35,
+		PITCH_MIN, PITCH_MAX
+	)
 
 
 func _on_player_died() -> void:
@@ -720,9 +733,14 @@ func _update_camera_feel(delta: float, speed: float, on_floor: bool) -> void:
 	if not on_floor:
 		target_fov += 1.5 * (1.0 - aim_t)
 	_camera.fov = lerpf(_camera.fov, target_fov, 1.0 - exp(-8.0 * delta))
-	var target_len := lerpf(_spring_base_length, _spring_base_length - 0.85, aim_t)
-	target_len = lerpf(target_len, target_len + 0.55, speed_t * (1.0 - aim_t))
+	var target_len := FIRST_PERSON_DISTANCE if _first_person else _zoom_distance - 0.85 * aim_t
+	if not _first_person:
+		target_len += 0.55 * speed_t * (1.0 - aim_t)
+		target_len = clampf(target_len, MIN_THIRD_PERSON_DISTANCE, _spring_base_length)
 	_spring.spring_length = lerpf(_spring.spring_length, target_len, 1.0 - exp(-7.0 * delta))
+	# The camera can also be pushed inward by a wall. Hide the local body before
+	# it enters the near plane, while leaving the hand-held weapon visible.
+	_model_root.visible = _camera.global_position.distance_to(_yaw.global_position) > BODY_HIDE_DISTANCE
 
 
 func _find_animation_player(root: Node) -> AnimationPlayer:

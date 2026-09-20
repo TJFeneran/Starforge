@@ -71,6 +71,11 @@ func apply_hit(amount: float) -> void:
 	_flash()
 
 
+func is_weak_point(world_point: Vector3) -> bool:
+	# The upper quarter of the scout capsule is the Vault Needle weak point.
+	return world_point.y >= global_position.y + 0.88
+
+
 func _flash() -> void:
 	var meshes := _visual.find_children("*", "MeshInstance3D", true, false)
 	for mesh in meshes:

@@ -1,0 +1,23 @@
+{
+  "status": "refined_pending_review",
+  "length_m": 0.95,
+  "triangles": 93068,
+  "editable_mesh_parts": 509,
+  "assemblies": [
+    "Receiver",
+    "Grip",
+    "RingRotor",
+    "Core",
+    "Trigger",
+    "MuzzleMount"
+  ],
+  "materials": 10,
+  "runtime_meshes": 6,
+  "runtime_material_surfaces": 27,
+  "forward": "-Z in Godot",
+  "origin": "grip centre",
+  "animation": "Ring_Spin, 4 seconds",
+  "core_material": "Core_Emission_EDIT_COLOR",
+  "ring_material": "Ring_Emission_EDIT_COLOR",
+  "notes": "Reference geometry interpreted by hand; hidden reverse authored; 1024px tiled basecolor, packed ORM and tangent normal maps; patinated bevel materials; non-unique UVs; no collision or hand rig."
+}

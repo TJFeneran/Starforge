@@ -4,6 +4,8 @@ Status: design contract — 2026-09-10
 
 This document is the source of truth for functional guns. Future weapon implementation, balancing, asset production, and Weapons / Forge workshop UI should follow it unless a later design decision updates this document.
 
+The nine-gun art and runtime balance reference is `docs/production/gun-reference-sheet.md`; its machine-readable values are in `docs/production/gun-balance.json`. All nine are playable through the shared gun mount, with final balance tuning pending.
+
 ## Design promise
 
 The player starts with one dependable but weak forge sidearm. Once that loop is proven, the loadout expands to sidearm plus primary. Primary families such as rifles and energy guns share the same Common, Uncommon, Rare, and Legendary progression, while remaining meaningfully different in how they solve combat problems.
@@ -14,7 +16,7 @@ No Legendary weapon is required to complete a mission. Progression should make w
 
 The first implementation has one mandatory slot:
 
-- **Sidearm** — equipped from the start; the current ForgeSidearm and pulse-bolt attack are the reference baseline.
+- **Sidearm** — equipped from the start; Emberflint and the pulse-bolt attack are the current reference baseline.
 
 The expanded loadout adds:
 
@@ -66,7 +68,7 @@ Trait rules:
 Weapon behavior is data-driven and separated from hit reception:
 
 - the weapon owns firing, cooldown, ammo/capacity rules, muzzle origin, and payload construction;
-- `pulse_bolt.gd` or future payloads carry damage and movement data;
+- `gun_projectile.gd` carries projectile movement while the weapon definition supplies damage and effects;
 - enemies continue to expose their existing hit contract such as `apply_hit()`;
 - weapon code must not duplicate enemy-specific damage logic;
 - the current Health/HUD behavior remains unchanged for player survivability and mission feedback.
@@ -128,7 +130,7 @@ The first experience should foreground the sidearm. Once primary weapons exist, 
 
 ## Technical and visual compatibility
 
-The current reference implementation is in `scenes/player/player_controller.gd`, `scenes/combat/pulse_bolt.gd`, and `scenes/player/player.tscn`. New weapons must preserve:
+The current reference implementation is in `scenes/player/player_controller.gd`, `scenes/combat/gun_mount.gd`, `scenes/combat/gun_projectile.gd`, and `scenes/player/player.tscn`. New weapons must preserve:
 
 - `RightHand` attachment and the existing weapon-follow behavior;
 - muzzle origin and projectile direction;
@@ -140,7 +142,7 @@ The current reference implementation is in `scenes/player/player_controller.gd`,
 
 Use the visual bible’s Starbone, Void Navy, Frontier Cobalt, and restrained Solar Amber language. Keep family silhouettes distinct: compact sidearm, practical rifle, and unmistakable energy weapon. Avoid generic military camouflage, dense greebles, universal neon, franchise-like symbols, and shapes that obscure aiming or the hero silhouette.
 
-Follow the established Meshy 7 → Blender → Godot GLB pipeline and asset acceptance checklist. Record each item’s ID, family, slot, rarity, scale, pivot/origin, material slots, collision approach, muzzle marker, payload owner, and runtime scene. Test in `scenes/sandbox/controller_sandbox.tscn` or `scenes/style_lab/` before promoting into the playable slice. Confirm Meshy credit spend before generation.
+Follow `docs/art/gun-blender-pipeline.md`: use the approved individual concept views to author editable Blender components, then export a Godot GLB. Record each item’s ID, family, slot, rarity, scale, pivot/origin, material slots, collision approach, muzzle marker, payload owner, and runtime scene. Test in `scenes/sandbox/` or `scenes/style_lab/` before promoting into the playable slice. Monument Heart is both the first isolated Blender example and a playable charged orb weapon.
 
 ## Delivery milestones
 

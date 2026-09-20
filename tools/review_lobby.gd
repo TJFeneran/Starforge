@@ -1,22 +1,19 @@
 extends SceneTree
 
 ## Repeatable 1080p render/collision smoke review, without touching the active main scene.
-## godot --path . --script tools/review_lobby.gd -- --baseline
 ## godot --path . --script tools/review_lobby.gd -- --catwalk (gallery views + stair traversal)
 ## Outputs review images to /tmp/starforge-lobby-review (not tracked game assets).
-var _baseline := false
 var _catwalk_only := false
 var _room: Node3D
 var _camera: Camera3D
 var _failed := false
 
 func _initialize() -> void:
-	_baseline = "--baseline" in OS.get_cmdline_user_args()
 	_catwalk_only = "--catwalk" in OS.get_cmdline_user_args()
 	_run.call_deferred()
 
 func _run() -> void:
-	var scene_path: String = "res://scenes/lobby/lobby_legacy.tscn" if _baseline else "res://scenes/lobby/lobby.tscn"
+	var scene_path := "res://scenes/lobby/lobby.tscn"
 	var packed: PackedScene = load(scene_path)
 	if packed == null:
 		push_error("Cannot load review scene: " + scene_path)
@@ -34,7 +31,7 @@ func _run() -> void:
 	_camera.fov = 55.0
 	root.add_child(_camera)
 	_camera.current = true
-	var prefix: String = "baseline" if _baseline else "redesign"
+	var prefix := "lobby"
 	var output_dir := "/tmp/starforge-lobby-review"
 	DirAccess.make_dir_recursive_absolute(output_dir)
 	var views: Array[Dictionary] = [
@@ -76,21 +73,20 @@ func _run() -> void:
 	print("REVIEW_PERF ", prefix, " median_ms=", frames_ms[90], " p95_ms=", frames_ms[171],
 		" draw_calls=", Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		" primitives=", Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME))
-	if not _baseline:
-		await physics_frame
-		if _catwalk_only:
-			await _check_catwalk_routes()
-		else:
-			_check_routes()
-		_check_camera_clearance()
-		_check_monument_clearance()
-		_check_hall_lighting()
-		var reactor: Node = _room.get_node("CentralForge")
-		if reactor.has_method("set_reduced_effects"):
-			reactor.call("set_reduced_effects", true)
-			for frame: int in range(30):
-				await process_frame
-			print("REVIEW_REDUCED_EFFECTS OK")
+	await physics_frame
+	if _catwalk_only:
+		await _check_catwalk_routes()
+	else:
+		_check_routes()
+	_check_camera_clearance()
+	_check_monument_clearance()
+	_check_hall_lighting()
+	var reactor: Node = _room.get_node("CentralForge")
+	if reactor.has_method("set_reduced_effects"):
+		reactor.call("set_reduced_effects", true)
+		for frame: int in range(30):
+			await process_frame
+		print("REVIEW_REDUCED_EFFECTS OK")
 	quit(1 if _failed else 0)
 
 func _check_hall_lighting() -> void:

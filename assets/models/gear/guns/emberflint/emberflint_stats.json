@@ -1,0 +1,31 @@
+{
+  "length_m": 0.3,
+  "triangles": 24848,
+  "editable_mesh_parts": 352,
+  "assemblies": [
+    "Receiver",
+    "Slide",
+    "Grip",
+    "Trigger",
+    "Muzzle",
+    "Controls"
+  ],
+  "runtime_meshes": 6,
+  "materials": 4,
+  "textures": "Four sets of 1024px base color, ORM, normal maps",
+  "emissive": false,
+  "forward": "Godot -Z",
+  "origin": "grip center",
+  "blender_bounds_min": [
+    -0.027011321857571602,
+    -0.056898120790719986,
+    -0.06044589355587959
+  ],
+  "blender_bounds_max": [
+    0.027011321857571602,
+    0.24310187995433807,
+    0.10219120234251022
+  ],
+  "reference": "meshy_views_v2/gun_sidearm_starter_emberflint side, top, front",
+  "limitations": "Authored interpretation, overlapping UVs, no animation or collision"
+}

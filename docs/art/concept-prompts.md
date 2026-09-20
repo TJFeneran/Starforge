@@ -39,7 +39,7 @@ Generate with Grok image models only. Do not use Meshy for 2D.
 
 > Full-body original 1.8 m athletic frontier operative wearing one functional armor loadout, realistic athletic human proportions, clear head/shoulder/torso/leg separation. Neutral T-pose, arms separated, legs separated, no weapon, no cape crossing the silhouette. Orthographic front, side, and back views of the exact same design, even neutral studio lighting, plain light-gray background, all parts uncropped, sharp silhouette, large material blocks, no text, no logos, no watermark.
 
-Purpose: Meshy-ready reconstruction later. Keep starter kits incomplete (no full helmet, no trinket). Escalate silhouette authorship by rarity without adding ambient glow. Before Meshy, regenerate **separate** front/side/back images from the sheet (see `assets/source/concepts/gear/meshy_views/`); do not send the combined turnaround.
+Purpose: Meshy-ready reconstruction later. Keep starter kits incomplete (no full helmet, no trinket). Escalate silhouette authorship by rarity without adding ambient glow. Armor's separate front/side/back images are retained under `assets/source/concepts/gear/armor_views/`; do not send the combined turnaround.
 
 ## Gun turnaround (Grok 2D)
 
@@ -47,7 +47,7 @@ Generate with Grok image models only. Do not use Meshy for 2D.
 
 > Isolated original hard-surface weapon, orthographic side, top, and front views of the exact same design, full silhouette, even studio lighting, plain light-gray background, no hands, no floor clutter, no text. Broad chamfers, quiet surfaces, readable muzzle and grip. State real-world length. Sidearms stay compact and holster-friendly; rifles are practical rectangular primaries; energy guns must not read as rifles.
 
-Purpose: Meshy-ready reconstruction later. Always include the starter pistol as the family parent. Before Meshy, regenerate **separate** side/top/front images from the sheet (see `assets/source/concepts/gear/meshy_views/`); do not send the combined turnaround.
+Purpose: references for authored Blender gun geometry. Always include the starter pistol as the family parent. Produce **separate**, consistent orthographic views under `assets/source/concepts/gear/meshy_views_v2/`; inspect each manifest entry for its actual side, top, front, or three-quarter set. Use those views as geometry references and the combined sheet for material/detail cues. Follow `docs/art/gun-blender-pipeline.md` for modeling and validation.
 
 ## Modular outpost kit
 

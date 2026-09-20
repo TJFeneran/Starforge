@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="GunDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/gun_definition.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/guns/monument_heart/monument_heart.glb" id="2_model"]
+
+[resource]
+script = ExtResource("1_script")
+gun_id = "gun_energy_legendary_monument"
+display_name = "Monument Heart"
+tier = "legendary"
+family = "energy"
+slot = "primary"
+payload = "charged plasma orb"
+damage_type = "energy"
+model = ExtResource("2_model")
+model_scale = 0.58
+muzzle_offset = Vector3(0, 0.22, -0.57)
+first_person_offset = Vector3(0.55, -0.43, -1.08)
+first_person_ads_offset = Vector3(0.22, -0.28, -1.2)
+fire_mode = "charge"
+effect_style = "orb"
+effect_color = Color(1.00000000, 0.67450980, 0.23529412, 1)
+effect_size = 1.6
+damage = 120.0
+shots_per_trigger = 1
+fire_interval = 0.7
+burst_spacing = 0.0
+charge_time = 0.45
+recovery_time = 0.25
+projectile_speed = 35.0
+projectile_lifetime = 1.2
+max_range = 42.0
+magazine = 5
+reload_time = 2.5
+spread_ads = 0.5
+spread_hip = 2.5
+recoil_degrees = 4.0
+falloff_start = 32.0
+falloff_end = 42.0
+minimum_damage_fraction = 0.8
+heat_capacity = 0.0
+heat_per_tick = 0.0
+heat_cool_per_second = 0.0
+overheat_lockout = 0.0
+echo_every_triggers = 0
+echo_damage = 0.0
+weakpoint_multiplier = 1.0
+mark_duration = 0.0
+mark_bonus_damage = 0.0
+settle_aim_seconds = 0.0
+settled_spread_ads = 0.0
+pierce_targets = 1
+pierce_damage_fraction = 0.0
+aoe_radius = 2.5
+aoe_damage = 50.0
+aoe_max_targets = 3

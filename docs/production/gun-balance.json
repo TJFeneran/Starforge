@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "status": "implemented_runtime_values_pending_balance_tuning",
+  "units": {"damage": "HP", "time": "seconds", "distance": "meters", "speed": "meters_per_second", "spread": "degrees", "heat": "points"},
+  "baseline": {"enemy": "Rift Skitter", "enemy_hp": 60, "note": "All nine weapons use these values at runtime. Final combat tuning and human visual review are pending."},
+  "weapons": [
+    {
+      "id": "gun_sidearm_starter_emberflint", "name": "Emberflint", "tier": "starter", "family": "sidearm", "slot": "sidearm",
+      "payload": "single forge pulse bolt", "damage": 34, "damage_type": "kinetic_energy", "shots_per_trigger": 1,
+      "fire_interval": 0.28, "projectile_speed": 42, "projectile_lifetime": 0.55, "max_range": 23.1,
+      "magazine": 10, "reload": 1.35, "spread_ads": 1.5, "spread_hip": 4.0, "recoil_degrees": 1.8,
+      "falloff_start": 23.1, "falloff_end": 23.1, "minimum_damage_fraction": 1.0,
+      "trait": "none", "tradeoff": "Reliable starter; short reach and modest capacity.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_sidearm_common_latch", "name": "Forge Latch", "tier": "common", "family": "sidearm", "slot": "sidearm",
+      "payload": "single heavy slug", "damage": 40, "damage_type": "kinetic", "shots_per_trigger": 1,
+      "fire_interval": 0.28, "projectile_speed": 58, "projectile_lifetime": 0.60, "max_range": 34.8,
+      "magazine": 9, "reload": 1.25, "spread_ads": 1.2, "spread_hip": 3.5, "recoil_degrees": 2.4,
+      "falloff_start": 24, "falloff_end": 34.8, "minimum_damage_fraction": 0.8,
+      "trait": "none", "tradeoff": "Six more damage and longer reach than Emberflint, with one fewer round and more recoil.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_sidearm_uncommon_echo", "name": "Echo Bit", "tier": "uncommon", "family": "sidearm", "slot": "sidearm",
+      "payload": "two pulse bits per trigger", "damage": 26, "damage_type": "energy", "shots_per_trigger": 2,
+      "burst_spacing": 0.075, "fire_interval": 0.36, "projectile_speed": 52, "projectile_lifetime": 0.70, "max_range": 36.4,
+      "magazine": 18, "reload": 1.60, "spread_ads": 1.0, "spread_hip": 3.0, "recoil_degrees": 1.2,
+      "falloff_start": 25, "falloff_end": 36.4, "minimum_damage_fraction": 0.75,
+      "echo_every_triggers": 3, "echo_damage": 8,
+      "trait": "Every third trigger emits one 8-damage echo pulse at the last hit target; maximum one echo per trigger and no chaining.",
+      "tradeoff": "Faster two-hit burst and a bounded echo, but both bits must land and reload takes longer.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_sidearm_rare_needle", "name": "Vault Needle", "tier": "rare", "family": "sidearm", "slot": "sidearm",
+      "payload": "single precision needle", "damage": 55, "damage_type": "kinetic", "shots_per_trigger": 1,
+      "fire_interval": 0.42, "projectile_speed": 100, "projectile_lifetime": 1.0, "max_range": 100,
+      "magazine": 6, "reload": 1.75, "spread_ads": 0.25, "spread_hip": 5.0, "recoil_degrees": 3.5,
+      "falloff_start": 65, "falloff_end": 100, "minimum_damage_fraction": 0.8,
+      "weakpoint_multiplier": 1.5,
+      "trait": "Weak-point hits deal 1.5× base damage (82.5 HP); this multiplier does not stack with other weapon traits.",
+      "tradeoff": "Precision and a conditional one-hit skitter kill, balanced by six rounds, slow cadence and poor hip accuracy.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_sidearm_legendary_dawnseal", "name": "Dawnseal", "tier": "legendary", "family": "sidearm", "slot": "sidearm",
+      "payload": "single solar bolt", "damage": 45, "damage_type": "solar", "shots_per_trigger": 1,
+      "fire_interval": 0.27, "projectile_speed": 65, "projectile_lifetime": 0.80, "max_range": 52,
+      "magazine": 12, "reload": 1.65, "spread_ads": 0.9, "spread_hip": 3.2, "recoil_degrees": 2.0,
+      "falloff_start": 35, "falloff_end": 52, "minimum_damage_fraction": 0.8,
+      "mark_duration": 3.0, "mark_bonus_damage": 24,
+      "trait": "The first hit after a reload marks one target for 3.0 s; the next hit consumes it for 24 bonus solar damage. One mark per reload; no splash or chaining.",
+      "tradeoff": "Higher direct output and a bounded two-hit signature, but the mark requires a reload and a follow-up hit.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_rifle_common_ridge", "name": "Ridge Repeater", "tier": "common", "family": "rifle", "slot": "primary",
+      "payload": "automatic ballistic rounds", "damage": 20, "damage_type": "kinetic", "shots_per_trigger": 1,
+      "fire_interval": 0.10, "projectile_speed": 90, "projectile_lifetime": 0.80, "max_range": 72,
+      "magazine": 30, "reload": 2.0, "spread_ads": 1.1, "spread_hip": 4.5, "recoil_degrees": 0.65,
+      "falloff_start": 45, "falloff_end": 72, "minimum_damage_fraction": 0.75,
+      "trait": "none", "tradeoff": "First primary: sustained fire and capacity, but lower per-hit damage and slower reload than a sidearm.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_rifle_uncommon_longpath", "name": "Longpath", "tier": "uncommon", "family": "rifle", "slot": "primary",
+      "payload": "semi-auto high-velocity rounds", "damage": 45, "damage_type": "kinetic", "shots_per_trigger": 1,
+      "fire_interval": 0.22, "projectile_speed": 130, "projectile_lifetime": 0.90, "max_range": 117,
+      "magazine": 12, "reload": 2.2, "spread_ads": 0.65, "spread_hip": 6.0, "recoil_degrees": 2.2,
+      "falloff_start": 75, "falloff_end": 117, "minimum_damage_fraction": 0.8,
+      "settle_aim_seconds": 0.5, "settled_spread_ads": 0.20,
+      "trait": "After 0.5 s continuously aiming, ADS spread drops from 0.65° to 0.20° until aim is released.",
+      "tradeoff": "More range and precision than Ridge, but 12 rounds, stronger recoil and poor hip accuracy.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_energy_rare_splitfin", "name": "Splitfin Beam", "tier": "rare", "family": "energy", "slot": "primary",
+      "payload": "continuous beam; one damage tick every 0.20 s", "damage": 30, "damage_type": "energy", "shots_per_trigger": 1,
+      "fire_interval": 0.20, "projectile_speed": null, "projectile_lifetime": null, "max_range": 45,
+      "heat_capacity": 100, "heat_per_tick": 5, "heat_cool_per_second": 25, "overheat_lockout": 2.0,
+      "magazine": null, "reload": null, "spread_ads": 0.0, "spread_hip": 0.0, "recoil_degrees": 0.0,
+      "falloff_start": 35, "falloff_end": 45, "minimum_damage_fraction": 0.7,
+      "pierce_targets": 2, "pierce_damage_fraction": 0.5,
+      "trait": "Beam pierces one additional target for 50% tick damage (15 HP); maximum two targets total.",
+      "tradeoff": "Instant, accurate sustained damage and limited pierce; 4.0 s continuous fire overheats it.",
+      "runtime_status": "playable; balance_tuning_pending"
+    },
+    {
+      "id": "gun_energy_legendary_monument", "name": "Monument Heart", "tier": "legendary", "family": "energy", "slot": "primary",
+      "payload": "charged plasma orb", "damage": 120, "damage_type": "energy", "shots_per_trigger": 1,
+      "charge_time": 0.45, "recovery_time": 0.25, "fire_interval": 0.70, "projectile_speed": 35, "projectile_lifetime": 1.20, "max_range": 42,
+      "magazine": 5, "reload": 2.5, "spread_ads": 0.5, "spread_hip": 2.5, "recoil_degrees": 4.0,
+      "falloff_start": 32, "falloff_end": 42, "minimum_damage_fraction": 0.8,
+      "aoe_radius": 2.5, "aoe_damage": 50, "aoe_max_targets": 3,
+      "trait": "On direct hit, a 2.5 m radial pulse deals 50 HP to up to three other targets; excludes the direct target and cannot chain.",
+      "tradeoff": "Higher burst and bounded crowd damage than Splitfin, balanced by charge, five cells and projectile travel.",
+      "runtime_status": "playable; balance_tuning_pending"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="GunDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/gun_definition.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/guns/dawnseal/dawnseal.glb" id="2_model"]
+
+[resource]
+script = ExtResource("1_script")
+gun_id = "gun_sidearm_legendary_dawnseal"
+display_name = "Dawnseal"
+tier = "legendary"
+family = "sidearm"
+slot = "sidearm"
+payload = "single solar bolt"
+damage_type = "solar"
+model = ExtResource("2_model")
+model_scale = 1.0
+muzzle_offset = Vector3(0, 0.045, -0.34)
+first_person_offset = Vector3(0.32, -0.25, -0.6)
+first_person_ads_offset = Vector3(0.1, -0.18, -0.58)
+fire_mode = "semi"
+effect_style = "solar"
+effect_color = Color(1.00000000, 0.89411765, 0.62745098, 1)
+effect_size = 1.15
+damage = 45.0
+shots_per_trigger = 1
+fire_interval = 0.27
+burst_spacing = 0.0
+charge_time = 0.0
+recovery_time = 0.0
+projectile_speed = 65.0
+projectile_lifetime = 0.8
+max_range = 52.0
+magazine = 12
+reload_time = 1.65
+spread_ads = 0.9
+spread_hip = 3.2
+recoil_degrees = 2.0
+falloff_start = 35.0
+falloff_end = 52.0
+minimum_damage_fraction = 0.8
+heat_capacity = 0.0
+heat_per_tick = 0.0
+heat_cool_per_second = 0.0
+overheat_lockout = 0.0
+echo_every_triggers = 0
+echo_damage = 0.0
+weakpoint_multiplier = 1.0
+mark_duration = 3.0
+mark_bonus_damage = 24.0
+settle_aim_seconds = 0.0
+settled_spread_ads = 0.0
+pierce_targets = 1
+pierce_damage_fraction = 0.0
+aoe_radius = 0.0
+aoe_damage = 0.0
+aoe_max_targets = 0

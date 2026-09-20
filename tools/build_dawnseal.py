@@ -1,4 +1,4 @@
-"""Direct Blender reconstruction of the three Dawnseal concept references.
+"""Direct Blender reconstruction of the three meshy_views_v2 Dawnseal side/top/front references.
 Run: blender --background --factory-startup --python tools/build_dawnseal.py
 No external generation services. Units: meters; Godot forward: -Z.
 """
@@ -21,7 +21,7 @@ bpy.ops.object.delete(use_global=False)
 for block in list(bpy.data.materials):
     bpy.data.materials.remove(block)
 
-# A single UV-addressed PBR trim atlas keeps the exported asset to one material.
+# UV-addressed hard-surface PBR atlas plus independently editable solar emission.
 # All surfaces use actual PNG texture maps rather than Blender-only shader noise.
 PALETTE = [
     ('Ivory ceramic', (0.79, .78, .70), .26, .15),
@@ -102,9 +102,16 @@ for i, (key, image) in enumerate(images.items()):
         normal_node.inputs['Strength'].default_value = .22
         links.new(node.outputs['Color'], normal_node.inputs['Color'])
         links.new(normal_node.outputs['Normal'], bsdf.inputs['Normal'])
-    else:
-        links.new(node.outputs['Color'], bsdf.inputs['Emission Color'])
-        bsdf.inputs['Emission Strength'].default_value = 7.0
+    # Emission is exclusive to the separately addressable solar material.
+
+solar = bpy.data.materials.new('Dawnseal_Solar_Chamber_Emission')
+solar.use_nodes = True
+solar_bsdf = solar.node_tree.nodes.get('Principled BSDF')
+solar_bsdf.inputs['Base Color'].default_value = (1.0, .65, .13, 1)
+solar_bsdf.inputs['Roughness'].default_value = .24
+solar_bsdf.inputs['Emission Color'].default_value = (1.0, .58, .12, 1)
+solar_bsdf.inputs['Emission Strength'].default_value = 4.0
+solar['runtime_control'] = 'Independent emission color and energy; no atlas mask required'
 
 parts = []
 
@@ -129,7 +136,7 @@ def finish(obj, name, tile, bevel=0, smooth=False, group='Frame'):
         modifier.weight = 40
         bpy.ops.object.modifier_apply(modifier=modifier.name)
     obj.data.materials.clear()
-    obj.data.materials.append(mat)
+    obj.data.materials.append(solar if tile == 7 else mat)
     uv = obj.data.uv_layers.new(name='PBR_Trim_UV') if not obj.data.uv_layers else obj.data.uv_layers.active
     coords = np.array([v.co[:] for v in obj.data.vertices])
     lo, span = coords.min(axis=0), np.maximum(np.ptp(coords, axis=0), .0001)
@@ -356,7 +363,7 @@ for s in (-1,1):
     bolt(.826,s*.034,.099,.006)
     ellipsoid('Rear sapphire selector',(.86,s*.064,.052),(.013,.005,.010),4,'Mechanism',20)
     path('Rear gilded beak',[(.800,s*.057,.021),(.85,s*.055,.005),(.934,s*.027,.022)],.003,2)
-profile('Swept ceremonial hammer',[(.83,.105),(.864,.130),(.875,.156),(.884,.159),(.888,.149),(.881,.118),(.856,.091)],.021,6,bevel=.003,group='Mechanism')
+profile('Swept ceremonial hammer',[(.83,.105),(.864,.130),(.875,.156),(.884,.159),(.888,.149),(.881,.118),(.856,.091)],.021,6,bevel=.003,group='Hammer')
 for s in (-1,1):
     side_trim('Hammer edge',[(.839,.107),(.869,.132),(.879,.153)],s*.012,.0015,cyclic=False)
 
@@ -385,6 +392,35 @@ for obj in parts:
             vertex.co.x = .872 + (vertex.co.x-.872)*1.13
             vertex.co.z = -.18 + (vertex.co.z+.18)*1.07
 
+# V2 refinement: navy shoulder panels and ivory rear sweep from the side silhouette.
+for side in (-1, 1):
+    shoulder = [(.451,.123),(.496,.147),(.535,.137),(.566,.112),(.539,.096),(.496,.106)]
+    profile('Upper shoulder navy inset', shoulder, .006, 1, side*.076, .003)
+    side_trim('Shoulder inset gilding', shoulder, side*.081, .0015)
+    tail = [(.809,.028),(.851,.022),(.913,.044),(.938,.038),(.944,.020),(.867,-.001),(.825,-.018)]
+    profile('Ivory rear beak armor', tail, .008, 0, side*.062, .003)
+    side_trim('Rear beak gold rim', tail, side*.067, .0017)
+    # V2's celestial seal has radial starwork across fine orbital engraving.
+    for j in range(16):
+        angle = math.tau*j/16
+        reach = .079 if j%4 == 0 else .059
+        dx,dz=math.cos(angle)*reach,math.sin(angle)*reach*.61
+        def surface(dx,dz):
+            return (.66+dx,side*(.099+.022*math.sqrt(max(.01,1-(dx/.105)**2-(dz/.064)**2))+.0015),.024+dz)
+        path('Celestial star ray', [surface(0,0),surface(dx*.24-dz*.09,dz*.24+dx*.04),surface(dx,dz)], .00065, 3, resolution=2)
+# Bright winding filaments make the contained solar volume visibly active.
+for i in range(6):
+    points=[]
+    for j in range(15):
+        x=.078+j*.014
+        a=i*math.tau/6+j*.24
+        fade=math.sin(math.pi*(j+1)/17)
+        points.append((x,.053*fade*math.cos(a),.069*fade*math.sin(a)))
+    path('Solar winding filament',points,.0016,7,group='Energy',resolution=3)
+for obj in parts:
+    if obj.name.startswith('Hammer edge'):
+        obj['assembly']='Hammer'
+
 # Apply real scale and orient muzzle to Godot -Z; origin is hand/grip attachment.
 SCALE = .42
 rotation = Matrix.Rotation(-math.pi/2,4,'Z')
@@ -402,10 +438,41 @@ for obj in parts:
         collection.objects.unlink(obj)
     source_collection.objects.link(obj)
 
+# Assembly pivots animate source parts and the exported merged copies identically.
 scene = bpy.context.scene
+pivots = {}
+for group in sorted({o['assembly'] for o in parts}):
+    pivot = bpy.data.objects.new('Dawnseal_'+group+'Pivot', None)
+    source_collection.objects.link(pivot)
+    pivot.location = transform @ Vector({'Energy':(.186,0,0),'Trigger':(.721,0,-.071),'Hammer':(.84,0,.10)}.get(group,(.80,0,-.105)))
+    pivot['reference'] = 'meshy_views_v2/gun_sidearm_legendary_dawnseal'
+    pivots[group] = pivot
+bpy.context.view_layer.update()
+for obj in parts:
+    world = obj.matrix_world.copy()
+    obj.parent = pivots[obj['assembly']]
+    obj.matrix_world = world
+scene.render.fps = 30
+for name, angle in [('Trigger', -.16), ('Hammer', -.32)]:
+    obj=pivots[name]
+    for frame,value in [(1,0),(4,angle),(9,0)]:
+        obj.rotation_euler.x=value
+        obj.keyframe_insert(data_path='rotation_euler',frame=frame)
+    action=obj.animation_data.action;action.name='Fire_'+name
+    track=obj.animation_data.nla_tracks.new();track.name='Fire';track.strips.new('Fire',1,action)
+    obj.animation_data.action=None
+obj=pivots['Energy']
+for frame,value in [(1,1),(10,.91),(20,1.06),(25,1)]:
+    obj.scale=(value,value,value)
+    obj.keyframe_insert(data_path='scale',frame=frame)
+action=obj.animation_data.action;action.name='Charge_Solar_Chamber'
+track=obj.animation_data.nla_tracks.new();track.name='Charge';track.strips.new('Charge',1,action)
+obj.animation_data.action=None
+scene.frame_set(1)
+bpy.context.view_layer.update()
 scene.unit_settings.system = 'METRIC'
 scene.render.engine = 'CYCLES'
-scene.cycles.samples = 40
+scene.cycles.samples = 24
 scene.cycles.use_denoising = True
 scene.render.resolution_x = 1600
 scene.render.resolution_y = 1100
@@ -486,6 +553,8 @@ for group in sorted({obj['assembly'] for obj in parts}):
     for original in [o for o in parts if o['assembly'] == group]:
         duplicate = original.copy()
         duplicate.data = original.data.copy()
+        duplicate.parent = None
+        duplicate.matrix_world = original.matrix_world.copy()
         export_collection.objects.link(duplicate)
         duplicate.select_set(True)
         duplicates.append(duplicate)
@@ -497,14 +566,17 @@ for group in sorted({obj['assembly'] for obj in parts}):
     # All assemblies share a hand-attachment origin and deterministic triangles.
     modifier = merged.modifiers.new('Game triangulation','TRIANGULATE')
     bpy.ops.object.modifier_apply(modifier=modifier.name)
+    world = merged.matrix_world.copy()
+    merged.parent = pivots[group]
+    merged.matrix_world = world
     export_objects.append(merged)
 
 bpy.ops.object.select_all(action='DESELECT')
-for obj in export_objects:
+for obj in [*export_objects, *pivots.values()]:
     obj.select_set(True)
 bpy.context.view_layer.objects.active = export_objects[0]
-bpy.ops.export_scene.gltf(filepath=str(OUTPUT/'dawnseal.glb'),export_format='GLB',use_selection=True,export_apply=True,export_yup=True,export_texcoords=True,export_normals=True,export_materials='EXPORT',export_cameras=False,export_lights=False,export_extras=True)
-stats = {'triangles':sum(len(o.data.polygons) for o in export_objects),'vertices':sum(len(o.data.vertices) for o in export_objects),'assemblies':len(export_objects),'materials':1,'texture_resolution':SIZE,'length_m':.42,'godot_forward':'-Z','origin':'grip attachment','source_parts':len(parts),'uv_layout':'Overlapping padded trim atlas; not unique bake UVs','reference_interpretation':'Side silhouette prioritized; front/top reconcile depth; mirrored unseen side ornament'}
+bpy.ops.export_scene.gltf(filepath=str(OUTPUT/'dawnseal.glb'),export_format='GLB',use_selection=True,export_apply=True,export_yup=True,export_texcoords=True,export_normals=True,export_materials='EXPORT',export_cameras=False,export_lights=False,export_extras=True,export_animations=True,export_animation_mode='NLA_TRACKS')
+stats = {'triangles':sum(len(o.data.polygons) for o in export_objects),'vertices':sum(len(o.data.vertices) for o in export_objects),'assemblies':len(export_objects),'materials':2,'animations':['Fire','Charge'],'emission_material':'Dawnseal_Solar_Chamber_Emission','reference':'meshy_views_v2/gun_sidearm_legendary_dawnseal','texture_resolution':SIZE,'length_m':.42,'godot_forward':'-Z','origin':'grip attachment','source_parts':len(parts),'uv_layout':'Overlapping padded trim atlas; not unique bake UVs','reference_interpretation':'Side silhouette prioritized; front/top reconcile depth; mirrored unseen side ornament'}
 (OUTPUT/'dawnseal_stats.json').write_text(json.dumps(stats,indent=2)+'\n')
 print('DAWNSEAL_STATS',json.dumps(stats),flush=True)
 export_collection.hide_render = True
@@ -532,4 +604,5 @@ for name,(position,target,ortho) in views.items():
                 area_.spaces.active.region_3d.view_perspective = 'CAMERA'
         bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE/'dawnseal.blend'))
     bpy.ops.render.render(write_still=True)
+(SOURCE/'README.md').write_text('# Dawnseal\n\nAuthored using meshy_views_v2/gun_sidearm_legendary_dawnseal side, top and front only. Editable named source components retain ivory/navy/gold PBR trim textures. Solar chamber uses the independent Dawnseal_Solar_Chamber_Emission material: set its emission color and strength without affecting the armor.\n\nFire animates trigger and hammer around their own pivots; Charge contracts and expands the solar chamber and winding filaments. Both clips export to GLB. Godot forward -Z; grip attachment origin. Rebuild with blender -b --factory-startup -t 4 --python tools/build_dawnseal.py.\n\nV2 refinements include shoulder enamel insets, ivory rear armor, radial celestial seal engraving, and solar filaments. Existing lobby and sandbox GLB paths are preserved.\n')
 print('DAWNSEAL_COMPLETE',flush=True)

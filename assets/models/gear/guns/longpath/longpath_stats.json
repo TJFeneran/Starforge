@@ -1,0 +1,18 @@
+{
+  "id": "longpath",
+  "length_m": 1.113,
+  "triangles": 19464,
+  "editable_mesh_parts": 100,
+  "runtime_meshes": 8,
+  "reference": "meshy_views_v2/gun_rifle_uncommon_longpath",
+  "forward": "Godot -Z",
+  "origin": "grip center",
+  "animations": [
+    "Fire",
+    "Reload"
+  ],
+  "emissive": true,
+  "materials": 7,
+  "textures": "512px packed basecolor, ORM, normal; procedural wear baked reproducibly",
+  "limitations": "Authored interpretation of v2 views; shared tiled UVs; animation assembly travel only"
+}

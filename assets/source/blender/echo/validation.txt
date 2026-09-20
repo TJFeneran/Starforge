@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.arch_linux.ed1daf0bf (2026-08-17 01:18:38 UTC) - https://godotengine.org
+
+latch meshes=6 clips=["Fire_Recoil"] recoil_z=0.00400400022045
+echo meshes=7 clips=["Core_Idle_Pulse", "Fire_Recoil"] recoil_z=0.00400400022045
+
+Both GLBs imported successfully in an isolated Godot 4.7.2 project. Embedded textures, recoil animation transformed Slide along Godot +Z; Echo has Core_Idle_Pulse. Four studio views visually inspected. Full project scene integration remains outside this asset build.

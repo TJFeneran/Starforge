@@ -1,4 +1,4 @@
-# Starforge Handoff — 2026-09-10
+# Starforge Handoff — 2026-09-19
 
 Checkpoint for the next agent. Project is at a good pause point.
 
@@ -9,7 +9,6 @@ Godot 4.7 third-person space-fantasy game. Visual direction is locked in `docs/a
 ## Current entry point
 
 - `project.godot` → `res://scenes/main.tscn` → `res://scenes/lobby/lobby.tscn` (forge hall)
-- Previous hangar archived at `res://scenes/lobby/lobby_legacy.tscn`
 - Renderer: **Forward+** (switched from Compatibility so shadows work)
 - UI base resolution 1920×1080 with `canvas_items` stretch (aspect `expand`): 2D/UI scales to the window (4K = 2×), 3D renders at native window resolution
 - Player-facing display mode / resolution live in the Options menu (`GameSettings` autoload, persisted to `user://settings.cfg`); `project.godot` only decides the first launch
@@ -20,9 +19,8 @@ Godot 4.7 third-person space-fantasy game. Visual direction is locked in `docs/a
 |---|---|
 | `scenes/main.tscn` | Launch wrapper only |
 | `scenes/lobby/lobby.tscn` | **Active work** — forge hall hub / staging area |
-| `scenes/lobby/lobby_legacy.tscn` | Archived crate-and-wall hangar |
 | `scenes/field/forge_field.tscn` | Open field reached via the gate — scattered loot VFX, monument returns to lobby |
-| `scenes/sandbox/controller_sandbox.tscn` | Isolated controller / weapon tests |
+| `scenes/sandbox/gunplay_sandbox.tscn` | Isolated controller / weapon tests |
 
 ## Lobby forge hall — current state
 
@@ -55,6 +53,12 @@ Deferred lobby systems (remember these):
 - Forge monument at the origin; E at its base returns to the lobby through the same wipe
 - Player controller: third-person, ADS pistol strafe locomotion, weapon follows `RightHand`
 
+## Gun art and progression reference
+
+Nine guns have editable Blender sources and imported runtime GLBs under `assets/source/blender/` and `assets/models/gear/guns/`. Emberflint is equipped at start, and all nine can be selected with keys 1–9. Dawnseal and Vault Needle also remain lobby displays. Use the individual `assets/source/concepts/gear/meshy_views_v2/` PNGs for gun geometry; the original combined sheets supply material cues. The previous `meshy_views/` directory was removed, with armor references moved to `armor_views/`.
+
+`docs/production/gun-reference-sheet.md` and `.png` show all nine guns, tiers, runtime stats, and tradeoffs. `docs/production/gun-balance.json` is the numeric source; `tools/generate_gun_resources.py` produces the editable Godot resources in `assets/data/guns/`. `scenes/combat/gun_mount.gd` implements ammo, heat, reloads, charge, spread, recoil, falloff, and bounded traits; `gun_projectile.gd` and `weapon_effect.gd` render their distinct shots and impacts. Use `scenes/sandbox/gunplay_sandbox.tscn` to test every gun in play. Combat balance and human visual review are pending.
+
 ## Known soft spots
 
 - Jump animation is procedural whole-body motion, not a real jump clip
@@ -68,7 +72,7 @@ Deferred lobby systems (remember these):
 1. Freeze broad asset churn; promote assets only via checklist in `docs/production/vertical-slice.md`
 2. Test experiments in `scenes/sandbox/`, not by breaking the lobby hub or the forge field
 3. Prefer small, visible milestones over entangled sandbox+gameplay scenes
-4. Confirm Meshy credit spend before generation
+4. Confirm Meshy credit spend before generation for assets that still use Meshy; guns use authored Blender builds
 
 ## Suggested next steps
 
@@ -87,5 +91,4 @@ Deferred lobby systems (remember these):
 - Player: `scenes/player/player_controller.gd`, `scenes/player/player.tscn`
 - Field: `scenes/field/forge_field.gd`; scene wipe: `scenes/ui/scene_transition.*`
 - Menus: `scenes/ui/welcome_screen.*`, `scenes/ui/pause_menu.*`, options overlay `scenes/ui/options_menu.*` (General / Video / Audio tabs; only Video populated), settings state `scenes/settings/game_settings.gd`; shared theme `assets/ui/starforge_ui_theme.tres`
-- Collision proxies (legacy lobby): `scenes/lobby/modules/outpost_collision.gd`
 - Plans: `docs/production/lobby-plan.md`, `docs/production/vertical-slice.md`, `docs/production/armor-progression-plan.md` (canonical armor design contract), `docs/production/gun-progression-plan.md` (canonical gun design contract)

@@ -7,6 +7,8 @@ import json
 import math
 import bpy
 import bmesh
+import numpy as np
+import struct
 from mathutils import Matrix, Vector
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +32,24 @@ def material(name, color, metallic=0.0, roughness=.35, emission=0.0):
     node.inputs['Roughness'].default_value = roughness
     node.inputs['Emission Color'].default_value = (*color, 1)
     node.inputs['Emission Strength'].default_value = emission
+    if emission == 0:
+        # Exportable worn satin PBR maps, packed in source and GLB.
+        N=512; rng=np.random.default_rng(sum(map(ord,name))); yy,xx=np.mgrid[:N,:N]
+        fine=rng.normal(size=(N,N)); band=np.sin(xx*.035+np.sin(yy*.019))*0.5
+        scratches=np.zeros((N,N))
+        for k in range(90):
+            x,y=rng.integers(0,N,2); length=int(rng.integers(4,35)); scratches[y,x:min(N,x+length)]=rng.uniform(.1,.35)
+        rgb=np.array(color)[None,None,:]*(1+fine[:,:,None]*.015+band[:,:,None]*.025)+scratches[:,:,None]*.045
+        rough=np.clip(roughness+fine*.018+band*.025+scratches*.05,0,1)
+        h=fine*.001+scratches*.003; dx=np.roll(h,-1,1)-np.roll(h,1,1);dy=np.roll(h,-1,0)-np.roll(h,1,0)
+        norm=np.stack((-dx*3,-dy*3,np.ones_like(dx)),2);norm/=np.linalg.norm(norm,axis=2)[:,:,None]
+        def tex(suffix,data,non=False):
+            safe=name.replace(' | ','_').replace(' ','_');im=bpy.data.images.new(safe+'_'+suffix,width=N,height=N,alpha=False)
+            if non:im.colorspace_settings.name='Non-Color'
+            pixels=np.ones((N,N,4),np.float32);pixels[:,:,:3]=np.clip(data,0,1);im.pixels.foreach_set(pixels.ravel());im.filepath_raw=str(OUTPUT/(im.name+'.png'));im.file_format='PNG';im.save();im.pack();t=mat.node_tree.nodes.new('ShaderNodeTexImage');t.image=im;return t
+        t=tex('basecolor',rgb);mat.node_tree.links.new(t.outputs['Color'],node.inputs['Base Color'])
+        t=tex('orm',np.stack((np.ones_like(dx),rough,np.full_like(dx,metallic)),2),True);sep=mat.node_tree.nodes.new('ShaderNodeSeparateColor');mat.node_tree.links.new(t.outputs['Color'],sep.inputs['Color']);mat.node_tree.links.new(sep.outputs['Green'],node.inputs['Roughness']);mat.node_tree.links.new(sep.outputs['Blue'],node.inputs['Metallic'])
+        t=tex('normal',norm*.5+.5,True);nm=mat.node_tree.nodes.new('ShaderNodeNormalMap');nm.inputs['Strength'].default_value=.3;mat.node_tree.links.new(t.outputs['Color'],nm.inputs['Color']);mat.node_tree.links.new(nm.outputs['Normal'],node.inputs['Normal'])
     materials[name] = mat
     return name
 
@@ -59,6 +79,11 @@ def finish(obj, name, mat, bevel=0, smooth=False, group='Receiver'):
         mod.keep_sharp = True
         bpy.ops.object.modifier_apply(modifier=mod.name)
     obj.data.materials.append(materials[mat])
+    uv=obj.data.uv_layers.new(name='SurfaceUV')
+    for face in obj.data.polygons:
+        axis=max(range(3),key=lambda j:abs(face.normal[j]));a,b=[(1,2),(0,2),(0,1)][axis]
+        for i in face.loop_indices:
+            v=obj.data.vertices[obj.data.loops[i].vertex_index].co;uv.data[i].uv=(v[a]*8+.5,v[b]*8+.5)
     obj['assembly'] = group
     parts.append(obj)
     obj.select_set(False)
@@ -225,28 +250,47 @@ def export_asset():
         assert all(math.isfinite(c) for v in obj.data.vertices for c in v.co)
         assert len(obj.data.uv_layers) > 0
         assert all(poly.area > 1e-14 for poly in obj.data.polygons), f'Degenerate geometry: {obj.name}'
+    scene=bpy.context.scene;scene.render.fps=30;scene.frame_start=1;scene.frame_end=13
+    pivots=[]
+    for group,point in [('Trigger',(.788,0,-.058)),('Bolt',(.90,0,.07))]:
+        pivot=bpy.data.objects.new('Needle_'+group+'_Pivot',None);scene.collection.objects.link(pivot);pivot.location=transform@Vector(point);pivots.append(pivot);bpy.context.view_layer.update()
+        for obj in [o for o in parts if o['assembly']==group]+[o for o in exports if o.name=='RareNeedle_'+group]:
+            world=obj.matrix_world.copy();obj.parent=pivot;obj.matrix_world=world
+        base=pivot.location.copy()
+        for frame,amount in [(1,0),(3,1),(6,.7),(13,0)]:
+            if group=='Trigger':pivot.rotation_euler.x=math.radians(-14)*amount;pivot.keyframe_insert(data_path='rotation_euler',frame=frame)
+            else:pivot.location=base+Vector((0,-.005*amount,0));pivot.keyframe_insert(data_path='location',frame=frame)
+        pivot.animation_data.action.name='Fire_'+group
+    scene.frame_set(1);bpy.context.view_layer.update()
     bpy.ops.object.select_all(action='DESELECT')
-    for obj in exports:
+    for obj in exports+pivots:
         obj.select_set(True)
     bpy.context.view_layer.objects.active = exports[0]
     bpy.ops.export_scene.gltf(filepath=str(OUTPUT/'rare_needle.glb'), export_format='GLB',
         use_selection=True, export_apply=True, export_yup=True, export_texcoords=True,
         export_normals=True, export_materials='EXPORT', export_cameras=False,
         export_lights=False, export_extras=True)
+    # One playable Fire action combines bolt recoil and trigger pull.
+    raw=(OUTPUT/'rare_needle.glb').read_bytes();n=struct.unpack_from('<I',raw,12)[0];doc=json.loads(raw[20:20+n]);merged={'name':'Fire','samplers':[],'channels':[]}
+    for clip in doc.get('animations',[]):
+        off=len(merged['samplers']);merged['samplers'].extend(clip['samplers'])
+        for channel in clip['channels']:channel['sampler']+=off;merged['channels'].append(channel)
+    assert len(merged['channels'])==2
+    doc['animations']=[merged];chunk=json.dumps(doc,separators=(',',':')).encode();chunk+=b' '*((-len(chunk))%4);tail=raw[20+n:];(OUTPUT/'rare_needle.glb').write_bytes(struct.pack('<III',0x46546C67,2,20+len(chunk)+len(tail))+struct.pack('<II',len(chunk),0x4E4F534A)+chunk+tail)
     stats = {'dimensions_m': {'width': dims[0], 'length': dims[1], 'height': dims[2]},
         'triangles': sum(len(o.data.polygons) for o in exports), 'assemblies': len(exports),
         'source_parts': len(parts), 'materials': len(materials), 'godot_forward': '-Z',
         'origin': 'Same grip attachment as Dawnseal', 'blender_only': True,
         'dawnseal_reference_length_m': .41731, 'length_ratio_to_dawnseal': dims[1]/.41731,
-        'source_concepts': 'assets/source/concepts/gear/meshy_views/gun_sidearm_rare_needle',
-        'materials_note': 'Native glTF metallic/roughness materials; no external textures required'}
+        'source_concepts': 'assets/source/concepts/gear/meshy_views_v2/gun_sidearm_rare_needle',
+        'animations': ['Fire'], 'animation_seconds': .4, 'embedded_images':len(doc.get('images',[])), 'emissive':True, 'materials_note': 'Six 512px basecolor/ORM/normal sets, embedded in GLB; independently controllable cyan emission'}
     (OUTPUT/'rare_needle_stats.json').write_text(json.dumps(stats, indent=2)+'\n')
     # Persist orthographic concept images as packed, hidden modeling references.
     references = bpy.data.collections.new('REFERENCE | packed concept views (hidden)')
     scene = bpy.context.scene
     scene.collection.children.link(references)
-    for view in ('side', 'front', 'top'):
-        image = bpy.data.images.load(str(ROOT/'assets/source/concepts/gear/meshy_views/gun_sidearm_rare_needle'/f'{view}.png'))
+    for view in ('side', 'three_quarter', 'top'):
+        image = bpy.data.images.load(str(ROOT/'assets/source/concepts/gear/meshy_views_v2/gun_sidearm_rare_needle'/f'{view}.png'))
         image.pack()
         ref = bpy.data.objects.new('Concept_' + view, None)
         references.objects.link(ref)
@@ -270,7 +314,20 @@ def export_asset():
                 space.region_3d.view_location = transform @ Vector((.40,0,-.055))
                 space.region_3d.view_distance = .8
     bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE/'rare_needle.blend'))
+    render_reviews()
     print('RARE_NEEDLE_STATS', json.dumps(stats), flush=True)
+
+
+def render_reviews():
+    scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True;scene.render.resolution_x=1100;scene.render.resolution_y=900;scene.render.resolution_percentage=100;scene.view_settings.view_transform='AgX'
+    scene.world.use_nodes=True;scene.world.node_tree.nodes['Background'].inputs[0].default_value=(.045,.055,.075,1);scene.world.node_tree.nodes['Background'].inputs[1].default_value=.4
+    target=(0,.22,.006)
+    def aim(o):o.rotation_euler=(Vector(target)-o.location).to_track_quat('-Z','Y').to_euler()
+    for name,loc,power,col,size in [('Key',(.5,.6,1),100,(1,.95,.88),.8),('Rim',(-.5,.4,.6),90,(.65,.8,1),.7),('Fill',(.4,-.4,.2),60,(1,1,1),.7)]:
+        d=bpy.data.lights.new(name,'AREA');d.energy=power;d.color=col;d.size=size;o=bpy.data.objects.new(name,d);scene.collection.objects.link(o);o.location=loc;aim(o)
+    bpy.ops.object.camera_add();cam=bpy.context.object;cam.data.type='ORTHO';scene.camera=cam;pre=SOURCE/'previews';pre.mkdir(exist_ok=True)
+    for name,pos,scale in [('hero',(-.85,.75,.5),.86),('side',(-1.5,.22,.006),.80),('top',(0,.22,1.5),1.08),('front',(0,1.5,.006),.42)]:
+        cam.location=pos;aim(cam);cam.data.ortho_scale=scale;scene.render.filepath=str(pre/(name+'.png'));bpy.ops.render.render(write_still=True)
 
 
 def build():
@@ -288,7 +345,7 @@ def build():
     profile('Compact charcoal receiver',receiver,.116,dark,bevel=.009)
     upper = [(.42,.037),(.511,.084),(.625,.111),(.759,.119),(.822,.095),(.805,.064),(.711,.067),(.637,.035),(.562,.011)]
     profile('Stepped silver receiver crown',upper,.102,white,bevel=.004)
-    profile('Rear breech cap',[(.846,.103),(.906,.089),(.964,.053),(.969,.020),(.946,.007),(.907,.033),(.852,.047)],.111,silver,bevel=.008)
+    profile('Rear breech cap',[(.846,.103),(.906,.089),(.964,.053),(.969,.020),(.946,.007),(.907,.033),(.852,.047)],.111,silver,bevel=.008,group='Bolt')
     profile('Rear sight base',[(.822,.106),(.876,.106),(.893,.097),(.893,.085),(.822,.093)],.066,dark,bevel=.003)
     for s in (-1,1):
         profile('Rear sight ear',[(.832,.105),(.850,.133),(.870,.133),(.870,.105)],.012,dark,s*.025,.002)
@@ -313,6 +370,17 @@ def build():
             x = .818+i*.024
             trim('Breech transverse seam',[(x,.075),(x+.014,.049),(x+.013,.017)],s*.059,.0016,black)
 
+    # V2 rear view shows two separate bolt rails, plus diagonal shroud vents.
+    for z in (.072,.025):
+        cylinder('Rear exposed bolt cylinder',(.975,0,z),.018,.083,dark,'X',24,'Bolt')
+        ring('Bolt rail titanium end ring',(1.015,0,z),.016,.0025,silver,'X','Bolt')
+    for sign in (-1,1):
+        profile('Shroud vent recess',[(.305,.039),(.478,.047),(.454,.018),(.297,.015)],.003,black,sign*.044,.001,'Barrel')
+        for i in range(4):
+            x=.32+i*.035
+            trim('Diagonal vent louver',[(x,.017),(x+.024,.041)],sign*.046,.0019,silver,group='Barrel')
+    tube('Dorsal cyan status inset',[(.59,0,.114),(.64,0,.12),(.70,0,.125)],.006,black,group='Energy')
+    tube('Dorsal cyan status glass',[(.60,0,.119),(.64,0,.125),(.69,0,.130)],.003,cyan,group='Energy')
     stations = [(-.590,.0007,.0007,.009),(-.49,.005,.006,.010),(-.30,.012,.013,.014),
                 (-.07,.021,.025,.024),(.17,.030,.037,.036),(.38,.041,.049,.047),(.54,.052,.058,.052),(.606,.048,.052,.050)]
     faceted_lance(stations,white,silver,dark)
@@ -321,7 +389,7 @@ def build():
     for s in (-1,1):
         channel = [(-.228,s*.014,.012),(-.06,s*.022,.019),(.16,s*.032,.029),(.325,s*.040,.037)]
         tube('Dark longitudinal conductor recess',channel,.0042,black,group='Barrel')
-        tube('Fine cyan blade conductor',[(x,y+s*.0023,z+.0003) for x,y,z in channel],.00165,cyan,group='Energy')
+        tube('Fine cyan blade conductor',[(x,y+s*.006,z+.0003) for x,y,z in channel],.0028,cyan,group='Energy')
         tube('Blade termination silver lip',[(.324,s*.042,.037),(.349,s*.044,.049)],.002,silver,group='Barrel')
         tube('Dorsal panel break',[(.360,s*.031,.075),(.405,s*.044,.033),(.480,s*.047,.027)],.0012,dark,group='Barrel')
     tube('Central dorsal ridge',[(-.49,0,.016),(-.07,0,.049),(.17,0,.073),(.38,0,.096),(.54,0,.110)],.0012,white,group='Barrel')

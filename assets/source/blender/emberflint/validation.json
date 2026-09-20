@@ -1,0 +1,15 @@
+{
+  "glb_bytes": 20807600,
+  "meshes": 6,
+  "materials": 4,
+  "embedded_images": 12,
+  "all_pbr_materials_have_color_normal_and_metalrough": true,
+  "no_emissive_materials": true,
+  "render_views": [
+    "hero",
+    "side",
+    "top",
+    "front"
+  ],
+  "visual_review": "Compared against all three v2 reference images; interpreted geometry and simplified wrap construction."
+}

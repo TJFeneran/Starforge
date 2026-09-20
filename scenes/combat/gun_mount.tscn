@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/combat/gun_mount.gd" id="1_script"]
+
+[node name="GunMount" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="Muzzle" type="Marker3D" parent="."]
+
+[node name="FireSFX" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX"
+max_distance = 35.0
+unit_size = 4.0
+attenuation_model = 0

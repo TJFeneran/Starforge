@@ -1,0 +1,21 @@
+{
+  "godot_version": "4.7.2",
+  "blender_version": "5.2.2",
+  "core_emissive_surfaces": 2,
+  "ring_emissive_surfaces": 1,
+  "independent_color_setters": "passed",
+  "rotor_transform_update": "passed",
+  "imported_animations": [
+    "Ring_Spin"
+  ],
+  "blender_renders": [
+    "hero.png",
+    "side.png",
+    "front.png",
+    "top.png"
+  ],
+  "review_status": "pending_human_review",
+  "godot_import": "passed (4.7.2, exit 0)",
+  "godot_scene_smoke": "passed (headless, exit 0)",
+  "reference_geometry": "meshy_views_v2 side/top/front"
+}

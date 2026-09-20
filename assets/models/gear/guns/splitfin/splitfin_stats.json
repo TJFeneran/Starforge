@@ -1,0 +1,20 @@
+{
+  "asset": "Splitfin",
+  "tier": "Rare",
+  "length_m": 0.62,
+  "triangles": 31116,
+  "editable_mesh_parts": 66,
+  "runtime_meshes": 66,
+  "materials": 4,
+  "embedded_images": 9,
+  "animations": [
+    "Splitfin_Charge"
+  ],
+  "animation_seconds": 2,
+  "emissive": true,
+  "reference": "meshy_views_v2/gun_energy_rare_splitfin side/top/front",
+  "origin": "grip center",
+  "forward": "Godot -Z",
+  "textures": "512px basecolor ORM normal for ivory, gold, charcoal; separate amber emission",
+  "limitations": "Authored interpretation of the supplied views; no collision; overlapping material UVs"
+}
