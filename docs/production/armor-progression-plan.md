@@ -1,8 +1,10 @@
 # Armor Options & Progression
 
-Status: design contract — 2026-09-10
+Status: design contract (2026-09-10); nine Meshy armor visuals rigged and previewable as of 2026-09-20. Functional equipment and mitigation remain planned.
 
 This document is the source of truth for functional armor. Future armor implementation, balancing, asset production, and workshop UI should follow it unless a later design decision updates this document.
+
+The nine complete visual candidates are in `assets/models/gear/armor/previews/` and can be compared in `scenes/sandbox/armor_preview.tscn`. Their Meshy source, generation records, and Blender rigs live under `assets/source/meshy/armor_*/` and `assets/source/blender/armor_*/`. They are full-body preview models, not yet separated into the six functional equipment slots below.
 
 ## Design promise
 
@@ -108,16 +110,17 @@ Armor must follow `docs/art/visual-bible.md`: broad practical plates over a Void
 
 For each armor asset, record item ID, slot, rarity, scale target, pivot/origin, material slots, collision approach, and runtime owner. Use production GLB output and the established Meshy 7 pipeline; avoid Smart Topology for hard-surface armor. Confirm credit spend before generation.
 
-Test new armor in `scenes/sandbox/` or `scenes/style_lab/` first. Promote only after checking 1.8 m scale/facing, materials, intentional collision, performance, animation compatibility, and third-person readability. Do not destabilize `scenes/playable/outpost_slice.tscn` or add a fifth lobby workshop.
+Test new armor in `scenes/sandbox/armor_preview.tscn` or `scenes/style_lab/` first. The current preview fits most full-body models to 1.8 m; Signal Mantle and Horizon Aegis use 2.16 m total height so their tall helmet pieces extend above otherwise comparable bodies. Those preview dimensions do not change the 1.8 m playable rig or collision capsule. Promote only after checking scale/facing, materials, intentional collision, performance, animation compatibility, and third-person readability on the player. Do not destabilize `scenes/field/forge_field.tscn` or add a fifth lobby workshop.
 
 ## Delivery milestones
 
-1. Commit this contract and cross-reference it from production docs.
-2. Implement starter state, armor item data, six-slot loadout, and persistence.
-3. Add one Common path and shared damage mitigation while preserving Health signals.
-4. Add armor-bay inspection, preview, equip, and lobby-to-mission handoff.
-5. Add representative Uncommon, Rare, and Legendary data/effects incrementally.
-6. Validate each step in sandbox/style lab, then the outpost slice, before catalog expansion.
+Visual milestone complete: nine textured Meshy candidates are rigged and animate in the sandbox lineup. Remaining functional milestones:
+
+1. Implement starter state, armor item data, six-slot loadout, and persistence.
+2. Add one Common path and shared damage mitigation while preserving Health signals.
+3. Add armor-bay inspection, preview, equip, and lobby-to-mission handoff.
+4. Add representative Uncommon, Rare, and Legendary data/effects incrementally.
+5. Validate each step on the player in the sandbox and forge field before catalog expansion.
 
 ## Balance and acceptance checklist
 

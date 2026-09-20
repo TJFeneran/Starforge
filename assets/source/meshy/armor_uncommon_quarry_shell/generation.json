@@ -1,0 +1,21 @@
+{
+  "asset_id": "armor_uncommon_quarry_shell",
+  "service": "Meshy",
+  "model": "meshy-7",
+  "task_id": "01a0c061-f224-724f-9806-e56082b18376",
+  "credits_consumed": 30,
+  "source_views": "assets/source/concepts/gear/armor_views/armor_uncommon_quarry_shell/{front,side,back}.png",
+  "settings": {
+    "pose_mode": "t-pose",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "2k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 30000,
+    "target_formats": [
+      "glb"
+    ]
+  },
+  "status": "generated, rigged, and imported for Godot armor preview"
+}

@@ -1,6 +1,6 @@
 # Gun asset pipeline: authored Blender → Godot
 
-Status: adopted for new gun builds after the Monument Heart prototype (2026-09-19). This guide covers gun art assets; gameplay and progression remain defined in `docs/production/gun-progression-plan.md`. The general Meshy guide still applies to other asset classes where selected. The first pass used an Astra coding agent to author and iterate the Blender build script, with human visual review between geometry and texture passes; the saved script and `.blend` remain the reproducible source.
+Status: current pipeline for the nine authored Blender guns (2026-09-20). This guide covers gun art assets; gameplay and progression remain defined in `docs/production/gun-progression-plan.md`. Meshy is used for the current armor art, not for these gun meshes. Each gun keeps an editable `.blend`, reproducible build script, runtime GLB, and review renders.
 
 ## References and geometry
 
@@ -17,7 +17,7 @@ Status: adopted for new gun builds after the Monument Heart prototype (2026-09-1
 
 ## Acceptance
 
-Render side, top, front, and a three-quarter view from the actual Blender model. Compare them with the approved individual reference PNGs. Import the GLB into Godot, run it in `scenes/sandbox/`, and check scale, orientation, attachment, moving components, independent glow colors, and material appearance. Add collision, LODs, muzzle marker, firing/reload animation, and gameplay hookup before promoting an asset into the playable slice. Keep the current playable and lobby assets until their replacements pass those integration checks.
+Render side, top, front, and a three-quarter view from the actual Blender model. Compare them with the approved individual reference PNGs. Import the GLB into Godot, run it in `scenes/sandbox/gunplay_sandbox.tscn`, and check scale, orientation, attachment, moving components, independent glow colors, and material appearance. Verify muzzle placement, firing/reload behavior, and relevant collision before integrating a new or revised gun into gameplay. Add LODs when profiling shows a need. Keep current playable and lobby assets until a replacement passes those checks.
 
 The nine-gun review is in `docs/production/gun-reference-sheet.md` and `docs/production/gun-reference-sheet.png`; `scenes/sandbox/gunplay_sandbox.tscn` exercises all nine playable guns. Firing values are in `docs/production/gun-balance.json`.
 

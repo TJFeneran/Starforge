@@ -1,0 +1,148 @@
+{
+  "source": "Meshy 7 generated armor_common_trail_warden.glb",
+  "raw_triangles": 59654,
+  "rigged_triangles": 35581,
+  "vertices": 39998,
+  "bones": 112,
+  "mesh_objects": 1,
+  "max_influences": 4,
+  "unweighted_vertices": 0,
+  "transfer_distance_max": 0.14939668774604797,
+  "transfer_distance_mean": 0.028988666063331732,
+  "weight_sum_max_error": 1.4528632164001465e-07,
+  "uv_layers": 1,
+  "materials": 1,
+  "rear_drape_bridge_faces_removed": 211,
+  "status": "exact player skeleton; existing run, aim and idle sampled; rendered pose review",
+  "animation_tests": [
+    {
+      "animation": "exo_gray_run.glb",
+      "frame": 1,
+      "animation_skeleton_rest_max_error": 0.055646419525146484,
+      "min": [
+        -0.3912360966205597,
+        -0.6588647961616516,
+        -0.01470787264406681
+      ],
+      "max": [
+        0.36476391553878784,
+        0.5880956649780273,
+        1.7965164184570312
+      ]
+    },
+    {
+      "animation": "exo_gray_run.glb",
+      "frame": 6,
+      "animation_skeleton_rest_max_error": 0.055646419525146484,
+      "min": [
+        -0.35444527864456177,
+        -0.49118316173553467,
+        -0.008794347755610943
+      ],
+      "max": [
+        0.36842596530914307,
+        0.39010828733444214,
+        1.789968729019165
+      ]
+    },
+    {
+      "animation": "exo_gray_run.glb",
+      "frame": 12,
+      "animation_skeleton_rest_max_error": 0.055646419525146484,
+      "min": [
+        -0.39905989170074463,
+        -0.5870109796524048,
+        -0.020918384194374084
+      ],
+      "max": [
+        0.39162230491638184,
+        0.7348527312278748,
+        1.8030215501785278
+      ]
+    },
+    {
+      "animation": "exo_gray_run.glb",
+      "frame": 18,
+      "animation_skeleton_rest_max_error": 0.055646419525146484,
+      "min": [
+        -0.38092470169067383,
+        -0.6899611949920654,
+        -0.018391471356153488
+      ],
+      "max": [
+        0.37860268354415894,
+        0.47561633586883545,
+        1.7927016019821167
+      ]
+    },
+    {
+      "animation": "exo_gray_pistol_aim.glb",
+      "frame": 1,
+      "animation_skeleton_rest_max_error": 0.044756531715393066,
+      "min": [
+        -0.4059859812259674,
+        -0.6588704586029053,
+        -0.016557419672608376
+      ],
+      "max": [
+        0.30032438039779663,
+        0.3673836588859558,
+        1.8129966259002686
+      ]
+    },
+    {
+      "animation": "exo_gray_pistol_aim.glb",
+      "frame": 10,
+      "animation_skeleton_rest_max_error": 0.044756531715393066,
+      "min": [
+        -0.4080350995063782,
+        -0.6634445190429688,
+        -0.01658409647643566
+      ],
+      "max": [
+        0.2979973554611206,
+        0.3643953204154968,
+        1.8095937967300415
+      ]
+    },
+    {
+      "animation": "exo_gray_pistol_aim.glb",
+      "frame": 20,
+      "animation_skeleton_rest_max_error": 0.044756531715393066,
+      "min": [
+        -0.41005009412765503,
+        -0.6617704629898071,
+        -0.016712553799152374
+      ],
+      "max": [
+        0.2976457178592682,
+        0.3591804802417755,
+        1.7968651056289673
+      ]
+    },
+    {
+      "animation": "exo_gray_idle.glb",
+      "frame": 1,
+      "animation_skeleton_rest_max_error": 0.03779315948486328,
+      "min": [
+        -0.3182451128959656,
+        -0.24754485487937927,
+        -0.01671450212597847
+      ],
+      "max": [
+        0.34916672110557556,
+        0.19742585718631744,
+        1.8904591798782349
+      ]
+    }
+  ],
+  "export_validation": {
+    "joint_names_and_order_match_exo_gray_bind": true,
+    "joint_count": 112,
+    "inverse_bind_matrix_max_error_vs_exo_gray_bind": 2.5406479835510254e-06,
+    "mesh_count": 1,
+    "embedded_images": 4,
+    "skin_count": 1
+  },
+  "visual_review": "Final run hero/side, aim hero and idle hero inspected. Fused drape membrane removed; crotch surface preserved; shared four-finger flex avoids generated webbing tears."
+}

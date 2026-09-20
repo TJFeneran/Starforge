@@ -18,7 +18,7 @@ Reviewed against Visual Bible v1.0 using:
 
 ## Freeze decision
 
-**Visual Bible v1.0 frozen.** Pipeline is validated. Bulk Meshy generation may begin only for assets that obey `docs/art/concept-prompts.md` and this checklist.
+**Visual Bible v1.0 frozen.** The beacon validated the static-prop pipeline. Later Meshy work, including the nine rigged armor previews, should continue to use `docs/art/concept-prompts.md` and this checklist for visual review; armor rigging and preview steps are in `docs/art/meshy-pipeline.md`.
 
 ## Forge-beacon remake (v2)
 

@@ -86,6 +86,8 @@ Window is 1920×1080 (internal render 3840×2160).
 
 For gunplay testing, run `res://scenes/sandbox/gunplay_sandbox.tscn` (F6). Use 1–9 or Tab / Shift+Tab to change guns.
 
+For armor visual review, run `res://scenes/sandbox/armor_preview.tscn` (F6). Nine labeled Meshy models cycle through animations; WASD moves the camera, Shift moves faster, mouse drag orbits, wheel zooms, Space advances the animation, and R resets the camera. This scene previews art and rigs; it does not equip armor in gameplay.
+
 ## Build / export
 
 `export_presets.cfg` is gitignored, so a fresh machine has no export presets yet.
@@ -111,12 +113,13 @@ No extra SDKs are required for desktop exports. Android/iOS need the usual Godot
 | `scenes/lobby/` | Forge-hall hub |
 | `scenes/field/forge_field.tscn` | Open field reached through the lobby gate |
 | `scenes/sandbox/gunplay_sandbox.tscn` | Isolated gunplay testing |
+| `scenes/sandbox/armor_preview.tscn` | Nine-model armor and animation preview |
 | `assets/models/` | Runtime GLBs Godot imports |
 | `assets/source/` | Editable Blender sources, concept references, and original external assets (`.gdignore` — not imported) |
 | `tools/` | Blender/Godot helper scripts |
 | `docs/` | Art bible, pipeline, production notes |
 
-Runtime GLBs under `assets/models/` are what the game loads. Gun `.blend` sources and their reproducible build scripts are kept under `assets/source/blender/` and `tools/`.
+Runtime GLBs under `assets/models/` are what the game loads. Gun `.blend` sources and their reproducible build scripts are kept under `assets/source/blender/` and `tools/`. Armor uses Meshy source GLBs under `assets/source/meshy/armor_*/`, editable Blender rigs under `assets/source/blender/armor_*/`, and preview exports under `assets/models/gear/armor/previews/`.
 
 ## Docs
 

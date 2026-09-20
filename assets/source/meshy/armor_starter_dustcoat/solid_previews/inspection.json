@@ -1,0 +1,19 @@
+{
+  "source": "/home/tj/Documents/GodotProjects/Starforge/assets/source/meshy/armor_starter_dustcoat/armor_starter_dustcoat.glb",
+  "bounds_min_m": [
+    -0.6556693315505981,
+    -0.17444893717765808,
+    0.0
+  ],
+  "bounds_max_m": [
+    0.6556693315505981,
+    0.17444893717765808,
+    1.7999999523162842
+  ],
+  "mesh_count": 1,
+  "face_count": 78950,
+  "triangle_count": 78950,
+  "materials": [
+    "Solid_Geometry_Check"
+  ]
+}

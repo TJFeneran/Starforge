@@ -1,0 +1,21 @@
+{
+  "asset_id": "armor_rare_nightwell",
+  "service": "Meshy",
+  "model": "meshy-7",
+  "task_id": "01a0c062-063f-77a0-a307-df9481d92f0f",
+  "credits_consumed": 30,
+  "source_views": "assets/source/concepts/gear/armor_views/armor_rare_nightwell/{front,side,back}.png",
+  "settings": {
+    "pose_mode": "t-pose",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "2k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 30000,
+    "target_formats": [
+      "glb"
+    ]
+  },
+  "status": "generated, rigged, and imported for Godot armor preview"
+}

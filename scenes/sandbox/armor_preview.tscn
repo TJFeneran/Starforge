@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://10hbq0vxbuoh"]
+
+[ext_resource type="Script" uid="uid://cclh7u3f2lfny" path="res://scenes/sandbox/armor_preview.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://b54l3pqmxu1rx" path="res://assets/models/gear/armor/previews/armor_starter_dustcoat.glb" id="2_starter"]
+[ext_resource type="PackedScene" uid="uid://bjr0v57gm4lph" path="res://assets/models/gear/armor/previews/armor_common_trail_warden.glb" id="3_warden"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/armor/previews/armor_common_outpost_plate.glb" id="4_outpost"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/armor/previews/armor_uncommon_signal_mantle.glb" id="5_signal"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/armor/previews/armor_uncommon_quarry_shell.glb" id="6_quarry"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/armor/previews/armor_rare_riftward.glb" id="7_riftward"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/armor/previews/armor_rare_nightwell.glb" id="8_nightwell"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/armor/previews/armor_legendary_horizon_aegis.glb" id="9_horizon"]
+[ext_resource type="PackedScene" path="res://assets/models/gear/armor/previews/armor_legendary_solar_heart.glb" id="10_solar"]
+
+[sub_resource type="Environment" id="Environment_preview"]
+background_mode = 1
+background_color = Color(0.11, 0.13, 0.16, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.55, 0.62, 0.72, 1)
+ambient_light_energy = 0.35
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.14, 0.16, 0.19, 1)
+roughness = 0.85
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+material = SubResource("Material_floor")
+size = Vector2(40, 20)
+
+[node name="ArmorPreview" type="Node3D" unique_id=186937934]
+script = ExtResource("1_script")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=289755665]
+environment = SubResource("Environment_preview")
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=1497499731]
+mesh = SubResource("PlaneMesh_floor")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=927912662]
+transform = Transform3D(0.7367517, 0.5879016, -0.334019, -0.20589092, 0.66558933, 0.7173561, 0.6440543, -0.45974183, 0.61141765, 0, 0, 0)
+light_energy = 0.9
+shadow_enabled = true
+
+[node name="Fill" type="DirectionalLight3D" parent="." unique_id=1883066508]
+transform = Transform3D(-0.666276, -0.25570068, 0.7004952, 0, 0.9393727, 0.3428978, -0.74570525, 0.22846457, -0.6258815, 0, 0, 0)
+light_color = Color(0.72, 0.82, 1, 1)
+light_energy = 0.3
+
+[node name="Dustcoat" parent="." unique_id=163671566 instance=ExtResource("2_starter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0961453, 0.014124155, 0)
+
+[node name="OutpostPlate" parent="." instance=ExtResource("4_outpost")]
+
+[node name="TrailWarden" parent="." unique_id=1478864201 instance=ExtResource("3_warden")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.361708, 0, 0)
+
+[node name="SignalMantle" parent="." instance=ExtResource("5_signal")]
+
+[node name="QuarryShell" parent="." instance=ExtResource("6_quarry")]
+
+[node name="Riftward" parent="." instance=ExtResource("7_riftward")]
+
+[node name="Nightwell" parent="." instance=ExtResource("8_nightwell")]
+
+[node name="HorizonAegis" parent="." instance=ExtResource("9_horizon")]
+
+[node name="SolarHeart" parent="." instance=ExtResource("10_solar")]
+
+[node name="DustcoatLabel" type="Label3D" parent="." unique_id=416174269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "DUSTCOAT FIELD KIT"
+outline_size = 8
+
+[node name="OutpostPlateLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "OUTPOST PLATE"
+outline_size = 8
+
+[node name="TrailWardenLabel" type="Label3D" parent="." unique_id=1213822906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3535761, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "TRAIL WARDEN"
+outline_size = 8
+
+[node name="SignalMantleLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "SIGNAL MANTLE"
+outline_size = 8
+
+[node name="QuarryShellLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "QUARRY SHELL"
+outline_size = 8
+
+[node name="RiftwardLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "RIFTWARD CARAPACE"
+outline_size = 8
+
+[node name="NightwellLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "NIGHTWELL VAULTSUIT"
+outline_size = 8
+
+[node name="HorizonAegisLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "HORIZON AEGIS"
+outline_size = 8
+
+[node name="SolarHeartLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.14, 0)
+pixel_size = 0.003
+billboard = 1
+text = "SOLAR HEARTPLATE"
+outline_size = 8
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=399360777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17, 5.8)
+current = true
+fov = 42.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1324935819]
+
+[node name="Help" type="Label" parent="CanvasLayer" unique_id=784254497]
+offset_left = 22.0
+offset_top = 20.0
+offset_right = 800.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 18
+text = "Armor preview  |  WASD move  |  Shift faster  |  Drag orbit  |  Wheel zoom  |  Space next animation  |  R reset"
+
+[node name="Animation" type="Label" parent="CanvasLayer"]
+offset_left = 22.0
+offset_top = 54.0
+offset_right = 340.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 18
+text = "ANIMATION: WALK"

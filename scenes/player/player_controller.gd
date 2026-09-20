@@ -60,6 +60,7 @@ const PRIMARY_STOW_OFFSET := Vector3(-0.16, 0.90, 0.39)
 @onready var _visual: Node3D = $Visual
 @onready var _model_root: Node3D = $Visual/Model
 @onready var _health: Health = $Health
+@onready var _weapon_anchor: Node3D = $Visual/WeaponAnchor
 @onready var _weapon: GunMount = $Visual/WeaponAnchor/GunMount
 @onready var _footsteps: AudioStreamPlayer3D = $Footsteps
 @onready var _land_sfx: AudioStreamPlayer3D = $LandImpact
@@ -149,6 +150,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_zoom_distance = minf(_spring_base_length, _zoom_distance + ZOOM_STEP)
 	else:
 		return
+	_update_weapon_follow()
 	get_viewport().set_input_as_handled()
 
 
@@ -157,11 +159,18 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		return
 	if event.keycode >= KEY_1 and event.keycode <= KEY_9:
 		_weapon.equip(event.keycode - KEY_1)
+		if _first_person:
+			_update_first_person_weapon()
 	elif event.keycode == KEY_R:
 		_weapon.reload()
 	else:
 		return
 	get_viewport().set_input_as_handled()
+
+
+func _process(_delta: float) -> void:
+	if _first_person:
+		_update_first_person_weapon()
 
 
 func _physics_process(delta: float) -> void:
@@ -445,11 +454,10 @@ func _update_weapon_follow() -> void:
 		return
 
 	if _first_person:
-		# Each gun keeps a separate first-person offset; large rifles and the
-		# Monument chamber need more room than the compact starter pistol.
-		var offset := _weapon.definition.first_person_ads_offset if _is_aiming() else _weapon.definition.first_person_offset
-		_weapon.global_transform = _camera.global_transform * Transform3D(Basis.IDENTITY, offset)
+		_update_first_person_weapon()
 		return
+	if _weapon.get_parent() != _weapon_anchor:
+		_weapon.reparent(_weapon_anchor)
 
 	var aiming := _is_aiming()
 	if aiming:
@@ -487,6 +495,18 @@ func _update_weapon_follow() -> void:
 	var up := visual_basis.y.normalized()
 	var forward := -visual_basis.z.normalized()
 	_weapon.global_transform = Transform3D(Basis.looking_at(-up, forward), holster_origin)
+
+
+func _update_first_person_weapon() -> void:
+	if _weapon == null or _weapon.definition == null:
+		return
+	# Parenting to the camera keeps the weapon locked to it between physics
+	# ticks, including mouse motion and spring-arm interpolation.
+	if _weapon.get_parent() != _camera:
+		_weapon.reparent(_camera, false)
+	# Each gun keeps its own hip and ADS offset in camera space.
+	var offset := _weapon.definition.first_person_ads_offset if _is_aiming() else _weapon.definition.first_person_offset
+	_weapon.transform = Transform3D(Basis.IDENTITY, offset)
 
 
 func _is_aiming() -> bool:

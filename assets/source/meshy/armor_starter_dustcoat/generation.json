@@ -1,0 +1,20 @@
+{
+  "asset_id": "armor_starter_dustcoat",
+  "service": "Meshy",
+  "model": "meshy-7",
+  "task_id": "01a0c017-a12b-73cd-8dc1-7945c5f3ef18",
+  "credits_consumed": 30,
+  "source_views": "assets/source/concepts/gear/armor_views/armor_starter_dustcoat/{front,side,back}.png",
+  "settings": {
+    "pose_mode": "t-pose",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "2k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 30000,
+    "target_formats": ["glb"]
+  },
+  "source_face_count": 78950,
+  "status": "rejected preview: torn coat geometry; not imported to Godot"
+}

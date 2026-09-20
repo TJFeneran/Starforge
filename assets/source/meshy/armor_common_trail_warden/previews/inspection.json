@@ -1,0 +1,19 @@
+{
+  "source": "/home/tj/Documents/GodotProjects/Starforge/assets/source/meshy/armor_common_trail_warden/armor_common_trail_warden.glb",
+  "bounds_min_m": [
+    -0.8596457242965698,
+    -0.18719714879989624,
+    0.0
+  ],
+  "bounds_max_m": [
+    0.8596457242965698,
+    0.18719714879989624,
+    1.7999999523162842
+  ],
+  "mesh_count": 1,
+  "face_count": 59654,
+  "triangle_count": 59654,
+  "materials": [
+    "Material_0"
+  ]
+}

@@ -39,7 +39,7 @@ Generate with Grok image models only. Do not use Meshy for 2D.
 
 > Full-body original 1.8 m athletic frontier operative wearing one functional armor loadout, realistic athletic human proportions, clear head/shoulder/torso/leg separation. Neutral T-pose, arms separated, legs separated, no weapon, no cape crossing the silhouette. Orthographic front, side, and back views of the exact same design, even neutral studio lighting, plain light-gray background, all parts uncropped, sharp silhouette, large material blocks, no text, no logos, no watermark.
 
-Purpose: Meshy-ready reconstruction later. Keep starter kits incomplete (no full helmet, no trinket). Escalate silhouette authorship by rarity without adding ambient glow. Armor's separate front/side/back images are retained under `assets/source/concepts/gear/armor_views/`; do not send the combined turnaround.
+Purpose: the individual front/side/back images under `assets/source/concepts/gear/armor_views/` were used for the nine Meshy armor previews. Keep starter kits incomplete (no full helmet, no trinket) in future concepts, and escalate silhouette authorship by rarity without ambient glow. Send the individual images to Meshy, not the combined turnaround; see `docs/art/meshy-pipeline.md` for the current rigging and preview path.
 
 ## Gun turnaround (Grok 2D)
 

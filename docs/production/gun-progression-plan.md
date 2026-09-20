@@ -1,10 +1,10 @@
 # Gun Options & Progression
 
-Status: design contract — 2026-09-10
+Status: design contract (2026-09-10); nine-gun playable sandbox runtime complete as of 2026-09-20. Unlocks, workshop equip flow, and persistence remain planned.
 
 This document is the source of truth for functional guns. Future weapon implementation, balancing, asset production, and Weapons / Forge workshop UI should follow it unless a later design decision updates this document.
 
-The nine-gun art and runtime balance reference is `docs/production/gun-reference-sheet.md`; its machine-readable values are in `docs/production/gun-balance.json`. All nine are playable through the shared gun mount, with final balance tuning pending.
+The nine-gun art and runtime balance reference is `docs/production/gun-reference-sheet.md`; its machine-readable values are in `docs/production/gun-balance.json`. All nine are playable through the shared gun mount, with final balance tuning pending. Keys 1–9 and sandbox Tab cycling expose the full development catalog; they do not implement owned gear, primary-slot unlocks, or saved loadouts.
 
 ## Design promise
 
@@ -84,7 +84,7 @@ Initial weapon data should expose at least:
 - trait identifier and tunable trait parameters;
 - blueprint, resource, visual scene, and muzzle/payload references.
 
-Ammunition inventories, heat systems, durability, weapon repairs, complex mod sockets, procedural rolls, and deep crafting parts are deferred until the basic sidearm and primary loops are proven. Do not make the first weapon implementation depend on systems that the current vertical slice does not need.
+The shared gun runtime already supports magazine ammo, reloads, and heat for weapons that use it. Reserve ammunition inventories, durability, repairs, complex mod sockets, procedural rolls, and deep crafting parts for later work. Do not make the first progression implementation depend on those systems.
 
 ## Acquisition and economy
 
@@ -132,7 +132,7 @@ The first experience should foreground the sidearm. Once primary weapons exist, 
 
 The current reference implementation is in `scenes/player/player_controller.gd`, `scenes/combat/gun_mount.gd`, `scenes/combat/gun_projectile.gd`, and `scenes/player/player.tscn`. New weapons must preserve:
 
-- `RightHand` attachment and the existing weapon-follow behavior;
+- `RightHand` attachment and weapon-follow behavior in third person, with a camera-parented gun in first person so mouse motion does not lag the gun;
 - muzzle origin and projectile direction;
 - ADS camera feel and alignment;
 - pistol locomotion readability while the starter sidearm is equipped;
@@ -146,13 +146,12 @@ Follow `docs/art/gun-blender-pipeline.md`: use the approved individual concept v
 
 ## Delivery milestones
 
-1. Commit this contract and cross-reference it from production docs.
-2. Extract the current sidearm damage, cooldown, muzzle, and payload values into a data-driven definition without changing its feel.
-3. Add shared weapon state/persistence and sidearm inspection/equip flow at the Weapons / Forge bay.
-4. Add one Common sidearm path and validate rarity/stat/trait presentation.
-5. Add the primary slot and one rifle archetype; validate the sidearm-plus-rifle loop.
-6. Add an energy-gun archetype after the rifle loop is stable.
-7. Add Uncommon, Rare, and Legendary examples incrementally and validate each in sandbox, then the outpost slice.
+Playable catalog milestone complete: nine data-driven sidearm, rifle, and energy-gun examples span Starter through Legendary in `scenes/sandbox/gunplay_sandbox.tscn`. Ballistic shots retain their own visuals, Splitfin uses a beam, and pulse/echo/solar/orb shots use Binbun MagicProjectilesVFX. Held-fire behavior and target hits are checked by `tools/check_gunplay.gd`. Remaining progression milestones:
+
+1. Add shared weapon state/persistence and sidearm inspection/equip flow at the Weapons / Forge bay.
+2. Add the first Common sidearm unlock path and validate rarity/stat/trait presentation.
+3. Unlock the primary slot at a deliberate point; validate sidearm-plus-rifle and energy-gun loadouts in the mission loop.
+4. Tie Uncommon, Rare, and Legendary examples to acquisition and workshop rules, then tune combat balance.
 
 ## Balance and acceptance checklist
 

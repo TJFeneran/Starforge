@@ -1,0 +1,21 @@
+{
+  "asset_id": "armor_rare_riftward",
+  "service": "Meshy",
+  "model": "meshy-7",
+  "task_id": "01a0c062-3276-70f9-95ba-28035d3eb82e",
+  "credits_consumed": 30,
+  "source_views": "assets/source/concepts/gear/armor_views/armor_rare_riftward/{front,side,back}.png",
+  "settings": {
+    "pose_mode": "t-pose",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "2k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 30000,
+    "target_formats": [
+      "glb"
+    ]
+  },
+  "status": "generated, rigged, and imported for Godot armor preview"
+}

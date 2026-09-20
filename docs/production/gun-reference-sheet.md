@@ -112,7 +112,7 @@ The current Rift Skitter has **60 HP**. Projectile range below is speed × lifet
 
 ## Art assets and review
 
-All nine models imported in Godot 4.7.2. Animation and emissive material names were inspected from the imported scenes. Open [`gunplay_sandbox.tscn`](../../scenes/sandbox/gunplay_sandbox.tscn) to test guns with 1–9 or Tab / Shift+Tab. The [Godot gallery contact sheet](gun-gallery-godot.png) records the nine runtime models. Final human visual review is pending.
+All nine models imported in Godot 4.7.2. Animation and emissive material names were inspected from the imported scenes. Open [`gunplay_sandbox.tscn`](../../scenes/sandbox/gunplay_sandbox.tscn) to test guns with 1–9 or Tab / Shift+Tab. Pulse, echo, solar, and orb use Binbun MagicProjectilesVFX and repeat while LMB is held; ballistic shots keep their own visuals, Splitfin keeps its beam, and Longpath remains one shot per press. In first person the gun is parented to the camera so it stays steady during mouse movement. The [Godot gallery contact sheet](gun-gallery-godot.png) records the nine runtime models. Final balance tuning remains pending.
 
 | Gun | Editable source | Runtime GLB | Render | Animation | Adjustable glow |
 |---|---|---|---|---|---|

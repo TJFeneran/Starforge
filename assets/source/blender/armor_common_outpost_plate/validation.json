@@ -1,0 +1,20 @@
+{
+  "source": "assets/source/meshy/armor_common_outpost_plate/armor_common_outpost_plate.glb",
+  "bones": 112,
+  "vertices": 40302,
+  "triangles": 56193,
+  "unweighted_vertices": 0,
+  "max_influences": 4,
+  "source_geometry_preserved": true,
+  "uv_layers": 1,
+  "materials": 1,
+  "transfer_distance_mean": 0.04068776423420921,
+  "verified_animations": [
+    "run frame 6",
+    "walk frame 9",
+    "pistol aim frame 1"
+  ],
+  "bone_order_matches_reference": true,
+  "embedded_texture_images": 3,
+  "visual_notes": "Minor flexible underarm and collar deformation remains at deep aim; hard shell shoulder tearing corrected. Quarry apron is pelvis weighted."
+}

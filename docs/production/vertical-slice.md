@@ -1,6 +1,6 @@
 # Starforge Vertical Slice
 
-## Current target
+## Planned mission target
 
 A small, reliable third-person outpost slice:
 
@@ -15,11 +15,12 @@ The goal is a playable loop, not a showcase of every planned system.
 ## Scene boundaries
 
 - `scenes/main.tscn`: shipping entry point only.
-- `scenes/playable/outpost_slice.tscn`: playable mission composition.
+- `scenes/field/forge_field.tscn`: current field reached from the lobby gate; the objective chain above is not implemented there yet.
 - `scenes/style_lab/style_lab.tscn`: visual/environment development source.
 - `scenes/sandbox/gunplay_sandbox.tscn`: isolated controller, camera, jump, and weapon testing.
+- `scenes/sandbox/armor_preview.tscn`: nine rigged Meshy armor visuals and animation/camera inspection; not an equipped loadout.
 
-Do not use the playable scene for asset experiments. Do not add experimental collision or animation code to the sandbox without first proving it in isolation.
+Use the appropriate sandbox for asset experiments. Keep the lobby and forge field composition stable while testing collision, animation, and gameplay changes.
 
 ## Asset promotion gate
 
@@ -37,5 +38,5 @@ An asset moves from source to playable only after it passes:
 1. Build or clean one asset.
 2. Test it in the relevant sandbox.
 3. Add the smallest gameplay interaction needed to validate it.
-4. Promote it into the playable slice only after the gate passes.
+4. Promote it into the forge field or later mission scene only after the gate passes.
 5. Leave broad asset generation and expansion until the loop is stable.

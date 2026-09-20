@@ -1,0 +1,20 @@
+{
+  "source": "assets/source/meshy/armor_rare_riftward/armor_rare_riftward.glb",
+  "rigged_triangles": 55760,
+  "vertices": 39813,
+  "bones": 112,
+  "mesh_objects": 1,
+  "max_influences": 4,
+  "unweighted_vertices": 0,
+  "transfer_distance_max": 0.10164967179298401,
+  "transfer_distance_mean": 0.030696312239034195,
+  "exact_reference_joint_order": true,
+  "embedded_images": 3,
+  "visually_checked_poses": [
+    "bind",
+    "walk",
+    "run",
+    "pistol_aim"
+  ],
+  "source_visual_notes": "Dark visor without concept amber glow preserved from Meshy output."
+}

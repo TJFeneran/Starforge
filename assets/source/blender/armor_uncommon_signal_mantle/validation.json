@@ -1,0 +1,20 @@
+{
+  "source": "assets/source/meshy/armor_uncommon_signal_mantle/armor_uncommon_signal_mantle.glb",
+  "rigged_triangles": 54908,
+  "vertices": 40309,
+  "bones": 112,
+  "mesh_objects": 1,
+  "max_influences": 4,
+  "unweighted_vertices": 0,
+  "transfer_distance_max": 0.22165578603744507,
+  "transfer_distance_mean": 0.024153473643908005,
+  "exact_reference_joint_order": true,
+  "embedded_images": 3,
+  "visually_checked_poses": [
+    "bind",
+    "walk",
+    "run",
+    "pistol_aim"
+  ],
+  "source_visual_notes": "Tall helmet fin preserved from Meshy output."
+}

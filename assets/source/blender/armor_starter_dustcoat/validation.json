@@ -1,0 +1,11 @@
+{
+  "source": "assets/source/meshy/armor_starter_dustcoat/armor_starter_dustcoat.glb",
+  "rigged_triangles": 78950,
+  "vertices": 73950,
+  "bones": 112,
+  "mesh_objects": 1,
+  "max_influences": 4,
+  "unweighted_vertices": 0,
+  "transfer_distance_max": 0.16136950254440308,
+  "transfer_distance_mean": 0.03490847300490095
+}
