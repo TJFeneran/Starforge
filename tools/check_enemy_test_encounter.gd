@@ -57,9 +57,24 @@ func _run() -> void:
 			player_health = field_player.get_node_or_null("Health") as Health
 		_check(player_health != null, "field player has no Health")
 		if field_player and player_health:
-			field_player.global_position = Vector3(-16.0, 0.1, -14.7)
+			field_player.global_position = Vector3(-16.0, 0.1, -14.55)
+			var skitter := roster.get_node("ShieldbackSkitter") as CharacterBody3D
 			var before_attack := player_health.hp
-			await create_timer(2.0).timeout
+			var entered_attack := false
+			for frame in 120:
+				await physics_frame
+				if skitter.get("_attack_stage") == "attack":
+					entered_attack = true
+					break
+			_check(entered_attack, "Skitter did not enter its attack clip")
+			if entered_attack:
+				var animation := skitter.get("_animations") as AnimationPlayer
+				_check(animation.current_animation.ends_with("attack"), "Skitter attack clip is not playing")
+				var strike_start := skitter.global_position
+				for frame in 12:
+					await physics_frame
+				_check(skitter.global_position.distance_to(strike_start) > 0.12, "Skitter did not lunge during its strike")
+			await create_timer(0.5).timeout
 			_check(player_health.hp < before_attack, "Skitter did not damage the player during its attack")
 		for actor: Node in roster.get_children():
 			var health := actor.get_node_or_null("Health") as Health

@@ -5,10 +5,10 @@ extends Node3D
 const LOBBY_SCENE := "res://scenes/lobby/lobby.tscn"
 const ENEMY_TEST_ACTOR := preload("res://scenes/combat/enemy_test_actor.tscn")
 const ENEMY_TEST_ROSTER := [
-	{"name": "Shieldback Skitter", "model": "res://assets/models/enemies/rift_skitter/skitter.glb", "at": Vector3(-16, 0, -16), "hp": 70.0, "height": 1.2, "radius": 0.55, "speed": 4.8, "damage": 11.0, "range": 1.5, "aggro": 17.0, "cooldown": 1.0, "contact_fraction": 0.380952, "move_clip": "run"},
-	{"name": "Needlecrest Marksman", "model": "res://assets/models/enemies/rift_marksman/marksman.glb", "at": Vector3(13, 0, -19), "hp": 85.0, "height": 1.9, "radius": 0.42, "speed": 2.7, "damage": 13.0, "range": 15.0, "aggro": 20.0, "cooldown": 1.4, "contact_fraction": 0.222222, "move_clip": "walk"},
-	{"name": "Crescent Rift Ray", "model": "res://assets/models/enemies/rift_ray/ray.glb", "at": Vector3(-14, 2, -34), "hp": 80.0, "height": 0.7, "radius": 0.48, "speed": 3.4, "damage": 10.0, "range": 12.0, "aggro": 18.0, "cooldown": 1.6, "contact_fraction": 0.333333, "flying": true, "idle_clip": "hover_idle", "move_clip": "fly_forward"},
-	{"name": "Split Crown Bulwark", "model": "res://assets/models/enemies/forge_bulwark/bulwark.glb", "at": Vector3(20, 0, -38), "hp": 220.0, "height": 2.8, "radius": 0.7, "speed": 1.8, "damage": 22.0, "range": 2.5, "aggro": 16.0, "cooldown": 2.4, "contact_fraction": 0.5, "move_clip": "walk"},
+	{"name": "Shieldback Skitter", "model": "res://assets/models/enemies/rift_skitter/skitter.glb", "at": Vector3(-16, 0, -16), "hp": 70.0, "height": 1.2, "radius": 0.55, "speed": 4.8, "damage": 11.0, "range": 1.5, "aggro": 17.0, "cooldown": 1.0, "contact_fraction": 0.380952, "move_clip": "run", "attack_lunge_speed": 3.2},
+	{"name": "Needlecrest Marksman", "model": "res://assets/models/enemies/rift_marksman/marksman.glb", "at": Vector3(13, 0, -19), "hp": 85.0, "height": 1.9, "radius": 0.42, "speed": 2.7, "damage": 19.0, "range": 15.0, "aggro": 22.0, "cooldown": 0.9, "contact_fraction": 0.222222, "move_clip": "walk", "attack_style": "marksman", "projectile_speed": 42.0},
+	{"name": "Crescent Rift Ray", "model": "res://assets/models/enemies/rift_ray/ray.glb", "at": Vector3(-14, 2, -34), "hp": 80.0, "height": 0.7, "radius": 0.48, "speed": 4.0, "damage": 12.0, "range": 12.0, "aggro": 20.0, "cooldown": 0.8, "contact_fraction": 0.333333, "flying": true, "idle_clip": "hover_idle", "move_clip": "fly_forward", "attack_style": "ray", "projectile_speed": 24.0},
+	{"name": "Split Crown Bulwark", "model": "res://assets/models/enemies/forge_bulwark/bulwark.glb", "at": Vector3(20, 0, -38), "hp": 220.0, "height": 2.8, "radius": 0.7, "speed": 2.0, "damage": 28.0, "range": 3.2, "aggro": 18.0, "cooldown": 1.1, "contact_fraction": 0.5, "move_clip": "walk", "attack_style": "slam", "slam_radius": 3.4},
 ]
 
 const FLOATING_LOOT: Array[PackedScene] = [
@@ -73,6 +73,10 @@ func _spawn_enemy_test_encounter() -> void:
 		actor.set("attack_range", entry["range"])
 		actor.set("aggro_range", entry["aggro"])
 		actor.set("attack_cooldown", entry["cooldown"])
+		actor.set("attack_lunge_speed", entry.get("attack_lunge_speed", 0.0))
+		actor.set("attack_style", entry.get("attack_style", "melee"))
+		actor.set("projectile_speed", entry.get("projectile_speed", 30.0))
+		actor.set("slam_radius", entry.get("slam_radius", 3.2))
 		actor.set("contact_fraction", entry.get("contact_fraction", 0.3))
 		actor.set("flying", entry.get("flying", false))
 		actor.set("idle_clip", entry.get("idle_clip", "idle"))

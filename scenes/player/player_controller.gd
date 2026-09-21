@@ -110,6 +110,8 @@ var selected_armor_index := -1
 var _locomotion_library: AnimationLibrary
 var _campaign_player := false
 var _original_model_transform: Transform3D
+var _damage_flash: ColorRect
+var _damage_flash_tween: Tween
 
 
 func _ready() -> void:
@@ -128,6 +130,8 @@ func _ready() -> void:
 	_play_clip("loco/idle", 0.0)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_health.died.connect(_on_player_died)
+	_health.damaged.connect(_on_player_damaged)
+	_make_damage_flash()
 	_setup_run_loop()
 	_original_model_transform = _model_root.transform
 	var scene: Node = self
@@ -646,6 +650,28 @@ func _on_gun_recoil(amount_degrees: float) -> void:
 func _on_player_died() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	DeathOverlay.show_death()
+
+
+func _make_damage_flash() -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = 25
+	add_child(layer)
+	_damage_flash = ColorRect.new()
+	_damage_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_damage_flash.color = Color(0.6, 0.025, 0.025, 0.0)
+	layer.add_child(_damage_flash)
+	_damage_flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+
+func _on_player_damaged(amount: float, _remaining: float) -> void:
+	if amount <= 0.0:
+		return
+	if _damage_flash_tween and _damage_flash_tween.is_running():
+		_damage_flash_tween.kill()
+	_damage_flash.color.a = clampf(0.12 + amount / 130.0, 0.16, 0.34)
+	_damage_flash_tween = create_tween()
+	_damage_flash_tween.tween_property(_damage_flash, "color:a", 0.0, 0.4)
+	_spring.rotation.x = clampf(_spring.rotation.x + 0.016, PITCH_MIN, PITCH_MAX)
 
 
 func _install_locomotion_animations() -> void:

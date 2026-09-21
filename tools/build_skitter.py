@@ -175,15 +175,16 @@ for label,(duration,loop) in clips.items():
         running=label=='run'
         bob=(.018 if running else .010)*math.cos(phase*2) if locomotion else .004*math.sin(phase)
         crouch=(.045 if running else .020) if locomotion else 0.
-        anticipation=curve(t,[(0,0),(.65,1),(1,1)]) if label=='attack_anticipation' else 0.
-        lunge=curve(t,[(0,0),(.20,0),(.38,1),(.62,.45),(1,0)]) if label=='attack' else 0.
+        anticipation=curve(t,[(0,0),(.48,1),(1,1)]) if label=='attack_anticipation' else 0.
+        lunge=curve(t,[(0,0),(.14,0),(.38,1),(.65,.35),(1,0)]) if label=='attack' else 0.
+        strike_lift=curve(t,[(0,0),(.12,0),(.28,1),(.38,0),(1,0)]) if label=='attack' else 0.
         recovery=1-curve(t,[(0,0),(.6,1),(1,1)]) if label=='attack_recovery' else 0.
         hit=curve(t,[(0,0),(.20,1),(.45,.30),(1,0)]) if label=='hit' else 0.
         drop=curve(t,[(0,0),(.22,.05),(.66,1),(1,1)]) if label=='death' else 0.
-        translate('body',(0,-.085*lunge+.025*hit,-crouch+bob-.09*anticipation-.08*recovery-.29*drop))
-        rotate('body',(.08*anticipation-.12*lunge+.10*hit+.18*drop,.04*hit,.012*math.sin(phase) if locomotion else 0))
+        translate('body',(0,-.18*lunge+.025*hit,-crouch+bob-.14*anticipation-.08*lunge-.12*recovery-.29*drop))
+        rotate('body',(.13*anticipation+.28*lunge+.10*hit+.18*drop,.04*hit,.012*math.sin(phase) if locomotion else 0))
         bpy.context.view_layer.update()
-        rotate('head',(-.10*anticipation+.24*lunge-.19*hit+.33*drop,0,.025*math.sin(phase)))
+        rotate('head',(.14*anticipation+.27*lunge-.19*hit+.33*drop,0,.025*math.sin(phase)))
         for leg_label,s,front in [('front.L',1,True),('front.R',-1,True),('hind.L',1,False),('hind.R',-1,False)]:
             a=spec['lower.'+leg_label][1]
             foot_target=Vector(a)
@@ -200,9 +201,9 @@ for label,(duration,loop) in clips.items():
                     foot_target.y+=stride/2-stride*smooth(0,1,v)
                     foot_target.z+=(.12 if running else .065)*math.sin(math.pi*v)
             if front:
-                foot_target.y-=.10*lunge-.035*anticipation
-                foot_target.z+=.10*lunge
-            else:foot_target.y+=.035*lunge
+                foot_target.y-=.28*lunge-.05*anticipation
+                foot_target.z+=.18*strike_lift+.025*lunge
+            else:foot_target.y+=.10*lunge
             if label=='death':
                 foot_target.x-=s*.08*drop
                 foot_target.z+=.06*drop

@@ -2,6 +2,10 @@ extends CharacterBody3D
 ## Lightweight field combat harness for newly authored enemy animation sets.
 ## Visual/model and timing are supplied per spawn; this does not own campaign state.
 
+const ENEMY_PROJECTILE := preload("res://scenes/combat/enemy_projectile.gd")
+const ENERGY_SHOT_SOUND := preload("res://assets/audio/weapons/348164__djfroyd__laser-one-shot-1.wav")
+const IMPACT_SOUND := preload("res://assets/audio/player/669714__vestibule-door__single-big-impact-large-creature-jumping-down.wav")
+
 @export var model_scene: PackedScene
 @export var display_name := "Enemy"
 @export var height_m := 1.8
@@ -11,6 +15,10 @@ extends CharacterBody3D
 @export var attack_range := 1.5
 @export var aggro_range := 18.0
 @export var attack_cooldown := 1.0
+@export var attack_lunge_speed := 0.0
+@export_enum("melee", "marksman", "ray", "slam") var attack_style := "melee"
+@export var projectile_speed := 30.0
+@export var slam_radius := 3.2
 @export var contact_fraction := 0.3
 @export var flying := false
 @export var attack_clip := "attack"
@@ -32,6 +40,12 @@ var _did_damage := false
 var _cooldown := 0.0
 var _hit_elapsed := 0.0
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+var _warning: MeshInstance3D
+var _warning_mesh: CylinderMesh
+var _warning_material: StandardMaterial3D
+var _locked_target := Vector3.ZERO
+var _strafe_sign := 1.0
+var _attack_sound: AudioStreamPlayer3D
 
 
 func _ready() -> void:
@@ -51,6 +65,18 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player") as Node3D
 	_play(idle_clip)
 	_make_label()
+	_make_attack_sound()
+
+
+func _make_attack_sound() -> void:
+	_attack_sound = AudioStreamPlayer3D.new()
+	_attack_sound.stream = IMPACT_SOUND if attack_style in ["melee", "slam"] else ENERGY_SHOT_SOUND
+	_attack_sound.pitch_scale = 0.72 if attack_style == "slam" else (1.35 if attack_style == "marksman" else 1.0)
+	_attack_sound.volume_db = -5.0 if attack_style == "slam" else -12.0
+	_attack_sound.max_distance = 32.0
+	_attack_sound.unit_size = 3.0
+	_attack_sound.bus = "SFX"
+	add_child(_attack_sound)
 
 
 func _make_collision() -> void:
@@ -94,12 +120,19 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0.0
 		velocity.z = 0.0
 		_attack_elapsed += delta
+		if _attack_stage == "anticipation":
+			_locked_target = _target_point()
+		_update_warning()
+		if _attack_stage == "attack" and attack_lunge_speed > 0.0:
+			var strike_phase := _attack_elapsed / _stage_length
+			if strike_phase >= 0.14 and strike_phase <= 0.42 and distance_to_player > radius_m + 0.65:
+				var strike_direction := toward.normalized()
+				velocity.x = strike_direction.x * attack_lunge_speed
+				velocity.z = strike_direction.z * attack_lunge_speed
 		if _attack_stage == "attack" and not _did_damage and _attack_elapsed >= _stage_length * contact_fraction:
 			_did_damage = true
-			if distance_to_player <= attack_range + 0.8 and _has_line_of_sight():
-				var target_health := _player.get_node_or_null("Health") as Health
-				if target_health:
-					target_health.apply_damage(attack_damage)
+			_apply_attack_contact(distance_to_player)
+			_clear_warning()
 		if _attack_elapsed >= _stage_length:
 			_advance_attack()
 	elif _hit_elapsed > 0.0:
@@ -108,20 +141,166 @@ func _physics_process(delta: float) -> void:
 		velocity.z = 0.0
 	elif distance_to_player <= attack_range and _cooldown <= 0.0 and _has_line_of_sight():
 		_start_attack()
-	elif distance_to_player <= aggro_range and distance_to_player > attack_range * 0.8:
-		var direction := toward.normalized()
+	else:
+		_move_while_waiting(toward, distance_to_player)
+	if attack_style == "ray":
+		var dip := 0.55 if _attack_stage == "attack" else 0.0
+		_visual.position.y = lerpf(_visual.position.y, -dip, minf(1.0, delta * 6.0))
+	move_and_slide()
+
+
+func _move_while_waiting(toward: Vector3, distance: float) -> void:
+	velocity.x = 0.0
+	velocity.z = 0.0
+	if distance > aggro_range or distance <= 0.01:
+		_play(idle_clip)
+		return
+	var direction := toward / distance
+	if attack_style == "marksman" or attack_style == "ray":
+		var retreat_distance := 7.0 if attack_style == "marksman" else 5.0
+		if distance > attack_range * 0.9:
+			velocity.x = direction.x * move_speed
+			velocity.z = direction.z * move_speed
+			_play(move_clip)
+		elif distance < retreat_distance:
+			velocity.x = -direction.x * move_speed * 0.8
+			velocity.z = -direction.z * move_speed * 0.8
+			_play(move_clip)
+		else:
+			var side := Vector3(-direction.z, 0.0, direction.x) * _strafe_sign
+			velocity.x = side.x * move_speed * 0.72
+			velocity.z = side.z * move_speed * 0.72
+			if attack_style == "marksman":
+				_play("strafe_right" if _strafe_sign > 0.0 else "strafe_left")
+			else:
+				_play("bank_right" if _strafe_sign > 0.0 else "bank_left")
+	elif distance > attack_range * 0.8:
 		velocity.x = direction.x * move_speed
 		velocity.z = direction.z * move_speed
 		_play(move_clip)
 	else:
-		velocity.x = 0.0
-		velocity.z = 0.0
 		_play(idle_clip)
-	move_and_slide()
+
+
+func _target_point() -> Vector3:
+	return _player.global_position + Vector3.UP * 0.9
+
+
+func _muzzle_position() -> Vector3:
+	var height := 0.1 if flying else height_m * 0.7
+	return global_position + Vector3.UP * height + _visual.global_transform.basis.z * 0.55
+
+
+func _glow(color: Color, alpha: float) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color(color.r, color.g, color.b, alpha)
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.emission_enabled = true
+	material.emission = color
+	material.emission_energy_multiplier = 2.5
+	return material
+
+
+func _make_warning() -> void:
+	_clear_warning()
+	if attack_style == "marksman" or attack_style == "ray":
+		_warning = MeshInstance3D.new()
+		_warning_mesh = CylinderMesh.new()
+		_warning_mesh.top_radius = 0.018 if attack_style == "marksman" else 0.045
+		_warning_mesh.bottom_radius = _warning_mesh.top_radius
+		_warning_mesh.radial_segments = 8
+		_warning.mesh = _warning_mesh
+		_warning_material = _glow(Color("63e8dc") if attack_style == "marksman" else Color("c778ff"), 0.55)
+		_warning.material_override = _warning_material
+		add_child(_warning)
+	elif attack_style == "slam":
+		_warning = MeshInstance3D.new()
+		var ring := TorusMesh.new()
+		ring.inner_radius = slam_radius - 0.11
+		ring.outer_radius = slam_radius
+		_warning.mesh = ring
+		_warning.material_override = _glow(Color("ff704f"), 0.9)
+		_warning.position.y = 0.07
+		add_child(_warning)
+		var fill := MeshInstance3D.new()
+		var disc := CylinderMesh.new()
+		disc.top_radius = slam_radius
+		disc.bottom_radius = slam_radius
+		disc.height = 0.012
+		fill.mesh = disc
+		fill.material_override = _glow(Color("ff573d"), 0.13)
+		_warning.add_child(fill)
+	_update_warning()
+
+
+func _update_warning() -> void:
+	if _warning == null or _warning_mesh == null:
+		return
+	var from := _muzzle_position()
+	var vector := _locked_target - from
+	var length := vector.length()
+	if length < 0.1:
+		return
+	_warning_mesh.height = length
+	_warning.global_position = from + vector * 0.5
+	_warning.global_basis = Basis(Quaternion(Vector3.UP, vector / length))
+
+
+func _clear_warning() -> void:
+	if is_instance_valid(_warning):
+		_warning.queue_free()
+	_warning = null
+	_warning_mesh = null
+	_warning_material = null
+
+
+func _apply_attack_contact(distance_to_player: float) -> void:
+	_attack_sound.play()
+	if attack_style == "marksman" or attack_style == "ray":
+		var color := Color("69eaff") if attack_style == "marksman" else Color("bd7bff")
+		var count := 1 if attack_style == "marksman" else 3
+		var from := _muzzle_position()
+		var straight := (_locked_target - from).normalized()
+		for index in count:
+			var spread := float(index - (count - 1) * 0.5) * 0.17
+			var direction := straight.rotated(Vector3.UP, spread)
+			var shot := ENEMY_PROJECTILE.new() as EnemyProjectile
+			get_parent().add_child(shot)
+			shot.launch(from, direction, self, attack_damage, projectile_speed, color, 0.085 if count == 1 else 0.15)
+	elif attack_style == "slam":
+		var ground_separation := absf(_player.global_position.y - global_position.y)
+		if distance_to_player <= slam_radius and ground_separation <= 0.9 and _has_line_of_sight():
+			_damage_player(attack_damage)
+		_spawn_slam_wave()
+	elif distance_to_player <= attack_range + 0.8 and _has_line_of_sight():
+		_damage_player(attack_damage)
+
+
+func _damage_player(amount: float) -> void:
+	var target_health := _player.get_node_or_null("Health") as Health
+	if target_health != null:
+		target_health.apply_damage(amount)
+
+
+func _spawn_slam_wave() -> void:
+	var wave := MeshInstance3D.new()
+	var ring := TorusMesh.new()
+	ring.inner_radius = slam_radius - 0.2
+	ring.outer_radius = slam_radius
+	wave.mesh = ring
+	wave.material_override = _glow(Color("ffa269"), 0.85)
+	wave.position.y = 0.1
+	add_child(wave)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(wave, "scale", Vector3.ONE * 1.35, 0.35)
+	tween.tween_property(wave, "transparency", 1.0, 0.35)
+	tween.chain().tween_callback(wave.queue_free)
 
 
 func _has_line_of_sight() -> bool:
-	if attack_range <= 4.0:
+	if attack_range <= 4.0 and attack_style != "slam":
 		return true
 	var from := global_position + Vector3.UP * (0.25 if flying else height_m * 0.65)
 	var to := _player.global_position + Vector3.UP
@@ -133,6 +312,8 @@ func _has_line_of_sight() -> bool:
 
 func _start_attack() -> void:
 	_did_damage = false
+	_locked_target = _target_point()
+	_make_warning()
 	if _clip_names.has("attack_anticipation"):
 		_enter_attack_stage("anticipation")
 	else:
@@ -156,6 +337,8 @@ func _advance_attack() -> void:
 		_attack_elapsed = -1.0
 		_attack_stage = ""
 		_cooldown = attack_cooldown
+		_strafe_sign *= -1.0
+		_clear_warning()
 
 
 func _length(clip: String, fallback: float) -> float:
@@ -194,6 +377,7 @@ func _on_died() -> void:
 	collision_layer = 0
 	collision_mask = 0
 	_attack_elapsed = -1.0
+	_clear_warning()
 	_play("death")
 	await get_tree().create_timer(maxf(2.5, _length("death", 2.0) + 0.3)).timeout
 	queue_free()
