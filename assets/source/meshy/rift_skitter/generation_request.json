@@ -1,0 +1,30 @@
+{
+  "status": "succeeded_downloaded_inspected",
+  "task_id": "01a0c13f-d3ec-7325-ae43-8c48111b7bdf",
+  "consumed_credits": 30,
+  "output_glb": "shieldback_b.glb",
+  "inspection": "Selected broad shell, recessed head, coral eyes, four separate legs; no major anatomy blocker.",
+  "asset": "Rift Skitter B — Shieldback",
+  "reference": "assets/source/concepts/enemies/rift_skitter/views/three_quarter.png",
+  "reference_role": "selected appearance reference; front_v2, side, back and top guide anatomy review",
+  "quoted_credits": 30,
+  "balance_at_quote": 95,
+  "target_height_m": 1.2,
+  "request": {
+    "file_path": "/home/tj/Documents/GodotProjects/Starforge/assets/source/concepts/enemies/rift_skitter/views/three_quarter.png",
+    "ai_model": "meshy-7",
+    "model_type": "standard",
+    "target_formats": ["glb"],
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 60000,
+    "save_pre_remeshed_model": true,
+    "ultra_mode": false,
+    "texture_prompt": "Match selected Shieldback: broad layered void-navy carapace with two muted teal longitudinal bands, warm pale mineral leg housings and shell edges, dark teal mechanical joints, tiny coral eyes and subtle foot accents. Preserve large quiet material regions and restrained wear. Exactly four articulated walking legs, no arms, tail, weapon, added symbols, or text.",
+    "response_format": "json"
+  },
+  "scope": "One textured source GLB only; local Blender rigging, animation, Godot preview and video after inspection. No paid retry, rig or animation service included."
+}

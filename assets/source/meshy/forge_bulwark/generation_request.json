@@ -1,0 +1,41 @@
+{
+  "status": "succeeded_downloaded_inspected",
+  "asset": "Forge Bulwark A \u2014 Split Crown",
+  "selected_concept": "assets/source/concepts/enemies/forge_bulwark/views/three_quarter.png",
+  "selected_candidate": "assets/source/concepts/enemies/forge_bulwark/candidate_a.png",
+  "supplemental_views": [
+    "assets/source/concepts/enemies/forge_bulwark/views/front.png",
+    "assets/source/concepts/enemies/forge_bulwark/views/side.png",
+    "assets/source/concepts/enemies/forge_bulwark/views/back.png"
+  ],
+  "quoted_credits": 30,
+  "balance_before": 95,
+  "intended_height_m": 2.8,
+  "request": {
+    "file_path": "/home/tj/Documents/GodotProjects/Starforge/assets/source/concepts/enemies/forge_bulwark/views/three_quarter.png",
+    "ai_model": "meshy-7",
+    "model_type": "standard",
+    "pose_mode": "a-pose",
+    "target_formats": [
+      "glb"
+    ],
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 60000,
+    "symmetry_mode": "on",
+    "save_pre_remeshed_model": true,
+    "ultra_mode": false,
+    "texture_prompt": "Match the supplied Forge Bulwark Split Crown: broad warm pale ceramic plates, dark navy mechanical bearings, quiet muted teal inset panels, one circular inset amber-white chest core, a thin warm head aperture, and one small coral upper-sternum indicator. Preserve two straight torso-mounted crown fins, clean large color regions and subtle wear. No ring, weapons, background, symbols, or text.",
+    "response_format": "json"
+  },
+  "scope": "Exactly one textured source model. Local Blender optimization, mechanical rigging, animation, Godot sandbox, and review video follow. No paid retry, Meshy rig, or animation operation included.",
+  "task_id": "01a0c142-51e5-7489-bf44-2abff6c63644",
+  "consumed_credits": 30,
+  "output_glb": "bulwark_a.glb",
+  "inspection": "preview/inspection.json",
+  "runtime_glb": "assets/models/enemies/forge_bulwark/bulwark.glb",
+  "textures_directory": "bulwark_a_textures"
+}

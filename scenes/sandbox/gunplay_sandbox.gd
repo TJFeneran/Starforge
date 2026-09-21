@@ -3,10 +3,18 @@ extends Node3D
 ## Cycle the playable gun loadout while testing shots in this scene.
 @onready var _gun: GunMount = $Player/Visual/WeaponAnchor/GunMount
 @onready var _hint: Label = $ShortcutHints/Panel/Label
+@onready var _player: Node = $Player
+var _armor_name := "BASE SUIT"
 
 
 func _ready() -> void:
 	_gun.gun_changed.connect(_update_hint)
+	_player.connect("armor_changed", _on_armor_changed)
+	_update_hint(_gun.definition)
+
+
+func _on_armor_changed(_index: int, armor_name: String) -> void:
+	_armor_name = armor_name.to_upper()
 	_update_hint(_gun.definition)
 
 
@@ -43,7 +51,8 @@ func _update_hint(spec: GunDefinition) -> void:
 	])
 	if not traits.is_empty():
 		lines.append("Special: " + "  ·  ".join(traits))
-	lines.append("TAB next  ·  SHIFT+TAB previous  ·  1–9 select  ·  RMB aim  ·  LMB fire  ·  R reload")
+	lines.append("Armor: %s  ·  SHIFT+1–9 equip armor" % _armor_name)
+	lines.append("TAB next gun  ·  SHIFT+TAB previous gun  ·  1–9 gun  ·  RMB aim  ·  LMB fire  ·  R reload")
 	_hint.text = "\n".join(lines)
 	var panel_bottom := 20.0 + 25.0 * lines.size() + 40.0
 	$ShortcutHints/Panel.offset_bottom = panel_bottom

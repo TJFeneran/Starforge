@@ -24,6 +24,17 @@ func _ready() -> void:
 	MenuSFX.bind_button(_resume)
 	MenuSFX.bind_button(_options)
 	MenuSFX.bind_button(_exit)
+	var main_menu := Button.new()
+	main_menu.name = "MainMenuButton"
+	main_menu.text = "Main Menu"
+	main_menu.custom_minimum_size.y = 64
+	_exit.get_parent().add_child(main_menu)
+	_exit.get_parent().move_child(main_menu, _exit.get_index())
+	MenuSFX.bind_button(main_menu)
+	main_menu.pressed.connect(_on_main_menu)
+	for button in [_resume, _options, main_menu, _exit]:
+		button.focus_neighbor_top = NodePath()
+		button.focus_neighbor_bottom = NodePath()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("ui_cancel"):
@@ -72,6 +83,12 @@ func resume() -> void:
 
 func _on_options() -> void:
 	OptionsMenu.open_options(_options)
+
+func _on_main_menu() -> void:
+	resume()
+	PlayerState.active = false
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
+
 
 func _on_exit() -> void:
 	get_tree().paused = false

@@ -1,0 +1,48 @@
+{
+  "fps": 30,
+  "clips": {
+    "hover_idle": {
+      "duration_seconds": 3.0,
+      "loop": true
+    },
+    "fly_forward": {
+      "duration_seconds": 1.2,
+      "loop": true
+    },
+    "bank_left": {
+      "duration_seconds": 1.6,
+      "loop": true
+    },
+    "bank_right": {
+      "duration_seconds": 1.6,
+      "loop": true
+    },
+    "attack_anticipation": {
+      "duration_seconds": 0.7,
+      "loop": false
+    },
+    "attack": {
+      "duration_seconds": 0.6,
+      "loop": false,
+      "contact_frame": 6,
+      "contact_seconds": 0.2,
+      "contact_socket": "muzzle_socket"
+    },
+    "attack_recovery": {
+      "duration_seconds": 0.8,
+      "loop": false
+    },
+    "hit": {
+      "duration_seconds": 0.8,
+      "loop": false
+    },
+    "death": {
+      "duration_seconds": 2.0,
+      "loop": false
+    }
+  },
+  "wingspan_m": 1.6,
+  "forward_axis": "+Z",
+  "origin": "armored body center",
+  "muzzle_socket": "muzzle_socket"
+}

@@ -17,6 +17,8 @@ run/max_fps=120
 
 [autoload]
 
+PlayerState="*res://scenes/progression/player_state.gd"
+
 GameSettings="*res://scenes/settings/game_settings.gd"
 AmbientBed="*res://scenes/audio/ambient_bed.tscn"
 MenuSFX="*res://scenes/audio/menu_sfx.tscn"
@@ -25,6 +27,7 @@ PauseMenu="*res://scenes/ui/pause_menu.tscn"
 OptionsMenu="*res://scenes/ui/options_menu.tscn"
 SceneTransition="*res://scenes/ui/scene_transition.tscn"
 DeathOverlay="*res://scenes/ui/death_overlay.tscn"
+CampaignUI="*res://scenes/ui/campaign_ui.gd"
 
 [display]
 

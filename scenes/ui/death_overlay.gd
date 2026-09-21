@@ -46,6 +46,9 @@ func hide_death() -> void:
 
 
 func _on_respawn_pressed() -> void:
+	if PlayerState.is_campaign_scene(get_tree().current_scene) and not PlayerState.respawn():
+		_respawn.text = "Save failed — retry respawn"
+		return
 	hide_death()
 	get_tree().paused = false
 	get_tree().change_scene_to_file(LOBBY_SCENE)

@@ -1,0 +1,38 @@
+{
+  "status": "succeeded_downloaded_inspected",
+  "task_id": "01a0c144-5132-7262-af6b-8cfcec957008",
+  "consumed_credits": 30,
+  "output_glb": "ray_a.glb",
+  "textures_directory": "ray_a_textures",
+  "inspection": "preview/inspection.json",
+  "submission_note": "User approved this one 30-credit operation as part of a three-enemy batch. The first Meshy tool call hung without a task ID and consumed no credits. The parent agent then submitted this exact approved operation successfully. No second Ray build is authorized.",
+  "asset": "Rift Ray A — Crescent",
+  "quoted_credits": 30,
+  "balance_at_quote": 95,
+  "intended_wingspan_m": 1.6,
+  "reference_views": [
+    "assets/source/concepts/enemies/rift_ray/views/three_quarter.png",
+    "assets/source/concepts/enemies/rift_ray/views/front_v2.png",
+    "assets/source/concepts/enemies/rift_ray/views/side.png",
+    "assets/source/concepts/enemies/rift_ray/views/back.png",
+    "assets/source/concepts/enemies/rift_ray/views/top.png"
+  ],
+  "request": {
+    "file_path": "/home/tj/Documents/GodotProjects/Starforge/assets/source/concepts/enemies/rift_ray/views/three_quarter.png",
+    "ai_model": "meshy-7",
+    "model_type": "standard",
+    "target_formats": ["glb"],
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 60000,
+    "symmetry_mode": "on",
+    "save_pre_remeshed_model": true,
+    "ultra_mode": false,
+    "texture_prompt": "Match the supplied Rift Ray Crescent: navy segmented dorsal shell, warm pale belly and segmented fin-edge ceramic, thick muted teal fins, two tiny coral eyes and one small coral forward aperture. Preserve the exact two crescent fins and one short central tail. No legs, extra fins, spikes, props, background, symbols or text.",
+    "response_format": "json"
+  },
+  "scope": "One textured source model only. Local Blender rigging, optimization, Godot animation and video afterward. No paid retry or additional paid operation included."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "succeeded_downloaded_inspected",
+  "task_id": "01a0c0de-ddfb-74fa-ba1a-e382274ecf27",
+  "consumed_credits": 30,
+  "output_glb": "marksman_a.glb",
+  "textures_directory": "marksman_a_textures",
+  "inspection": "preview/inspection.json",
+  "asset": "Rift Marksman A — Needlecrest body",
+  "quoted_credits": 30,
+  "balance_before": 125,
+  "intended_height_m": 1.9,
+  "request": {
+    "file_path": "/home/tj/Documents/GodotProjects/Starforge/assets/source/concepts/enemies/rift_marksman/views/three_quarter.png",
+    "ai_model": "meshy-7",
+    "model_type": "standard",
+    "pose_mode": "a-pose",
+    "target_formats": [
+      "glb"
+    ],
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 60000,
+    "symmetry_mode": "on",
+    "save_pre_remeshed_model": true,
+    "ultra_mode": false,
+    "texture_prompt": "Match the supplied Needlecrest Marksman: warm pale ceramic armor, navy structural plates, muted teal flexible neck and abdomen, tiny coral forehead and chest indicators. Preserve large quiet color regions and restrained wear. No weapon, no background, no added symbols or text.",
+    "response_format": "json"
+  },
+  "scope": "One textured source model only; inspect and download. Blender rigging and game integration follow later. No paid retry or additional paid operations authorized."
+}

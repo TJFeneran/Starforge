@@ -1,0 +1,51 @@
+{
+  "fps": 30,
+  "clips": {
+    "idle": {
+      "duration_seconds": 3.0,
+      "loop": true,
+      "max_foot_target_error_m": 1.788527352237374e-07,
+      "max_hand_target_error_m": 2.686603327408849e-07
+    },
+    "walk": {
+      "duration_seconds": 1.4,
+      "loop": true,
+      "max_foot_target_error_m": 0.009740832035429619,
+      "max_hand_target_error_m": 2.7314279645418166e-07
+    },
+    "attack_anticipation": {
+      "duration_seconds": 1.2,
+      "loop": false,
+      "max_foot_target_error_m": 1.521451611568193e-07,
+      "max_hand_target_error_m": 5.990192664337689e-07
+    },
+    "attack": {
+      "duration_seconds": 1.2,
+      "loop": false,
+      "max_foot_target_error_m": 1.521451611568193e-07,
+      "max_hand_target_error_m": 2.457562461863554e-07,
+      "contact_frame": 18,
+      "contact_time_seconds": 0.6
+    },
+    "attack_recovery": {
+      "duration_seconds": 1.4,
+      "loop": false,
+      "max_foot_target_error_m": 1.7896908744371404e-07,
+      "max_hand_target_error_m": 1.7881393432617188e-07
+    },
+    "hit": {
+      "duration_seconds": 0.9,
+      "loop": false,
+      "max_foot_target_error_m": 1.788527352237374e-07,
+      "max_hand_target_error_m": 2.7028258364226004e-07
+    },
+    "death": {
+      "duration_seconds": 3.0,
+      "loop": false,
+      "max_foot_target_error_m": 1.788527352237374e-07,
+      "max_hand_target_error_m": 2.686603327408849e-07
+    }
+  },
+  "height_m": 2.8,
+  "forward_axis": "+Z"
+}

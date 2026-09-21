@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "armors": [
+    {"id": "base_suit", "name": "Current character", "tier": "Starter", "max_hp": 100, "model_index": -1},
+    {"id": "dustcoat", "name": "Dustcoat Field Kit", "tier": "Starter", "max_hp": 100, "model_index": 0},
+    {"id": "outpost_plate", "name": "Outpost Plate", "tier": "Common", "max_hp": 125, "model_index": 1},
+    {"id": "trail_warden", "name": "Trail Warden", "tier": "Common", "max_hp": 145, "model_index": 2},
+    {"id": "signal_mantle", "name": "Signal Mantle", "tier": "Uncommon", "max_hp": 170, "model_index": 3},
+    {"id": "quarry_shell", "name": "Quarry Shell", "tier": "Uncommon", "max_hp": 195, "model_index": 4},
+    {"id": "riftward", "name": "Riftward Carapace", "tier": "Rare", "max_hp": 225, "model_index": 5},
+    {"id": "nightwell", "name": "Nightwell Vaultsuit", "tier": "Rare", "max_hp": 250, "model_index": 6},
+    {"id": "horizon_aegis", "name": "Horizon Aegis", "tier": "Legendary", "max_hp": 275, "model_index": 7},
+    {"id": "solar_heart", "name": "Solar Heartplate", "tier": "Legendary", "max_hp": 300, "model_index": 8}
+  ]
+}

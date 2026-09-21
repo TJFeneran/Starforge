@@ -1,0 +1,74 @@
+{
+  "source": "assets/source/meshy/rift_ray/ray_a.glb",
+  "wingspan_m": 1.6,
+  "source_triangles": 118401,
+  "tail_corrected_triangles": 118401,
+  "optimized_triangles": 97087,
+  "reduction_percent": 18.00153714917948,
+  "surface_error_p99_mm": 0.025409790396224707,
+  "surface_error_max_mm": 0.04830450052395463,
+  "reverse_error_p99_mm": 0.024824139472912066,
+  "face_and_fin_tip_max_error_mm": 0.04487341357162222,
+  "tail_compression_factor": 0.42,
+  "bones": 13,
+  "unweighted_vertices": 0,
+  "weight_sum_max_error": 7.748603820800781e-07,
+  "clips": {
+    "hover_idle": {
+      "duration_seconds": 3.0,
+      "loop": true
+    },
+    "fly_forward": {
+      "duration_seconds": 1.2,
+      "loop": true
+    },
+    "bank_left": {
+      "duration_seconds": 1.6,
+      "loop": true
+    },
+    "bank_right": {
+      "duration_seconds": 1.6,
+      "loop": true
+    },
+    "attack_anticipation": {
+      "duration_seconds": 0.7,
+      "loop": false
+    },
+    "attack": {
+      "duration_seconds": 0.6,
+      "loop": false,
+      "contact_frame": 6,
+      "contact_seconds": 0.2,
+      "contact_socket": "muzzle_socket"
+    },
+    "attack_recovery": {
+      "duration_seconds": 0.8,
+      "loop": false
+    },
+    "hit": {
+      "duration_seconds": 0.8,
+      "loop": false
+    },
+    "death": {
+      "duration_seconds": 2.0,
+      "loop": false
+    }
+  },
+  "forward_blender": "-Y",
+  "forward_godot": "+Z",
+  "origin": "armored body center",
+  "source_texture_sizes": [
+    [
+      4096,
+      4096
+    ],
+    [
+      2048,
+      2048
+    ],
+    [
+      4096,
+      4096
+    ]
+  ]
+}

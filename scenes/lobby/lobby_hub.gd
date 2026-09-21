@@ -16,6 +16,8 @@ var _launching := false
 
 
 func _ready() -> void:
+	if PlayerState.is_campaign_scene(self):
+		PlayerState.checkpoint(PlayerState.LOBBY)
 	if _portal_glow:
 		_idle_glow_energy = _portal_glow.light_energy
 		_idle_glow_range = _portal_glow.omni_range
@@ -39,7 +41,10 @@ func _ready() -> void:
 
 
 func _on_bench_interacted(purpose: String) -> void:
-	# Bench UIs (loadouts, gadgets, cosmetics) are deferred; the prompt is the stub.
+	if purpose == "armor":
+		CampaignUI.open_workshop()
+		return
+	# Other workshop systems remain deferred.
 	print("Workshop bench '%s' interacted — focused UI not built yet." % purpose)
 
 

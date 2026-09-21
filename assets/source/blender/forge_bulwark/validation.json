@@ -1,0 +1,63 @@
+{
+  "source": "assets/source/meshy/forge_bulwark/bulwark_a.glb",
+  "height_m": 2.8,
+  "source_triangles": 114658,
+  "optimized_triangles": 94019,
+  "reduction_percent": 18.00048840900765,
+  "surface_error_p99_mm": 0.2594171091914177,
+  "surface_error_max_mm": 0.6264144321903586,
+  "reverse_error_p99_mm": 0.2244751958642155,
+  "crown_max_error_mm": 0.4813185951206833,
+  "bones": 44,
+  "skin_stress_edge_max_m": 0.23680050799007366,
+  "unweighted_vertices": 0,
+  "weight_sum_max_error": 9.5367431640625e-07,
+  "clips": {
+    "idle": {
+      "duration_seconds": 3.0,
+      "loop": true,
+      "max_foot_target_error_m": 1.788527352237374e-07,
+      "max_hand_target_error_m": 2.686603327408849e-07
+    },
+    "walk": {
+      "duration_seconds": 1.4,
+      "loop": true,
+      "max_foot_target_error_m": 0.009740832035429619,
+      "max_hand_target_error_m": 2.7314279645418166e-07
+    },
+    "attack_anticipation": {
+      "duration_seconds": 1.2,
+      "loop": false,
+      "max_foot_target_error_m": 1.521451611568193e-07,
+      "max_hand_target_error_m": 5.990192664337689e-07
+    },
+    "attack": {
+      "duration_seconds": 1.2,
+      "loop": false,
+      "max_foot_target_error_m": 1.521451611568193e-07,
+      "max_hand_target_error_m": 2.457562461863554e-07,
+      "contact_frame": 18,
+      "contact_time_seconds": 0.6
+    },
+    "attack_recovery": {
+      "duration_seconds": 1.4,
+      "loop": false,
+      "max_foot_target_error_m": 1.7896908744371404e-07,
+      "max_hand_target_error_m": 1.7881393432617188e-07
+    },
+    "hit": {
+      "duration_seconds": 0.9,
+      "loop": false,
+      "max_foot_target_error_m": 1.788527352237374e-07,
+      "max_hand_target_error_m": 2.7028258364226004e-07
+    },
+    "death": {
+      "duration_seconds": 3.0,
+      "loop": false,
+      "max_foot_target_error_m": 1.788527352237374e-07,
+      "max_hand_target_error_m": 2.686603327408849e-07
+    }
+  },
+  "forward_blender": "-Y",
+  "forward_godot": "+Z"
+}

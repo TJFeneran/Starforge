@@ -22,6 +22,25 @@ const ZOOM_STEP := 0.65
 const MIN_THIRD_PERSON_DISTANCE := 1.25
 const FIRST_PERSON_DISTANCE := 0.05
 const BODY_HIDE_DISTANCE := 1.0
+const ARMOR_HEIGHT := 1.8
+const TALL_ARMOR_HEIGHT := 2.16
+const ARMOR_NAMES := [
+	"Dustcoat", "Outpost Plate", "Trail Warden", "Signal Mantle", "Quarry Shell",
+	"Riftward", "Nightwell", "Horizon Aegis", "Solar Heart",
+]
+const ARMOR_PATHS := [
+	"res://assets/models/gear/armor/previews/armor_starter_dustcoat.glb",
+	"res://assets/models/gear/armor/previews/armor_common_outpost_plate.glb",
+	"res://assets/models/gear/armor/previews/armor_common_trail_warden.glb",
+	"res://assets/models/gear/armor/previews/armor_uncommon_signal_mantle.glb",
+	"res://assets/models/gear/armor/previews/armor_uncommon_quarry_shell.glb",
+	"res://assets/models/gear/armor/previews/armor_rare_riftward.glb",
+	"res://assets/models/gear/armor/previews/armor_rare_nightwell.glb",
+	"res://assets/models/gear/armor/previews/armor_legendary_horizon_aegis.glb",
+	"res://assets/models/gear/armor/previews/armor_legendary_solar_heart.glb",
+]
+
+signal armor_changed(index: int, armor_name: String)
 
 const HAND_BONE_CANDIDATES := [
 	"mixamorig_RightHand",
@@ -87,6 +106,10 @@ var _aim_move_input := Vector2.ZERO
 var _run_loop_stream: AudioStream
 var _stairs_loop_stream: AudioStream
 var _on_stairs_audio := false
+var selected_armor_index := -1
+var _locomotion_library: AnimationLibrary
+var _campaign_player := false
+var _original_model_transform: Transform3D
 
 
 func _ready() -> void:
@@ -106,6 +129,15 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_health.died.connect(_on_player_died)
 	_setup_run_loop()
+	_original_model_transform = _model_root.transform
+	var scene: Node = self
+	while scene != null and scene.scene_file_path not in [PlayerState.LOBBY, PlayerState.FIELD]:
+		scene = scene.get_parent()
+	_campaign_player = PlayerState.is_campaign_scene(scene)
+	if _campaign_player:
+		PlayerState.changed.connect(_apply_campaign_armor)
+		_apply_campaign_armor()
+		_health.heal_full()
 
 
 func _input(event: InputEvent) -> void:
@@ -155,17 +187,108 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not event.is_pressed() or event.is_echo() or Input.mouse_mode != Input.MOUSE_MODE_CAPTURED or _health.is_dead:
+	if not event is InputEventKey or not event.is_pressed() or event.is_echo() or Input.mouse_mode != Input.MOUSE_MODE_CAPTURED or _health.is_dead:
 		return
-	if event.keycode >= KEY_1 and event.keycode <= KEY_9:
-		_weapon.equip(event.keycode - KEY_1)
-		if _first_person:
-			_update_first_person_weapon()
+	var key_event := event as InputEventKey
+	var number_key: int = key_event.physical_keycode
+	if number_key == 0:
+		number_key = key_event.keycode
+	if number_key >= KEY_1 and number_key <= KEY_9:
+		_select_number_key(number_key - KEY_1, key_event.shift_pressed)
 	elif event.keycode == KEY_R:
 		_weapon.reload()
 	else:
 		return
 	get_viewport().set_input_as_handled()
+
+
+func _select_number_key(index: int, shifted: bool) -> void:
+	if shifted:
+		equip_armor(index)
+	else:
+		_weapon.equip(index)
+		if _first_person:
+			_update_first_person_weapon()
+
+
+func equip_armor(index: int) -> void:
+	if _campaign_player:
+		# Campaign equipment is committed through the Armor workshop.
+		return
+	_swap_armor(index)
+
+
+func _apply_campaign_armor() -> void:
+	var item: Dictionary = PlayerState.armor(PlayerState.data.equipped)
+	_swap_armor(int(item.model_index))
+	# Preserve health fraction when changing equipment; switching cannot heal.
+	var ratio := _health.hp / _health.max_hp
+	_health.max_hp = float(item.max_hp)
+	_health.hp = clampf(ratio * _health.max_hp, 0.0, _health.max_hp)
+
+
+func _swap_armor(index: int) -> void:
+	if index < -1 or index >= ARMOR_PATHS.size() or index == selected_armor_index:
+		return
+	var scene := load(ARMOR_PATHS[index] if index >= 0 else "res://assets/models/characters/exo_gray_idle.glb") as PackedScene
+	if scene == null:
+		push_error("Missing armor: " + ARMOR_PATHS[index])
+		return
+	var replacement := scene.instantiate() as Node3D
+	if replacement == null:
+		return
+	var previous_transform := _model_root.transform
+	_visual.remove_child(_model_root)
+	_model_root.queue_free()
+	replacement.name = "Model"
+	_visual.add_child(replacement)
+	_model_root = replacement
+	_model_root.transform = previous_transform
+	if index >= 0:
+		_fit_armor_model(index)
+	else:
+		_model_root.transform = _original_model_transform
+	_base_model_position = _model_root.position
+	_base_model_rotation = _model_root.rotation
+	if index >= 0:
+		var player := AnimationPlayer.new()
+		player.name = "AnimationPlayer"
+		_model_root.add_child(player)
+	_install_locomotion_animations()
+	_setup_weapon_follow()
+	_play_clip("loco/idle", 0.0)
+	selected_armor_index = index
+	armor_changed.emit(index, ARMOR_NAMES[index] if index >= 0 else "Base suit")
+
+
+func _fit_armor_model(index: int) -> void:
+	var skeleton := _find_skeleton(_model_root)
+	if skeleton == null:
+		return
+	var minimum := Vector3(INF, INF, INF)
+	var maximum := Vector3(-INF, -INF, -INF)
+	for child in skeleton.get_children():
+		if not child is MeshInstance3D:
+			continue
+		var mesh := child as MeshInstance3D
+		var box := mesh.get_aabb()
+		for x in [box.position.x, box.end.x]:
+			for y in [box.position.y, box.end.y]:
+				for z in [box.position.z, box.end.z]:
+					var point := _model_root.to_local(mesh.to_global(Vector3(x, y, z)))
+					minimum = minimum.min(point)
+					maximum = maximum.max(point)
+	var height := maximum.y - minimum.y
+	if height <= 0.0:
+		return
+	var target_height := TALL_ARMOR_HEIGHT if index == 3 or index == 7 else ARMOR_HEIGHT
+	var factor := target_height / height
+	_model_root.scale = Vector3.ONE * factor
+	_model_root.position = Vector3(
+		-(minimum.x + maximum.x) * 0.5 * factor,
+		-minimum.y * factor,
+		-(minimum.z + maximum.z) * 0.5 * factor
+	)
 
 
 func _process(_delta: float) -> void:
@@ -531,20 +654,22 @@ func _install_locomotion_animations() -> void:
 		push_warning("Player model has no AnimationPlayer")
 		return
 
-	var lib := AnimationLibrary.new()
-	_add_clip_from_scene(lib, "idle", idle_scene if idle_scene else null, false)
-	_add_clip_from_scene(lib, "walk", walk_scene)
-	_add_clip_from_scene(lib, "run", run_scene)
-	_add_clip_from_scene(lib, "jump", jump_scene, false, false)
-	_add_clip_from_scene(lib, "pistol_aim", pistol_aim_scene)
-	_add_clip_from_scene(lib, "pistol_run", pistol_run_scene)
-	_add_clip_from_scene(lib, "pistol_jump", pistol_jump_scene, false, false)
-	_add_strafe_clips(lib)
-	if not lib.has_animation("idle"):
-		_add_clip_from_scene(lib, "idle", walk_scene, false)
+	if _locomotion_library == null:
+		var lib := AnimationLibrary.new()
+		_add_clip_from_scene(lib, "idle", idle_scene if idle_scene else null, false)
+		_add_clip_from_scene(lib, "walk", walk_scene)
+		_add_clip_from_scene(lib, "run", run_scene)
+		_add_clip_from_scene(lib, "jump", jump_scene, false, false)
+		_add_clip_from_scene(lib, "pistol_aim", pistol_aim_scene)
+		_add_clip_from_scene(lib, "pistol_run", pistol_run_scene)
+		_add_clip_from_scene(lib, "pistol_jump", pistol_jump_scene, false, false)
+		_add_strafe_clips(lib)
+		if not lib.has_animation("idle"):
+			_add_clip_from_scene(lib, "idle", walk_scene, false)
+		_locomotion_library = lib
 	if _anim.has_animation_library("loco"):
 		_anim.remove_animation_library("loco")
-	_anim.add_animation_library("loco", lib)
+	_anim.add_animation_library("loco", _locomotion_library)
 	_current_clip = ""
 
 

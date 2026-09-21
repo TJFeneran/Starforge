@@ -1,0 +1,609 @@
+{
+  "schema_version": 1,
+  "status": "production_references_complete_with_review_notes",
+  "generator": "built-in image_gen",
+  "generated_on": "2026-09-20",
+  "purpose": "Selected enemy concepts, individual reconstruction views, anatomy and animation handoff for a future Meshy and Blender pilot.",
+  "style_reference": "docs/art/visual-bible.md",
+  "selected_variants": {
+    "rift_skitter": "B",
+    "rift_marksman": "A",
+    "forge_bulwark": "A",
+    "rift_ray": "A"
+  },
+  "recommended_variants": {
+    "rift_skitter": "B",
+    "rift_marksman": "A",
+    "forge_bulwark": "A",
+    "rift_ray": "A"
+  },
+  "targets": {
+    "rift_skitter": {
+      "height_m": 1.2,
+      "views": [
+        "front",
+        "side",
+        "back",
+        "three_quarter",
+        "top"
+      ]
+    },
+    "rift_marksman": {
+      "height_m": 1.9,
+      "views": [
+        "front",
+        "side",
+        "back",
+        "three_quarter"
+      ],
+      "separate_weapon": true
+    },
+    "forge_bulwark": {
+      "height_m": 2.8,
+      "views": [
+        "front",
+        "side",
+        "back",
+        "three_quarter"
+      ]
+    },
+    "rift_ray": {
+      "wingspan_m": 1.6,
+      "views": [
+        "front",
+        "side",
+        "back",
+        "three_quarter",
+        "top"
+      ]
+    }
+  },
+  "candidates": [
+    {
+      "enemy": "rift_skitter",
+      "variant": "A",
+      "name": "Crest",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: Refine the supplied Rift Skitter into a 1.2 m tall fast melee creature. Keep the recognizable tall wedge-shaped head and dark armored chitin identity, but simplify the scratched surface noise into smooth large panels. Exactly FOUR walking legs: two front and two hind legs, radially attached beneath a compact central torso; NO arms or additional appendages. Each leg has three visibly articulated substantial segments and a compact pointed ground-contact foot. All four feet must be individually visible and spaced apart. Short raised neck, single sweeping central head crest, two tiny coral eyes, dark navy carapace with restrained teal in recessed flexible joints. Front legs can sweep forward for a lunge attack. Keep a low stable support polygon and visible gaps between head, torso, and upper limbs.",
+      "reference": "assets/source/concepts/style-tests/rift_skitter.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-3318367f-83c8-4658-8648-ee1bb6859bd3.png",
+      "file": "rift_skitter/candidate_a.png",
+      "prompt_file": "rift_skitter/candidate_a_prompt.txt",
+      "status": "exploration_retained",
+      "visual_review": "Four distinct feet and articulated legs are visible. Crest retains the existing Skitter identity. Back-leg hip connections remain partly occluded and need top/back views."
+    },
+    {
+      "enemy": "rift_skitter",
+      "variant": "B",
+      "name": "Shieldback",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: Design a distinct 1.2 m tall Rift Skitter variant: low broad shield-shaped beetle carapace and short recessed wedge head, exactly FOUR stout articulated walking legs, two front and two hind, no arms, no tail, no extra limbs. Broad overlapping navy chitin back plates with muted teal side bands, small pale mineral forehead plate, two small coral eyes. Front legs slightly longer than hind legs, all four separated and completely visible. Creature reads as a compact spring-loaded predatory quadruped, with large clearly exposed rounded leg joints that can crouch and lunge. Less tall than the reference silhouette in torso proportion, same overall target height with legs extended.",
+      "reference": "assets/source/concepts/style-tests/rift_skitter.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-b98bb508-3c33-416c-a066-a0d5b442d210.png",
+      "file": "rift_skitter/candidate_b.png",
+      "prompt_file": "rift_skitter/candidate_b_prompt.txt",
+      "status": "selected_by_user",
+      "visual_review": "Four distinct feet are visible. Broad low carapace clearly differs from A. Surface scratches and mechanical-looking joints are stronger than requested; simplify secondary detail in production."
+    },
+    {
+      "enemy": "rift_marksman",
+      "variant": "A",
+      "name": "Needlecrest",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: A 1.9 m tall lean alien humanoid ranged enemy, two arms, two legs, two hands with three thick fingers plus thumb. Long but sturdy limbs; narrow spearhead helmet-like natural head crest; broad smooth navy chest and shin plates with warm mineral ceramic shoulder plates and muted teal flexible joints. A thin coral eye slit, distinctly alien face, no human visor. Relaxed A-pose with hands empty, arms angled 30 degrees away from torso, fingers open and legs hip-width apart. Separate energy weapon will be designed later: DO NOT include a gun or floating weapon in this image. Design forearms and hands to grip one compact two-handed energy carbine later. No cape, cloth skirt, spikes, cables or backpack antenna. Silhouette should be tall, poised, threatening and clearly different from the friendly player reference.",
+      "reference": "assets/source/concepts/style-tests/frontier_guardian.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-e5001076-a93f-452a-821d-01136df4ec33.png",
+      "file": "rift_marksman/candidate_a.png",
+      "prompt_file": "rift_marksman/candidate_a_prompt.txt",
+      "status": "selected_by_user",
+      "visual_review": "Upright narrow crest reads clearly; empty hands are separated from torso. Hand digit count must be locked in front/back views. Armor is more extensive than the lean brief."
+    },
+    {
+      "enemy": "rift_marksman",
+      "variant": "B",
+      "name": "Fancrest",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: A 1.9 m tall alien humanoid precision ranged enemy, two arms and two legs, three thick fingers plus thumb per hand. Strong elegant narrow torso, slightly reverse-angled lower legs with wide practical two-toed feet. Head has a broad low fan-shaped mineral crest extending sideways like an alien leaf, not horns; no fragile points. Warm gray mineral upper armor over navy flexible body, muted teal ribs and forearms, tiny coral recessed eyes. Relaxed symmetric A-pose, arms separated 30 degrees from torso, empty open hands and legs hip-width apart. NO weapon in this image; leave hands suited to a later separate two-handed energy carbine. No robes, cape, tail, exposed wires, floating props or extra limbs. Read as a calculating alien soldier; broad cranial fan distinguishes this design from the narrow head of candidate A.",
+      "reference": "assets/source/concepts/style-tests/frontier_guardian.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-94922475-0239-43cd-8080-a75b92a23368.png",
+      "file": "rift_marksman/candidate_b.png",
+      "prompt_file": "rift_marksman/candidate_b_prompt.txt",
+      "status": "exploration_retained",
+      "visual_review": "Fan-shaped head is distinct and readable. Generated legs are near-plantigrade, not the proposed reverse-angle anatomy; use plantigrade legs if selected, unless user requests correction."
+    },
+    {
+      "enemy": "forge_bulwark",
+      "variant": "A",
+      "name": "Split Crown",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: A 2.8 m tall ancient celestial forge construct, heavy bipedal bruiser with exactly two massive arms and two thick legs. Broad Starbone warm ceramic shoulders, dark navy mechanical understructure, chunky forearm gauntlets and broad planted feet. A compact protected amber-white power core inset inside a deep circular sternum aperture. A pair of substantial split vertical ceramic fins forms a low crown around a small recessed head; architecture translated into character anatomy. Clear circular shoulder, elbow, hip, knee and ankle bearings, generous physical clearance. Neutral A-pose, empty heavy hands clear of thighs, legs apart. Powerful readable rectangular silhouette and stable center of mass; hands can raise for a two-arm ground slam. No floating pieces, loose cables or spikes. Subtle single coral threat indicator below the head.",
+      "reference": "assets/source/concepts/style-tests/frontier_guardian.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-61d9ebee-62ab-4d4b-9528-5f74303f0b35.png",
+      "file": "forge_bulwark/candidate_a.png",
+      "prompt_file": "forge_bulwark/candidate_a_prompt.txt",
+      "status": "selected_by_user",
+      "visual_review": "Major mechanical bearings and separated hands are visible. Crown is taller than the original low-crown prompt; total 2.8 m target includes crown. Check overhead slam against crown/shoulders."
+    },
+    {
+      "enemy": "forge_bulwark",
+      "variant": "B",
+      "name": "Ringback",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: A 2.8 m tall ancient forge defense construct with two heavy arms and two thick legs, a low compact head and a circular thick split-ring yoke structurally attached behind and above its broad shoulders. The ring is a single substantial architectural form with a top opening, not floating magic, not many thin halo fragments. Dark navy barrel torso inside warm Starbone armor, oversized rounded forearm guards and wide feet, clearly separated round mechanical joints. A narrow inset amber core at the belly; tiny coral head sensor. Squat powerful body proportions, deliberately different from a tall crowned humanoid. Symmetric relaxed A-pose with arms clear of torso and legs separated. Shoulders must move without intersecting the attached ring. No spikes, ornate engravings, busy pistons, guns, chains or giant external effects.",
+      "reference": "assets/source/concepts/style-tests/frontier_guardian.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-ef453069-830b-4beb-a54b-d4345d4c709d.png",
+      "file": "forge_bulwark/candidate_b.png",
+      "prompt_file": "forge_bulwark/candidate_b_prompt.txt",
+      "status": "exploration_retained",
+      "visual_review": "Ring silhouette is clear. Ring-to-torso attachment and shoulder clearance cannot be proven in this single view; resolve with side/back views before modeling."
+    },
+    {
+      "enemy": "rift_ray",
+      "variant": "A",
+      "name": "Crescent",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: A floating alien Rift Ray with a 1.6 m wingspan: exactly one broad compact central body, exactly TWO thick crescent-shaped lateral fins, one short thick tapering tail. NO legs, arms, tentacles, dangling tendrils or additional fin pairs. Substantial manta-like fin roots that can flex and bank, simplified navy upper carapace and muted teal leathery fin surfaces, warm pale belly edge, two small coral eyes at the front. One small recessed coral biological energy aperture in the forward center of the head, no projectile effect. Relaxed level hovering pose with both fins open, lifted slightly above a faint studio ground shadow, front three-quarter elevated camera that reveals both fins and body thickness. Crisp large shapes, minimal seams. Organic wing surfaces are thick and opaque, not translucent membranes. A believable volumetric animal suited to rigging rather than a flat decorative emblem.",
+      "reference": "assets/source/concepts/style-tests/frontier_guardian.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-aaea4802-2658-4fc6-bec6-fe076d3e139f.png",
+      "file": "rift_ray/candidate_a.png",
+      "prompt_file": "rift_ray/candidate_a_prompt.txt",
+      "status": "selected_by_user",
+      "visual_review": "Exactly two substantial lateral fins and one tail; all visible. Neutral background corrected in a second generation. Rigid-looking fin edging must be segmented or shortened for bending.",
+      "correction_prompt": "Use case: lighting-weather. Edit this single Rift Ray concept image: preserve the EXACT creature anatomy, silhouette, face, two fins, single tail, navy/teal/ivory material arrangement, camera view and surface details. Change ONLY the backdrop from the current cutout/black/transparency into an opaque light-gray neutral studio background with a very faint soft ground shadow below the hovering creature. Keep the entire creature uncropped and comfortably inside the image. No black background, no transparency, no new objects, no text or labels. High-quality production concept reference."
+    },
+    {
+      "enemy": "rift_ray",
+      "variant": "B",
+      "name": "Hammerhead",
+      "prompt": "Use case: stylized-concept.\nAsset type: production-oriented enemy concept candidate for Starforge, intended for later Meshy reconstruction and Blender rigging.\nStyle: original bright heroic space fantasy with realistic PBR materials, monumental clean primary forms, tactile ceramic/chitin and dark flexible understructure. Match the restrained, physically tangible finish of the supplied Starforge reference, while making a distinct hostile enemy. Not grimdark, not cartoon, no skull motifs, no dense greebles, no franchise copies. Large quiet material regions. Void Navy #172133 and warm Starbone #D9D5C7 with muted alien teal #287F78; tiny Flare Coral #E64D45 threat accents. Cobalt belongs to the player and must not be the enemy's dominant identity. Amber only for an actual forge power core.\nComposition: exactly ONE full-body enemy, isolated in a relaxed symmetric rigging-friendly neutral pose, front three-quarter view with mild perspective, plain light-gray studio background, even soft light, crisp silhouette, subject large in frame with all extremities uncropped. Readable, physically plausible joints; separated limbs; armor must clear bends. No cinematic environment, no dramatic action pose, no bloom clouds, no motion blur, no depth of field. No labels, no text, no watermark. This is ONE concept image, not a multi-view sheet.\n\nSubject: A 1.6 m wingspan floating alien Rift Ray variant with a broad hammerhead-like front and exactly TWO short broad paddle-shaped lateral fins with squared rounded tips, compact thick armored torso, one short central rudder tail. No legs, arms, tendrils, extra appendages or fragile membranes. The whole form is robust and sculptural: warm pale mineral shell on the wide forward head, navy central back, muted teal fleshy fin paddles. Two tiny coral eyes and a small recessed forward energy organ. Relaxed symmetric level hover, fins open clear of body, full tail visible, slight elevated front three-quarter camera and soft ground shadow. Fin roots visibly show where flexible tissue meets rigid shell. Distinct from a conventional manta: broad blunt forward head and shorter paddle fins, no razor edges, no long ribbon tail.",
+      "reference": "assets/source/concepts/style-tests/frontier_guardian.png",
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-916f2f6b-199c-4f27-8459-b30b470fd30f.png",
+      "file": "rift_ray/candidate_b.png",
+      "prompt_file": "rift_ray/candidate_b_prompt.txt",
+      "status": "exploration_retained",
+      "visual_review": "Two broad paddles and a hammerhead profile distinguish B. Tail has a tall terminal rudder; preserve as a single tail assembly if selected. Fin perimeter shell needs deformation planning."
+    }
+  ],
+  "selection_basis": "User: Ok proceed with your recs",
+  "production_views": [
+    {
+      "enemy": "rift_skitter",
+      "view": "three_quarter",
+      "file": "rift_skitter/views/three_quarter.png",
+      "source_candidate": "rift_skitter/candidate_b.png",
+      "role": "approved appearance reference",
+      "status": "selected_by_user",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "fd8c754a94f979b8d48bad9bb326eb28091fd49ded3e4478dd0e1ef35cd9895b"
+    },
+    {
+      "enemy": "rift_marksman",
+      "view": "three_quarter",
+      "file": "rift_marksman/views/three_quarter.png",
+      "source_candidate": "rift_marksman/candidate_a.png",
+      "role": "approved appearance reference",
+      "status": "selected_by_user",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "31a3ff6c3d5bcdaa52cb96df520ec02046acbdb209328c72d762ffb9933adfd0"
+    },
+    {
+      "enemy": "forge_bulwark",
+      "view": "three_quarter",
+      "file": "forge_bulwark/views/three_quarter.png",
+      "source_candidate": "forge_bulwark/candidate_a.png",
+      "role": "approved appearance reference",
+      "status": "selected_by_user",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "f98420e0bb4b9b3e1dd2ae3ddbd73b3fb5fc53aa8bf2b79b592b4ea3bc92fd7d"
+    },
+    {
+      "enemy": "rift_ray",
+      "view": "three_quarter",
+      "file": "rift_ray/views/three_quarter.png",
+      "source_candidate": "rift_ray/candidate_a.png",
+      "role": "approved appearance reference",
+      "status": "selected_by_user",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "0f2b5d3e41435a8f1d9c76e3d7d16598a3d50253706bd79888b54ff92a6c2355"
+    },
+    {
+      "enemy": "rift_skitter",
+      "view": "front",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Skitter Shieldback, approved candidate B. Overall height 1.2 m. A low shield-shaped beetle carapace, short recessed pointed head, TWO tiny coral eyes, exactly FOUR walking legs (front left/right, hind left/right), no arms, no tail, no additional appendages. Preserve the broad navy layered shell with two muted teal longitudinal bands and a small pale forehead wedge. Exactly three substantial articulated segments per leg and split compact hoof-point feet. Cream circular hip/knee housings with dark teal mechanical centers. Four separate hip sockets under the carapace, paired front and hind. Neutral quadruped stance: front pair slightly wider than hind pair so all four feet can read in front/back view. Same body elevation and leg articulation across views. Shell is rigid, joints articulate. Do not turn into the tall long-necked Skitter variant.\nCamera: EXACT ORTHOGRAPHIC FRONT elevation, looking straight at the face at subject center height, no yaw and no view from above. Bilaterally symmetric. No perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_skitter/candidate_b.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-23ca498a-b4ab-4c68-9b90-3d234d94a3b9.png",
+      "file": "rift_skitter/views/front_v2.png",
+      "status": "visually_reviewed_with_notes",
+      "correction_prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Skitter Shieldback, approved candidate B. Overall height 1.2 m. A low shield-shaped beetle carapace, short recessed pointed head, TWO tiny coral eyes, exactly FOUR walking legs (front left/right, hind left/right), no arms, no tail, no additional appendages. Preserve the broad navy layered shell with two muted teal longitudinal bands and a small pale forehead wedge. Exactly three substantial articulated segments per leg and split compact hoof-point feet. Cream circular hip/knee housings with dark teal mechanical centers. Four separate hip sockets under the carapace, paired front and hind. Neutral quadruped stance: front pair slightly wider than hind pair so all four feet can read in front/back view. Same body elevation and leg articulation across views. Shell is rigid, joints articulate. Do not turn into the tall long-necked Skitter variant.\nCamera: EXACT ORTHOGRAPHIC FRONT elevation, looking straight at the face at subject center height, no yaw and no view from above. Bilaterally symmetric. No perspective. Whole body in frame.\nCRITICAL CAMERA CORRECTION: Change ONLY camera projection and elevation to a STRICT straight-on orthographic front elevation. Camera is horizontal at middle of body, not above it. All FOUR feet touch the same horizontal baseline on the page, including the rear pair. No perspective size reduction of the rear legs. Preserve EXACT shell design, body/leg proportions, four-leg anatomy and symmetric stance. Only a narrow amount of shell top is visible from this lower camera; do not flatten or alter the shell itself. No text or extra views.",
+      "previous_source": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-1cb55e5e-91dd-40ea-9f74-f9f964c639d8.png",
+      "prompt_file": "rift_skitter/views/front_v2_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "7e970d413180b8cb9158de0f74576d5e2c61f1d081c74088bcb1960954ee6747"
+    },
+    {
+      "enemy": "rift_skitter",
+      "view": "side",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Skitter Shieldback, approved candidate B. Overall height 1.2 m. A low shield-shaped beetle carapace, short recessed pointed head, TWO tiny coral eyes, exactly FOUR walking legs (front left/right, hind left/right), no arms, no tail, no additional appendages. Preserve the broad navy layered shell with two muted teal longitudinal bands and a small pale forehead wedge. Exactly three substantial articulated segments per leg and split compact hoof-point feet. Cream circular hip/knee housings with dark teal mechanical centers. Four separate hip sockets under the carapace, paired front and hind. Neutral quadruped stance: front pair slightly wider than hind pair so all four feet can read in front/back view. Same body elevation and leg articulation across views. Shell is rigid, joints articulate. Do not turn into the tall long-necked Skitter variant.\nCamera: EXACT ORTHOGRAPHIC LEFT SIDE elevation, animal/character facing image LEFT. Camera level at body center. Strict 90 degree profile, no glimpse of the front plane as a three-quarter view. Far-side limbs may naturally overlap behind near-side limbs; do not invent extra limbs to reveal them. Keep the same neutral pose, no walking stance. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_skitter/candidate_b.png",
+        "assets/source/concepts/enemies/rift_skitter/views/front_v2.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-ad73d85f-19ef-43cf-9213-5fc9cdd8d403.png",
+      "file": "rift_skitter/views/side.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_skitter/views/side_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "c0a50d61174b43f465dc747290efa4df1e3c9a264c42938de4e24f24aa6f6baa"
+    },
+    {
+      "enemy": "rift_skitter",
+      "view": "back",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Skitter Shieldback, approved candidate B. Overall height 1.2 m. A low shield-shaped beetle carapace, short recessed pointed head, TWO tiny coral eyes, exactly FOUR walking legs (front left/right, hind left/right), no arms, no tail, no additional appendages. Preserve the broad navy layered shell with two muted teal longitudinal bands and a small pale forehead wedge. Exactly three substantial articulated segments per leg and split compact hoof-point feet. Cream circular hip/knee housings with dark teal mechanical centers. Four separate hip sockets under the carapace, paired front and hind. Neutral quadruped stance: front pair slightly wider than hind pair so all four feet can read in front/back view. Same body elevation and leg articulation across views. Shell is rigid, joints articulate. Do not turn into the tall long-necked Skitter variant.\nCamera: EXACT ORTHOGRAPHIC REAR elevation, looking straight at the back at body center height. Back of head, rear torso, rear limb surfaces; face and frontal chest core must NOT be visible. Preserve neutral pose and bilateral symmetry. No three-quarter perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_skitter/candidate_b.png",
+        "assets/source/concepts/enemies/rift_skitter/views/front_v2.png",
+        "assets/source/concepts/enemies/rift_skitter/views/side.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-d38eb6f7-8064-402f-9e94-159d9531266a.png",
+      "file": "rift_skitter/views/back.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_skitter/views/back_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "8d73243f2ce3e28742d00e258df959ae989d97a9a976226f450b64f624b69ce5"
+    },
+    {
+      "enemy": "rift_skitter",
+      "view": "top",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Skitter Shieldback, approved candidate B. Overall height 1.2 m. A low shield-shaped beetle carapace, short recessed pointed head, TWO tiny coral eyes, exactly FOUR walking legs (front left/right, hind left/right), no arms, no tail, no additional appendages. Preserve the broad navy layered shell with two muted teal longitudinal bands and a small pale forehead wedge. Exactly three substantial articulated segments per leg and split compact hoof-point feet. Cream circular hip/knee housings with dark teal mechanical centers. Four separate hip sockets under the carapace, paired front and hind. Neutral quadruped stance: front pair slightly wider than hind pair so all four feet can read in front/back view. Same body elevation and leg articulation across views. Shell is rigid, joints articulate. Do not turn into the tall long-necked Skitter variant.\nCamera: EXACT ORTHOGRAPHIC TOP plan view, camera directly overhead looking vertically down. Head points toward image TOP, rear/tail toward image BOTTOM. No oblique perspective. Both left and right appendages symmetrically visible, all extremities fit the frame. Preserve the neutral stance/hover.\nAbsolute top-down plan view: show the top of the whole creature; head at 12 o'clock, rear at 6 o'clock. No face-on frontal composition. No ground horizon.",
+      "references": [
+        "assets/source/concepts/enemies/rift_skitter/candidate_b.png",
+        "assets/source/concepts/enemies/rift_skitter/views/front_v2.png",
+        "assets/source/concepts/enemies/rift_skitter/views/side.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-140c4c5d-e755-4bcf-9c3f-3558de4c40a9.png",
+      "file": "rift_skitter/views/top.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_skitter/views/top_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "0992a7d00f46d1d4bef4879b1744fb0fd3fc4e03d822ec9ebd6e801f780af38a"
+    },
+    {
+      "enemy": "rift_marksman",
+      "view": "front",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Marksman Needlecrest, approved candidate A, 1.9 m tall including narrow split spearhead crest. Exactly two arms and two legs, humanoid plantigrade legs, broad navy pectoral plates, pale ceramic shoulders/forearms/kneecaps/shin edges, teal ribbed flexible neck/abdomen, single coral vertical forehead aperture and small coral chest aperture. Preserve the selected proportions and angular alien head. Hands each have THREE fingers plus ONE thumb, four digits total, clearly separated in the front view; neutral half-open hand, no fist. Relaxed symmetric A-pose, arms about 20 degrees from vertical, legs apart. Empty hands; no gun. Head remains forward in every view: rotate camera around the subject, never head toward camera. Back: functional quiet navy/pale plates and teal flexible spine, no new backpack, cape, wings or extra equipment.\nCamera: EXACT ORTHOGRAPHIC FRONT elevation, looking straight at the face at subject center height, no yaw and no view from above. Bilaterally symmetric. No perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_marksman/candidate_a.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-2cf661bf-0e9d-4e5a-a928-f3dced6818a7.png",
+      "file": "rift_marksman/views/front.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_marksman/views/front_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "32f4677f4d00efc891558aa3ad52cf74bfe6d3f8572b0fc528c0641c80f88d03"
+    },
+    {
+      "enemy": "rift_marksman",
+      "view": "side",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Marksman Needlecrest, approved candidate A, 1.9 m tall including narrow split spearhead crest. Exactly two arms and two legs, humanoid plantigrade legs, broad navy pectoral plates, pale ceramic shoulders/forearms/kneecaps/shin edges, teal ribbed flexible neck/abdomen, single coral vertical forehead aperture and small coral chest aperture. Preserve the selected proportions and angular alien head. Hands each have THREE fingers plus ONE thumb, four digits total, clearly separated in the front view; neutral half-open hand, no fist. Relaxed symmetric A-pose, arms about 20 degrees from vertical, legs apart. Empty hands; no gun. Head remains forward in every view: rotate camera around the subject, never head toward camera. Back: functional quiet navy/pale plates and teal flexible spine, no new backpack, cape, wings or extra equipment.\nCamera: EXACT ORTHOGRAPHIC LEFT SIDE elevation, animal/character facing image LEFT. Camera level at body center. Strict 90 degree profile, no glimpse of the front plane as a three-quarter view. Far-side limbs may naturally overlap behind near-side limbs; do not invent extra limbs to reveal them. Keep the same neutral pose, no walking stance. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_marksman/candidate_a.png",
+        "assets/source/concepts/enemies/rift_marksman/views/front.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-496c4fe2-046c-4a0a-af6c-b2dcb18a8137.png",
+      "file": "rift_marksman/views/side.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_marksman/views/side_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "5933b3a4465b3baa05acc4f4447cf43e57aacc96b517aab972091bb8b8e17e82"
+    },
+    {
+      "enemy": "rift_marksman",
+      "view": "back",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Marksman Needlecrest, approved candidate A, 1.9 m tall including narrow split spearhead crest. Exactly two arms and two legs, humanoid plantigrade legs, broad navy pectoral plates, pale ceramic shoulders/forearms/kneecaps/shin edges, teal ribbed flexible neck/abdomen, single coral vertical forehead aperture and small coral chest aperture. Preserve the selected proportions and angular alien head. Hands each have THREE fingers plus ONE thumb, four digits total, clearly separated in the front view; neutral half-open hand, no fist. Relaxed symmetric A-pose, arms about 20 degrees from vertical, legs apart. Empty hands; no gun. Head remains forward in every view: rotate camera around the subject, never head toward camera. Back: functional quiet navy/pale plates and teal flexible spine, no new backpack, cape, wings or extra equipment.\nCamera: EXACT ORTHOGRAPHIC REAR elevation, looking straight at the back at body center height. Back of head, rear torso, rear limb surfaces; face and frontal chest core must NOT be visible. Preserve neutral pose and bilateral symmetry. No three-quarter perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_marksman/candidate_a.png",
+        "assets/source/concepts/enemies/rift_marksman/views/front.png",
+        "assets/source/concepts/enemies/rift_marksman/views/side.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-01f23f85-00e1-4d97-95c6-7db18bb820d6.png",
+      "file": "rift_marksman/views/back.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_marksman/views/back_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "460f05eb1c20e84ffad38182fb194528cb1c6927c2b62cac3324d5ffb77d46b5"
+    },
+    {
+      "enemy": "forge_bulwark",
+      "view": "front",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Forge Bulwark Split Crown, approved candidate A, 2.8 m tall INCLUDING the two tall ceramic crown fins attached to the upper torso beside the compact head. Exactly two massive arms and two heavy legs. Preserve broad pale ceramic shoulders, navy mechanical bearing joints, large cream forearm guards with teal outer inset panels, cream shin armor, broad planted feet. Exactly FOUR fingers plus ONE thumb on each hand, five digits total; relaxed half-open hands. Circular inset amber-white chest core, thin warm head aperture, small coral upper-sternum indicator. Two straight crown fins, no halo ring. Neutral symmetric A-pose, arms clear of torso, feet apart. Back: rigid support bridges attach the two crown fins to upper torso, clear of shoulder swivel housings; quiet navy spinal understructure with pale back plates, no backpack or new glow core. Keep all plates thick and rigid, generously clear of joint movement.\nCamera: EXACT ORTHOGRAPHIC FRONT elevation, looking straight at the face at subject center height, no yaw and no view from above. Bilaterally symmetric. No perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/forge_bulwark/candidate_a.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-f70c50b1-386f-4d4f-bfcb-c4401ac37a3c.png",
+      "file": "forge_bulwark/views/front.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "forge_bulwark/views/front_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "2811915afda0eec4323db5ed8cba95ff92c58fb1c77f53258df6d80bdd33fbad"
+    },
+    {
+      "enemy": "forge_bulwark",
+      "view": "side",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Forge Bulwark Split Crown, approved candidate A, 2.8 m tall INCLUDING the two tall ceramic crown fins attached to the upper torso beside the compact head. Exactly two massive arms and two heavy legs. Preserve broad pale ceramic shoulders, navy mechanical bearing joints, large cream forearm guards with teal outer inset panels, cream shin armor, broad planted feet. Exactly FOUR fingers plus ONE thumb on each hand, five digits total; relaxed half-open hands. Circular inset amber-white chest core, thin warm head aperture, small coral upper-sternum indicator. Two straight crown fins, no halo ring. Neutral symmetric A-pose, arms clear of torso, feet apart. Back: rigid support bridges attach the two crown fins to upper torso, clear of shoulder swivel housings; quiet navy spinal understructure with pale back plates, no backpack or new glow core. Keep all plates thick and rigid, generously clear of joint movement.\nCamera: EXACT ORTHOGRAPHIC LEFT SIDE elevation, animal/character facing image LEFT. Camera level at body center. Strict 90 degree profile, no glimpse of the front plane as a three-quarter view. Far-side limbs may naturally overlap behind near-side limbs; do not invent extra limbs to reveal them. Keep the same neutral pose, no walking stance. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/forge_bulwark/candidate_a.png",
+        "assets/source/concepts/enemies/forge_bulwark/views/front.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-b6c5e163-ad69-484d-b941-198f8c69ba3d.png",
+      "file": "forge_bulwark/views/side.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "forge_bulwark/views/side_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "b05548f7c3574b4cca6dd79e776463bccd91d9d58d3321282a6b33c82150c6a2"
+    },
+    {
+      "enemy": "forge_bulwark",
+      "view": "back",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Forge Bulwark Split Crown, approved candidate A, 2.8 m tall INCLUDING the two tall ceramic crown fins attached to the upper torso beside the compact head. Exactly two massive arms and two heavy legs. Preserve broad pale ceramic shoulders, navy mechanical bearing joints, large cream forearm guards with teal outer inset panels, cream shin armor, broad planted feet. Exactly FOUR fingers plus ONE thumb on each hand, five digits total; relaxed half-open hands. Circular inset amber-white chest core, thin warm head aperture, small coral upper-sternum indicator. Two straight crown fins, no halo ring. Neutral symmetric A-pose, arms clear of torso, feet apart. Back: rigid support bridges attach the two crown fins to upper torso, clear of shoulder swivel housings; quiet navy spinal understructure with pale back plates, no backpack or new glow core. Keep all plates thick and rigid, generously clear of joint movement.\nCamera: EXACT ORTHOGRAPHIC REAR elevation, looking straight at the back at body center height. Back of head, rear torso, rear limb surfaces; face and frontal chest core must NOT be visible. Preserve neutral pose and bilateral symmetry. No three-quarter perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/forge_bulwark/candidate_a.png",
+        "assets/source/concepts/enemies/forge_bulwark/views/front.png",
+        "assets/source/concepts/enemies/forge_bulwark/views/side.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-21fd6d5c-f5eb-4769-aab1-9dd15ac56ea5.png",
+      "file": "forge_bulwark/views/back.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "forge_bulwark/views/back_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "0dfc3222738b12a13f8fe2e916ec3ff73e0f8bc6f27ad6a7ba10687368d88a0e"
+    },
+    {
+      "enemy": "rift_ray",
+      "view": "front",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Ray Crescent, approved candidate A. 1.6 m wingspan, one rounded thick central armored body, exactly TWO broad curved crescent fins at left/right, exactly ONE short tapered tail from rear center. Two coral eyes and one small coral forward mouth aperture. Preserve navy segmented dorsal shell with narrow teal stripe and warm pale underside, thick opaque teal fin tissue, navy outer dorsal fin armor and cream edge segments. Fin leading-edge shell follows rigid root/first fin bone; cream edge strip divided by subtle existing-style seams into a few rigid segments so flexible teal tissue can bend. Keep the approved outline and do not add decorative detail. Neutral hover pose with both fins slightly down-curved symmetrically, tail roughly level with gentle rise at its tip. No legs, tentacles, secondary fins, spikes, aerials or long ribbon tail. Back/underside extrapolates the same pale belly and dark root joints without new organs or exhausts.\nCamera: EXACT ORTHOGRAPHIC FRONT elevation, looking straight at the face at subject center height, no yaw and no view from above. Bilaterally symmetric. No perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_ray/candidate_a.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-506cfb1e-79f0-434d-8b6f-19f80a8667c5.png",
+      "file": "rift_ray/views/front_v2.png",
+      "status": "visually_reviewed_with_notes",
+      "correction_prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Ray Crescent, approved candidate A. 1.6 m wingspan, one rounded thick central armored body, exactly TWO broad curved crescent fins at left/right, exactly ONE short tapered tail from rear center. Two coral eyes and one small coral forward mouth aperture. Preserve navy segmented dorsal shell with narrow teal stripe and warm pale underside, thick opaque teal fin tissue, navy outer dorsal fin armor and cream edge segments. Fin leading-edge shell follows rigid root/first fin bone; cream edge strip divided by subtle existing-style seams into a few rigid segments so flexible teal tissue can bend. Keep the approved outline and do not add decorative detail. Neutral hover pose with both fins slightly down-curved symmetrically, tail roughly level with gentle rise at its tip. No legs, tentacles, secondary fins, spikes, aerials or long ribbon tail. Back/underside extrapolates the same pale belly and dark root joints without new organs or exhausts.\nCamera: EXACT ORTHOGRAPHIC FRONT elevation, looking straight at the face at subject center height, no yaw and no view from above. Bilaterally symmetric. No perspective. Whole body in frame.\nCRITICAL CAMERA CORRECTION: Change ONLY camera projection and elevation to a STRICT straight-on orthographic FRONT elevation at the height of the face. Look horizontally into the nose aperture. The domed dorsal shell is strongly foreshortened; do NOT show its whole top surface. The tail lies behind the body and is mostly occluded from this level front angle, not projecting high above the head. Two fins extend sideways then curve downward, showing their leading edge thickness and hanging teal fin surfaces. Preserve exact creature identity and neutral hover anatomy. Do not generate another elevated top-front view. No text or extra views.",
+      "previous_source": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-2b99be0e-d491-465c-aeed-9d7f9af82306.png",
+      "prompt_file": "rift_ray/views/front_v2_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "9ccd2a87c2b91b21bf36885ffbd8417b625e1625f8cd8b249315f902a5230178"
+    },
+    {
+      "enemy": "rift_ray",
+      "view": "side",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Ray Crescent, approved candidate A. 1.6 m wingspan, one rounded thick central armored body, exactly TWO broad curved crescent fins at left/right, exactly ONE short tapered tail from rear center. Two coral eyes and one small coral forward mouth aperture. Preserve navy segmented dorsal shell with narrow teal stripe and warm pale underside, thick opaque teal fin tissue, navy outer dorsal fin armor and cream edge segments. Fin leading-edge shell follows rigid root/first fin bone; cream edge strip divided by subtle existing-style seams into a few rigid segments so flexible teal tissue can bend. Keep the approved outline and do not add decorative detail. Neutral hover pose with both fins slightly down-curved symmetrically, tail roughly level with gentle rise at its tip. No legs, tentacles, secondary fins, spikes, aerials or long ribbon tail. Back/underside extrapolates the same pale belly and dark root joints without new organs or exhausts.\nCamera: EXACT ORTHOGRAPHIC LEFT SIDE elevation, animal/character facing image LEFT. Camera level at body center. Strict 90 degree profile, no glimpse of the front plane as a three-quarter view. Far-side limbs may naturally overlap behind near-side limbs; do not invent extra limbs to reveal them. Keep the same neutral pose, no walking stance. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_ray/candidate_a.png",
+        "assets/source/concepts/enemies/rift_ray/views/front_v2.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-b2e9b361-f4e2-42ac-a59b-099ee2920134.png",
+      "file": "rift_ray/views/side.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_ray/views/side_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "2ba5cd2571be9e52862b8eb2a87bd7a02d96a96ea24a46e476c4fe7d245cb523"
+    },
+    {
+      "enemy": "rift_ray",
+      "view": "back",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Ray Crescent, approved candidate A. 1.6 m wingspan, one rounded thick central armored body, exactly TWO broad curved crescent fins at left/right, exactly ONE short tapered tail from rear center. Two coral eyes and one small coral forward mouth aperture. Preserve navy segmented dorsal shell with narrow teal stripe and warm pale underside, thick opaque teal fin tissue, navy outer dorsal fin armor and cream edge segments. Fin leading-edge shell follows rigid root/first fin bone; cream edge strip divided by subtle existing-style seams into a few rigid segments so flexible teal tissue can bend. Keep the approved outline and do not add decorative detail. Neutral hover pose with both fins slightly down-curved symmetrically, tail roughly level with gentle rise at its tip. No legs, tentacles, secondary fins, spikes, aerials or long ribbon tail. Back/underside extrapolates the same pale belly and dark root joints without new organs or exhausts.\nCamera: EXACT ORTHOGRAPHIC REAR elevation, looking straight at the back at body center height. Back of head, rear torso, rear limb surfaces; face and frontal chest core must NOT be visible. Preserve neutral pose and bilateral symmetry. No three-quarter perspective. Whole body in frame.",
+      "references": [
+        "assets/source/concepts/enemies/rift_ray/candidate_a.png",
+        "assets/source/concepts/enemies/rift_ray/views/front_v2.png",
+        "assets/source/concepts/enemies/rift_ray/views/side.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-2914e5ac-713b-4718-9309-092ede159d8a.png",
+      "file": "rift_ray/views/back.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_ray/views/back_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "b17e0eea8678abbc5589666083fb9295925c86c1f94ece5b916df690a1194ad0"
+    },
+    {
+      "enemy": "rift_ray",
+      "view": "top",
+      "prompt": "Use case: identity-preserve. Asset type: single-view production reconstruction reference for Meshy and Blender. Image 1 is the approved appearance reference; any additional images are consistency references of the SAME selected design. Preserve exact identity, scale proportions, silhouette components, materials and color placement. Change camera only except explicitly clarifying hidden anatomy. Render ONE full-body subject only, not a collage, no labels, no diagram arrows, no props, no text, no watermark. Plain opaque light-gray studio background, even neutral diffuse light, sharp geometry edges and details, no deep cast shadows, no bloom, no atmospheric effects, no transparency. Leave comfortable margin around ALL extremities. Aim for orthographic model-reference accuracy, not a cinematic pose. Match the reference's realistic PBR finish, with simplified quiet surfaces and subtle wear.\n\nAnatomy lock: Rift Ray Crescent, approved candidate A. 1.6 m wingspan, one rounded thick central armored body, exactly TWO broad curved crescent fins at left/right, exactly ONE short tapered tail from rear center. Two coral eyes and one small coral forward mouth aperture. Preserve navy segmented dorsal shell with narrow teal stripe and warm pale underside, thick opaque teal fin tissue, navy outer dorsal fin armor and cream edge segments. Fin leading-edge shell follows rigid root/first fin bone; cream edge strip divided by subtle existing-style seams into a few rigid segments so flexible teal tissue can bend. Keep the approved outline and do not add decorative detail. Neutral hover pose with both fins slightly down-curved symmetrically, tail roughly level with gentle rise at its tip. No legs, tentacles, secondary fins, spikes, aerials or long ribbon tail. Back/underside extrapolates the same pale belly and dark root joints without new organs or exhausts.\nCamera: EXACT ORTHOGRAPHIC TOP plan view, camera directly overhead looking vertically down. Head points toward image TOP, rear/tail toward image BOTTOM. No oblique perspective. Both left and right appendages symmetrically visible, all extremities fit the frame. Preserve the neutral stance/hover.\nAbsolute top-down plan view: show the top of the whole creature; head at 12 o'clock, rear at 6 o'clock. No face-on frontal composition. No ground horizon.",
+      "references": [
+        "assets/source/concepts/enemies/rift_ray/candidate_a.png",
+        "assets/source/concepts/enemies/rift_ray/views/front_v2.png",
+        "assets/source/concepts/enemies/rift_ray/views/side.png"
+      ],
+      "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-9169b290-17df-4b50-a62a-e0a1fbee2aa5.png",
+      "file": "rift_ray/views/top.png",
+      "status": "visually_reviewed_with_notes",
+      "prompt_file": "rift_ray/views/top_prompt.txt",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "4cbf99d30d19d343403d243fbb2c94499af79be195189f63ebd8de6c32675db6"
+    }
+  ],
+  "weapon": {
+    "owner": "rift_marksman",
+    "name": "Needlecrest energy carbine",
+    "length_m": 0.65,
+    "status": "reference_design_authored",
+    "views": [
+      {
+        "enemy": "rift_marksman",
+        "asset": "weapon",
+        "view": "side",
+        "prompt": "Use case: stylized-concept. Asset type: isolated enemy energy carbine reconstruction reference, one object.\nInput image: approved Rift Marksman Needlecrest, MATERIAL AND SHAPE LANGUAGE reference ONLY. Do NOT render the character or any hand.\nDesign one compact 0.65 meter long two-handed alien energy carbine for this character. Single coherent solid object with broad clean angular forms, navy central mechanism, warm pale ceramic outer panels, small muted teal inset, ONE tiny coral energy aperture at the muzzle. Two thick upper/lower forward ceramic shrouds partially enclose a short circular emitter; no bullet barrel, magazine, scope, sights, loose cable, floating pieces or many tiny details. Rear has a short robust shoulder pad; an angled navy primary pistol grip with spacious open trigger guard beneath the rear-middle body; ahead of it a broad integral lower fore-end for the support hand. Make both hand-grip regions clearly usable by three thick fingers and one thumb. No human hands or hand silhouettes. The primary and support grips are physically separated. Materials match the reference creature, subtle wear, mostly quiet surfaces.\nCamera: exact orthographic LEFT SIDE elevation, muzzle points image LEFT, shoulder pad at RIGHT. Weapon horizontal, whole silhouette comfortably in frame, NO three-quarter view. Plain opaque light-gray studio background, even diffuse light, crisp silhouette, realistic PBR concept render. No text, labels, dimensions, watermark or cast shadows obscuring contours. ONE weapon only, not a collage.",
+        "references": [
+          "assets/source/concepts/enemies/rift_marksman/candidate_a.png"
+        ],
+        "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-245c2560-2c75-4259-a25f-153c7b312d10.png",
+        "file": "rift_marksman/weapon/side.png",
+        "status": "visually_reviewed_with_notes",
+        "prompt_file": "rift_marksman/weapon/side_prompt.txt",
+        "size_px": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "sha256": "13574bf8eb9027a19c60af78b485a68c6fb2b56d849be32f03afae21a589d562"
+      },
+      {
+        "enemy": "rift_marksman",
+        "asset": "weapon",
+        "view": "top",
+        "prompt": "Use case: identity-preserve. Input 1 is the exact left SIDE of an alien energy carbine; input 2 is its muzzle-end FRONT elevation. Generate the physically consistent exact TOP elevation of this SAME weapon, looking straight vertically down. Muzzle points LEFT, buttstock RIGHT. CRITICAL: the two pale muzzle shrouds are stacked VERTICALLY (one above and one below), NOT two side-by-side prongs. From directly above ONLY the SINGLE continuous broad upper ceramic muzzle shroud is visible; it hides the lower shroud and circular emitter. Do not expose the red muzzle lens from this overhead camera. Show one solid pale upper nose cap, navy central upper housing, pale upper receiver plates, narrow rear neck, and short shoulder stock. Preserve the weapon length, width based on end elevation, material layout, and design. Lower grip loops are occluded by body from this top camera. ONE object only, full horizontal weapon in frame, no text, no collage, no extra parts, plain opaque light-gray background, even lighting and crisp PBR materials.",
+        "references": [
+          "assets/source/concepts/enemies/rift_marksman/weapon/side.png",
+          "assets/source/concepts/enemies/rift_marksman/weapon/front.png"
+        ],
+        "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-ec5ea0a4-0f10-4edc-ae8e-582baf49ba3b.png",
+        "file": "rift_marksman/weapon/top_v2.png",
+        "status": "visually_reviewed_with_notes",
+        "prompt_file": "rift_marksman/weapon/top_v2_prompt.txt",
+        "size_px": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "sha256": "05b3f62fc6f375d67d64b367d4de8726f68693ad31742648bab97d3d610cdb8c"
+      },
+      {
+        "enemy": "rift_marksman",
+        "asset": "weapon",
+        "view": "front",
+        "prompt": "Use case: identity-preserve. Image 1 is the exact energy carbine design to preserve. Create one additional production reference of that same 0.65 m weapon. Preserve every major shape, two grip openings, primary pistol grip, short shoulder stock, navy/pale ceramic/teal materials and coral muzzle, with same proportions. Change ONLY the camera. Exact orthographic FRONT end elevation looking straight into the muzzle aperture along the weapon's long axis. The small circular coral emitter centered between upper/lower pale shrouds, laterally symmetric body behind it. The grips extend below the body on centerline. Strong foreshortening: do NOT show the long side of the gun. Muzzle facing viewer, no yaw. ONE isolated weapon, full silhouette uncropped, opaque light-gray studio background, even neutral lighting, crisp realistic PBR materials, no character, no hands, no text, no labels, no collage, no watermark, no transparency.",
+        "references": [
+          "assets/source/concepts/enemies/rift_marksman/weapon/side.png"
+        ],
+        "source_file": "/home/tj/.codex/generated_images/01a0c0aa-e488-7761-96b5-50ed19771aa9/exec-94213c7f-1ae6-4c7d-9384-17ae3612f5bb.png",
+        "file": "rift_marksman/weapon/front.png",
+        "status": "visually_reviewed_with_notes",
+        "prompt_file": "rift_marksman/weapon/front_prompt.txt",
+        "size_px": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "sha256": "baf61eaeabd32427abe5ef03eeb977793b52bab1b1e9d38e8a3f362e1784d9d1"
+      }
+    ],
+    "rigging": "Separate rigid object; primary pistol grip, support foregrip and central muzzle socket. See weapon/brief.md."
+  },
+  "review": {
+    "rift_skitter": {
+      "finding": "Five views preserve a four-legged Shieldback with separate paired hip sockets, broad shell, navy/teal regions and pale joints. Front correction reduces the rear-foot baseline mismatch.",
+      "limits": "Front/rear retain mild elevation and the stance is not pixel-calibrated across views. Top view resolves front/hind attachment order; use overall height and anatomical symmetry rather than tracing rear-leg perspective shortening.",
+      "rig": "Rigid shell and leg plates; four custom leg chains, one per hip socket. No humanoid rig. Foot contacts and shell clearance require Blender pose tests."
+    },
+    "rift_marksman": {
+      "finding": "Four views preserve the split crest, humanoid proportions, navy chest plates, teal torso and empty hands. Side view clarifies the three-finger-plus-thumb hand.",
+      "limits": "Small panel seams and curled digits vary in visibility. Enforce three fingers plus one thumb on BOTH hands in the mesh; do not infer a missing digit from occlusion.",
+      "rig": "Humanoid anatomical rig adjusted to alien proportions; rigid plates with flexible joints. Separate weapon; attach to primary hand and use support-hand IK."
+    },
+    "forge_bulwark": {
+      "finding": "Four views preserve two crown fins, two massive arms/legs and circular front core. Back view establishes torso-mounted crown supports, without an invented rear core.",
+      "limits": "Rear support bridge shape is inferred from the approved front concept. Static images do not prove crown/shoulder/forearm clearance during an overhead slam.",
+      "rig": "Rigid plate/bearing transforms, four fingers plus thumb per hand. Torso-mounted crown must not follow head aim; verify overhead slam and knee compression in Blender."
+    },
+    "rift_ray": {
+      "finding": "Five views preserve two thick crescent fins, one central tail, navy dorsal shell, pale belly and coral face. Top and side clarify planform and body depth.",
+      "limits": "Front and back retain an elevated angle; they are appearance aids, not calibrated elevations. Tail foreshortening varies. Fin-rim segmentation is not consistently visible in generated views: keep root shell rigid and segment the pale rim when modeling, as specified in the brief.",
+      "rig": "Custom body/fin/tail skeleton. Smooth fin-tissue weights; rigid shell segments. Test fin extremes and banking; do not rubber-warp a continuous ceramic rim."
+    }
+  },
+  "anatomy_locks": {
+    "rift_skitter": "Rift Skitter Shieldback, approved candidate B. Overall height 1.2 m. A low shield-shaped beetle carapace, short recessed pointed head, TWO tiny coral eyes, exactly FOUR walking legs (front left/right, hind left/right), no arms, no tail, no additional appendages. Preserve the broad navy layered shell with two muted teal longitudinal bands and a small pale forehead wedge. Exactly three substantial articulated segments per leg and split compact hoof-point feet. Cream circular hip/knee housings with dark teal mechanical centers. Four separate hip sockets under the carapace, paired front and hind. Neutral quadruped stance: front pair slightly wider than hind pair so all four feet can read in front/back view. Same body elevation and leg articulation across views. Shell is rigid, joints articulate. Do not turn into the tall long-necked Skitter variant.",
+    "rift_marksman": "Rift Marksman Needlecrest, approved candidate A, 1.9 m tall including narrow split spearhead crest. Exactly two arms and two legs, humanoid plantigrade legs, broad navy pectoral plates, pale ceramic shoulders/forearms/kneecaps/shin edges, teal ribbed flexible neck/abdomen, single coral vertical forehead aperture and small coral chest aperture. Preserve the selected proportions and angular alien head. Hands each have THREE fingers plus ONE thumb, four digits total, clearly separated in the front view; neutral half-open hand, no fist. Relaxed symmetric A-pose, arms about 20 degrees from vertical, legs apart. Empty hands; no gun. Head remains forward in every view: rotate camera around the subject, never head toward camera. Back: functional quiet navy/pale plates and teal flexible spine, no new backpack, cape, wings or extra equipment.",
+    "forge_bulwark": "Forge Bulwark Split Crown, approved candidate A, 2.8 m tall INCLUDING the two tall ceramic crown fins attached to the upper torso beside the compact head. Exactly two massive arms and two heavy legs. Preserve broad pale ceramic shoulders, navy mechanical bearing joints, large cream forearm guards with teal outer inset panels, cream shin armor, broad planted feet. Exactly FOUR fingers plus ONE thumb on each hand, five digits total; relaxed half-open hands. Circular inset amber-white chest core, thin warm head aperture, small coral upper-sternum indicator. Two straight crown fins, no halo ring. Neutral symmetric A-pose, arms clear of torso, feet apart. Back: rigid support bridges attach the two crown fins to upper torso, clear of shoulder swivel housings; quiet navy spinal understructure with pale back plates, no backpack or new glow core. Keep all plates thick and rigid, generously clear of joint movement.",
+    "rift_ray": "Rift Ray Crescent, approved candidate A. 1.6 m wingspan, one rounded thick central armored body, exactly TWO broad curved crescent fins at left/right, exactly ONE short tapered tail from rear center. Two coral eyes and one small coral forward mouth aperture. Preserve navy segmented dorsal shell with narrow teal stripe and warm pale underside, thick opaque teal fin tissue, navy outer dorsal fin armor and cream edge segments. Fin leading-edge shell follows rigid root/first fin bone; cream edge strip divided by subtle existing-style seams into a few rigid segments so flexible teal tissue can bend. Keep the approved outline and do not add decorative detail. Neutral hover pose with both fins slightly down-curved symmetrically, tail roughly level with gentle rise at its tip. No legs, tentacles, secondary fins, spikes, aerials or long ribbon tail. Back/underside extrapolates the same pale belly and dark root joints without new organs or exhausts."
+  },
+  "projection_note": "Generated orthographic-intent images are appearance and anatomy references, not calibrated CAD drawings. Skitter and Ray front/rear views retain mild camera elevation. Resolve depth and pose against the selected three-quarter, side and top views in Blender.",
+  "superseded_views": [
+    {
+      "file": "rift_skitter/views/front.png",
+      "reason": "Superseded by front_v2.png; rear feet were too high in the image."
+    },
+    {
+      "file": "rift_ray/views/front.png",
+      "reason": "Superseded by front_v2.png; excessive elevated view."
+    },
+    {
+      "file": "rift_marksman/weapon/top.png",
+      "reason": "Superseded by top_v2.png; interpreted upper/lower shrouds as lateral prongs."
+    }
+  ],
+  "next_stage": {
+    "recommended_pilot": "rift_marksman",
+    "meshy_generation_performed": false,
+    "meshy_credits_spent": 0,
+    "blender_models_created": false,
+    "godot_runtime_modified": false,
+    "notes": "Start with the selected three-quarter image as Meshy source. Use auxiliary views only when consistent; retain all as Blender guidance. Validate one pilot before batching others."
+  }
+}

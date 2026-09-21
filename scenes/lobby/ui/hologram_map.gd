@@ -95,7 +95,7 @@ func _seed_stub_destinations() -> void:
 	_destinations.append(_make_dest(
 		"frontier_outpost",
 		"Frontier Outpost",
-		"Secure the beacon and push the rift back from the outer wall.",
+		"Recover an armor blueprint from the marked field cache, then extract through the forge monument. Each successful recovery unlocks the next armor.",
 		true,
 		"res://scenes/field/forge_field.tscn"
 	))

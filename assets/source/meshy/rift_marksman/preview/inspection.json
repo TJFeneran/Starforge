@@ -1,0 +1,19 @@
+{
+  "source": "/home/tj/Documents/GodotProjects/Starforge/assets/source/meshy/rift_marksman/marksman_a.glb",
+  "bounds_min_m": [
+    -0.5723345279693604,
+    -0.20100408792495728,
+    0.0
+  ],
+  "bounds_max_m": [
+    0.5723345279693604,
+    0.20100408792495728,
+    1.7999999523162842
+  ],
+  "mesh_count": 1,
+  "face_count": 117898,
+  "triangle_count": 117898,
+  "materials": [
+    "Material_0"
+  ]
+}

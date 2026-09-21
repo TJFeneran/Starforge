@@ -39,12 +39,12 @@ Present now:
 - Forward+ lighting / SSAO; authored collision proxies (no auto mesh AABB)
 
 Deferred lobby systems (remember these):
-- Workshop bench interact → focused UI / inspection (anchors exist; no loadout UI yet)
-- Armor / weapons loadouts
+- Weapons / utility / outfit workshop interfaces (Armor / Loadout is implemented)
+- Weapons loadouts
 - Utility gadgets
 - Skin / outfit cosmetics
 - Richer map destinations / globe visual reflecting selection (stub map is enough for outpost launch)
-- Persist player state across lobby ↔ mission
+- Additional inventory and mission state beyond the armor campaign checkpoint
 
 ## Forge field (gate destination)
 
@@ -64,7 +64,17 @@ Nine guns have editable Blender sources and imported runtime GLBs under `assets/
 
 Nine textured Meshy armor designs have raw GLBs and generation records in `assets/source/meshy/armor_*/`, editable rigged Blender files in `assets/source/blender/armor_*/`, and Godot GLBs in `assets/models/gear/armor/previews/`. The lineup is Dustcoat Field Kit, Outpost Plate, Trail Warden, Signal Mantle, Quarry Shell, Riftward Carapace, Nightwell Vaultsuit, Horizon Aegis, and Solar Heartplate. The models use matching 112-bone rigs and share six preview clips (walk, run, strafe, jump, aim, idle). Open `scenes/sandbox/armor_preview.tscn`; WASD moves the camera, Shift moves faster, drag orbits, wheel zooms, Space advances the animation, and R resets the view.
 
-The preview normally fits models to 1.8 m. Signal Mantle and Horizon Aegis are 2.16 m including their tall helmet pieces, so their armored bodies match the lineup more closely. These are visual preview assets; the six-slot armor loadout, mitigation, persistence, and workshop UI in `armor-progression-plan.md` are not implemented yet. Preserve the Meshy geometry and textures when changing rigs or animation weights.
+The preview normally fits models to 1.8 m. Signal Mantle and Horizon Aegis are 2.16 m including their tall helmet pieces, so their armored bodies match the lineup more closely. These models now also serve full-body campaign equipment. The six-slot loadout and mitigation remain deferred; the current model grants maximum HP per set. Preserve the Meshy geometry and textures when changing rigs or animation weights.
+
+## Enemy concept references
+
+The user selected Rift Skitter B (Shieldback), Rift Marksman A (Needlecrest), Forge Bulwark A (Split Crown), and Rift Ray A (Crescent). `assets/source/concepts/enemies/index.html` shows their 18 body reference views and three separate Marksman carbine views; `README.md`, `BLENDER_HANDOFF.md`, per-enemy briefs, and `manifest.json` record scale, anatomy, animation requirements, prompts, and review caveats. Skitter/Ray front and rear references retain some camera elevation; use these as appearance guides, not measured orthographic drawings. Follow the manifest's selected filenames, not superseded drafts.
+
+All four selected enemies now have source GLBs in `assets/source/meshy/<slug>/`, editable rigs and phone-ready review videos in `assets/source/blender/<slug>/`, runtime GLBs in `assets/models/enemies/<slug>/`, and sandbox preview scenes. Marksman has 11 clips and a 51-bone rig; Shieldback Skitter has 8 clips and a 20-bone quadruped rig; Crescent Ray has 9 clips and a 13-bone fin/tail rig; Split Crown Bulwark has 7 clips and a 44-bone rig with rigid armor weighting. Each source was optimized conservatively, retaining its original textures and silhouette. The three later Meshy builds cost 30 credits each and did not use paid rig or animation services.
+
+The first selectable level, Frontier Outpost (`scenes/field/forge_field.tscn`), now spawns the four as a test encounter through `scenes/combat/enemy_test_actor.tscn`. The test actors chase, attack on authored contact frames, take gun damage, and play hit/death clips. `tools/check_enemy_test_encounter.gd` checks all four models, required clips, rigs, gun damage, death, and a live Skitter attack against the player; it passes. These are a test roster for gameplay review, not the final authored enemy AI or campaign mission balance. Keep the older combat Skitter asset available until permanent encounter promotion.
+
+For subsequent enemies and bosses, follow `docs/production/enemy-preview-pipeline.md` from concept choice and paid-generation approval through rig checks, sandbox video, and phone delivery through Google Drive.
 
 ## Known soft spots
 
@@ -101,3 +111,9 @@ The preview normally fits models to 1.8 m. Signal Mantle and Horizon Aegis are 2
 - Field: `scenes/field/forge_field.gd`; scene wipe: `scenes/ui/scene_transition.*`
 - Menus: `scenes/ui/welcome_screen.*`, `scenes/ui/pause_menu.*`, options overlay `scenes/ui/options_menu.*` (General / Video / Audio tabs; only Video populated), settings state `scenes/settings/game_settings.gd`; shared theme `assets/ui/starforge_ui_theme.tres`
 - Plans: `docs/production/lobby-plan.md`, `docs/production/vertical-slice.md`, `docs/production/armor-progression-plan.md` (canonical armor design contract), `docs/production/gun-progression-plan.md` (canonical gun design contract)
+
+## New Game, Continue, and armor HP campaign
+
+The title menu offers New Game (current character or Dustcoat Field Kit, both 100 HP) and Continue from a saved lobby/field checkpoint. `PlayerState` owns one atomic versioned `user://campaign.json` save for starter, equipped/owned armor, pending recovery, and scene. Continue respawns at that scene's safe spawn with full HP; transient position/ammo are not saved. Pause → Main Menu preserves progress.
+
+The preserved HP table is in `armor-progression-plan.md`, backed by `assets/data/armor/armor_balance.json`: 100 starter, then 125 / 145 / 170 / 195 / 225 / 250 / 275 / 300 HP. Recover the marked field blueprint and extract at the monument to unlock the next set, once per expedition. The existing Armor workshop compares and equips earned gear. Campaign armor hotkeys cannot bypass ownership; sandbox hotkeys remain unrestricted. Death loses an unextracted blueprint but preserves owned gear. This recovery loop is the initial progression path until authored combat missions exist.

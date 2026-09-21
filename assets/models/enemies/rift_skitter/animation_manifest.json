@@ -1,0 +1,41 @@
+{
+  "fps": 30,
+  "height_m": 1.2,
+  "forward_axis": "+Z",
+  "clips": {
+    "idle": {
+      "duration_seconds": 3.0,
+      "loop": true
+    },
+    "walk": {
+      "duration_seconds": 1.2,
+      "loop": true
+    },
+    "run": {
+      "duration_seconds": 0.8,
+      "loop": true
+    },
+    "attack_anticipation": {
+      "duration_seconds": 0.8,
+      "loop": false
+    },
+    "attack": {
+      "duration_seconds": 0.7,
+      "loop": false,
+      "contact_frame": 8,
+      "contact_time_seconds": 0.26666666666666666
+    },
+    "attack_recovery": {
+      "duration_seconds": 0.9,
+      "loop": false
+    },
+    "hit": {
+      "duration_seconds": 0.7,
+      "loop": false
+    },
+    "death": {
+      "duration_seconds": 2.0,
+      "loop": false
+    }
+  }
+}

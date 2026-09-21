@@ -1,0 +1,49 @@
+{
+  "source": "assets/source/meshy/rift_skitter/shieldback_b.glb",
+  "height_m": 1.2,
+  "source_triangles": 116710,
+  "optimized_triangles": 95702,
+  "reduction_percent": 18.000171364921602,
+  "surface_error_p99_mm": 0.11059834650950506,
+  "surface_error_max_mm": 0.24147503427229822,
+  "bones": 20,
+  "unweighted_vertices": 0,
+  "clips": {
+    "idle": {
+      "duration_seconds": 3.0,
+      "loop": true
+    },
+    "walk": {
+      "duration_seconds": 1.2,
+      "loop": true
+    },
+    "run": {
+      "duration_seconds": 0.8,
+      "loop": true
+    },
+    "attack_anticipation": {
+      "duration_seconds": 0.8,
+      "loop": false
+    },
+    "attack": {
+      "duration_seconds": 0.7,
+      "loop": false,
+      "contact_frame": 8,
+      "contact_time_seconds": 0.26666666666666666
+    },
+    "attack_recovery": {
+      "duration_seconds": 0.9,
+      "loop": false
+    },
+    "hit": {
+      "duration_seconds": 0.7,
+      "loop": false
+    },
+    "death": {
+      "duration_seconds": 2.0,
+      "loop": false
+    }
+  },
+  "forward_blender": "-Y",
+  "forward_godot": "+Z"
+}

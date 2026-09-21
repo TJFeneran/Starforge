@@ -1,0 +1,75 @@
+{
+  "fps": 30,
+  "clips": {
+    "idle": {
+      "duration_seconds": 3.0,
+      "loop": true,
+      "max_grip_error_m": 3.6886471712413373e-07,
+      "max_foot_target_error_m": 1.192238405779396e-07
+    },
+    "walk": {
+      "duration_seconds": 1.2,
+      "loop": true,
+      "max_grip_error_m": 2.6246636601476653e-07,
+      "max_foot_target_error_m": 9.424321830774485e-08
+    },
+    "run": {
+      "duration_seconds": 0.7,
+      "loop": true,
+      "max_grip_error_m": 2.546695790378633e-07,
+      "max_foot_target_error_m": 9.424321830774485e-08
+    },
+    "strafe_left": {
+      "duration_seconds": 1.2,
+      "loop": true,
+      "max_grip_error_m": 3.69197855780586e-07,
+      "max_foot_target_error_m": 1.0536712127723508e-07
+    },
+    "strafe_right": {
+      "duration_seconds": 1.2,
+      "loop": true,
+      "max_grip_error_m": 3.69197855780586e-07,
+      "max_foot_target_error_m": 1.3738191809196602e-07
+    },
+    "aim": {
+      "duration_seconds": 2.0,
+      "loop": true,
+      "max_grip_error_m": 2.692575301879593e-07,
+      "max_foot_target_error_m": 1.192238405779396e-07
+    },
+    "attack_anticipation": {
+      "duration_seconds": 0.8,
+      "loop": false,
+      "max_grip_error_m": 2.728678915524754e-07,
+      "max_foot_target_error_m": 8.940696716308594e-08
+    },
+    "attack": {
+      "duration_seconds": 0.6,
+      "loop": false,
+      "max_grip_error_m": 2.5792139183519247e-07,
+      "max_foot_target_error_m": 8.940696716308594e-08,
+      "fire_time_seconds": 0.13333333333333333
+    },
+    "attack_recovery": {
+      "duration_seconds": 0.9,
+      "loop": false,
+      "max_grip_error_m": 3.446439278004679e-07,
+      "max_foot_target_error_m": 1.192238405779396e-07
+    },
+    "hit": {
+      "duration_seconds": 0.8,
+      "loop": false,
+      "max_grip_error_m": 2.593270384749159e-07,
+      "max_foot_target_error_m": 8.940696716308594e-08
+    },
+    "death": {
+      "duration_seconds": 2.4,
+      "loop": false,
+      "max_grip_error_m": 0.0,
+      "max_foot_target_error_m": 8.948454372185702e-08
+    }
+  },
+  "height_m": 1.9,
+  "forward_axis": "+Z",
+  "weapon_socket": "weapon_socket"
+}
