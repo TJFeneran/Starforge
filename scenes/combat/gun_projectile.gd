@@ -107,7 +107,7 @@ func _physics_process(delta: float) -> void:
 		global_position = point
 		if is_instance_valid(source) and source.has_method("on_projectile_impact"):
 			source.on_projectile_impact(definition, result.collider, point, traveled)
-		WeaponEffect.burst(get_tree().current_scene, point, definition.effect_color, 0.07 * definition.effect_size)
+		WeaponEffect.impact(get_tree().current_scene, point, definition.effect_color, 0.18 * definition.effect_size)
 		queue_free()
 		return
 	global_position = finish

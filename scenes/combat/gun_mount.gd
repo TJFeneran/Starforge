@@ -51,6 +51,8 @@ var _marks: Dictionary = {}
 var _mark_armed: Dictionary = {}
 var _hud_label: Label
 var _hud_panel: ColorRect
+var _muzzle_flashes: Array[MuzzleVFXController] = []
+var _muzzle_flash_index := 0
 
 
 func _ready() -> void:
@@ -85,6 +87,15 @@ func equip(index: int) -> void:
 	_model_holder.add_child(_model)
 	_model.scale = Vector3.ONE * definition.model_scale
 	_muzzle.position = definition.muzzle_offset * definition.model_scale
+	for flash in _muzzle_flashes:
+		flash.queue_free()
+	_muzzle_flashes.clear()
+	_muzzle_flash_index = 0
+	var flash_size := (0.18 if definition.effect_style in ["slug", "needle", "tracer", "rail"] else 0.17) * definition.effect_size
+	if definition.fire_mode == "beam":
+		flash_size = 0.10
+	for i in 2:
+		_muzzle_flashes.append(WeaponEffect.prepare_muzzle(_muzzle, definition.effect_color, flash_size, definition.effect_style))
 	_fire_sfx.position = _muzzle.position
 	_animation = _find_animation_player(_model)
 	var state: Dictionary = _saved.get(definition.gun_id, {})
@@ -164,7 +175,7 @@ func _try_fire() -> void:
 	if definition.fire_mode == "charge":
 		_charge_left = definition.charge_time
 		_play_animation("Charge")
-		WeaponEffect.burst(_muzzle, _muzzle.global_position, definition.effect_color, 0.09, definition.charge_time, 2.5)
+		WeaponEffect.charge(_muzzle, _muzzle.global_position, _camera_direction, definition.effect_color, definition.charge_time)
 		return
 	if definition.fire_mode == "beam":
 		if not _trigger_was_held:
@@ -200,7 +211,7 @@ func _fire_projectile(spec: GunDefinition) -> void:
 	var projectile := GunProjectile.new()
 	_effect_host().add_child(projectile)
 	projectile.launch(spec, from, direction, self, _shooter)
-	WeaponEffect.burst(_muzzle, from, spec.effect_color, 0.08 * spec.effect_size)
+	_play_muzzle_flash(from, direction)
 	_play_animation("Fire")
 	_play_sound(spec)
 	recoil.emit(spec.recoil_degrees)
@@ -231,15 +242,15 @@ func _fire_beam() -> void:
 			break
 		var distance := from.distance_to(end)
 		_apply_hit(spec, body, end, distance, 1.0 if hit_number == 0 else spec.pierce_damage_fraction)
-		WeaponEffect.burst(_effect_host(), end, spec.effect_color, 0.10)
+		WeaponEffect.impact(_effect_host(), end, spec.effect_color, 0.20)
 		if body is CollisionObject3D:
 			excluded.append((body as CollisionObject3D).get_rid())
 		remaining = spec.max_range - distance
 		if remaining <= 0.0:
 			break
 		start = end + direction * 0.02
-	WeaponEffect.line(_effect_host(), from, end, spec.effect_color, 0.035 * spec.effect_size, spec.fire_interval + 0.04)
-	WeaponEffect.burst(_muzzle, from, spec.effect_color, 0.08)
+	WeaponEffect.beam(_effect_host(), from, end, spec.effect_color, 0.020 * spec.effect_size, spec.fire_interval + 0.04, true)
+	_play_muzzle_flash(from, direction)
 	_heat = minf(spec.heat_capacity, _heat + spec.heat_per_tick)
 	if _heat >= spec.heat_capacity:
 		_lockout_left = spec.overheat_lockout
@@ -294,11 +305,11 @@ func _apply_hit(spec: GunDefinition, target: Object, point: Vector3, distance: f
 	if marked == target and now <= float(mark.get("expires", 0.0)):
 		target.apply_hit(spec.mark_bonus_damage)
 		_marks.erase(spec.gun_id)
-		WeaponEffect.burst(_effect_host(), point, spec.effect_color, 0.22, 0.22, 2.5)
+		WeaponEffect.impact(_effect_host(), point, spec.effect_color, 0.42, true)
 	elif bool(_mark_armed.get(spec.gun_id, true)):
 		_marks[spec.gun_id] = {"target": weakref(target), "expires": now + spec.mark_duration}
 		_mark_armed[spec.gun_id] = false
-		WeaponEffect.burst(_effect_host(), point, spec.effect_color, 0.12, 0.2, 1.8)
+		WeaponEffect.impact(_effect_host(), point, spec.effect_color, 0.23)
 
 
 func _emit_echo(spec: GunDefinition) -> void:
@@ -316,8 +327,8 @@ func _emit_echo(spec: GunDefinition) -> void:
 	if not get_world_3d().direct_space_state.intersect_ray(query).is_empty():
 		return
 	target.apply_hit(spec.echo_damage)
-	WeaponEffect.line(_effect_host(), from, finish, spec.effect_color, 0.025, 0.22)
-	WeaponEffect.burst(_effect_host(), finish, spec.effect_color, 0.10)
+	WeaponEffect.beam(_effect_host(), from, finish, spec.effect_color, 0.018, 0.22, true)
+	WeaponEffect.impact(_effect_host(), finish, spec.effect_color, 0.20)
 
 
 func _apply_aoe(spec: GunDefinition, direct_target: Object, point: Vector3) -> void:
@@ -340,7 +351,25 @@ func _apply_aoe(spec: GunDefinition, direct_target: Object, point: Vector3) -> v
 		damaged += 1
 		if damaged >= spec.aoe_max_targets:
 			break
-	WeaponEffect.burst(_effect_host(), point, spec.effect_color, 0.22, 0.24, spec.aoe_radius / 0.22)
+	WeaponEffect.impact(_effect_host(), point, spec.effect_color, spec.aoe_radius * 0.38, true, true)
+
+
+func _play_muzzle_flash(position: Vector3, direction: Vector3) -> void:
+	if _muzzle_flashes.is_empty():
+		return
+	var effect := _muzzle_flashes[_muzzle_flash_index]
+	_muzzle_flash_index = (_muzzle_flash_index + 1) % _muzzle_flashes.size()
+	WeaponEffect.play_muzzle(effect, position, direction)
+
+
+func prime_muzzle_flashes() -> void:
+	for flash in _muzzle_flashes:
+		WeaponEffect.play_muzzle(flash, _muzzle.global_position, -global_basis.z)
+
+
+func hide_muzzle_flashes() -> void:
+	for flash in _muzzle_flashes:
+		flash.hide()
 
 
 func _play_animation(keyword: String) -> void:

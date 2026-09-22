@@ -50,6 +50,44 @@ func _ready() -> void:
 			_add_armor_blueprint()
 	if _return_interact:
 		_return_interact.interacted.connect(_on_return_interacted)
+	_prime_firing_effects_during_gate_wipe()
+
+
+func _prime_firing_effects_during_gate_wipe() -> void:
+	var transition := get_node_or_null("/root/SceneTransition")
+	if transition == null or not transition.is_busy():
+		return
+	var player := get_node_or_null("Player") as CharacterBody3D
+	if player == null:
+		return
+	var gun := player.get_node("Visual/WeaponAnchor/GunMount") as GunMount
+	var camera := player.get_node("CameraYaw/SpringArm3D/Camera3D") as Camera3D
+	var forward := -camera.global_basis.z
+	var point := camera.global_position + forward * 2.0
+	gun.prime_muzzle_flashes()
+	var hit := WeaponEffect.impact(self, point, Color("ffb766"), 0.2)
+	var beam := WeaponEffect.beam(self, point, point + forward * 2.0, Color("63e8dc"), 0.035, 0.2)
+	var projectile_stub := GunProjectile.new()
+	projectile_stub.free()
+	var projectile_previews: Array[Node3D] = []
+	for style in GunProjectile.ENERGY_SHOTS:
+		var preview := (GunProjectile.ENERGY_SHOTS[style] as PackedScene).instantiate() as VFXController
+		preview.autoplay = false
+		add_child(preview)
+		preview.global_position = point + camera.global_basis.x * projectile_previews.size() * 0.25
+		preview.scale = Vector3.ONE * 0.2
+		preview.play()
+		projectile_previews.append(preview)
+	# Let the renderer draw each shader while the gate wipe still covers the field.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	gun.hide_muzzle_flashes()
+	if is_instance_valid(hit):
+		hit.queue_free()
+	if is_instance_valid(beam):
+		beam.queue_free()
+	for preview in projectile_previews:
+		preview.queue_free()
 
 
 func _spawn_enemy_test_encounter() -> void:

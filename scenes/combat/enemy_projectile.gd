@@ -4,12 +4,16 @@ class_name EnemyProjectile
 ## Enemy shots use a swept ray so fast bolts cannot pass through the player.
 signal hit_target(target: Node3D)
 
+const MARKSMAN_SHOT := preload("res://assets/BinbunVFX/MagicProjectilesVFX/magic_projectiles/effects/mprojectile_javelin/mprojectile_javelin_vfx_02.tscn")
+const RAY_SHOT := preload("res://assets/BinbunVFX/MagicProjectilesVFX/magic_projectiles/effects/mprojectile_wave/mprojectile_wave_vfx_03.tscn")
+
 var direction := Vector3.FORWARD
 var speed := 30.0
 var damage := 10.0
 var lifetime := 1.5
 var shooter: CollisionObject3D
 var _age := 0.0
+var _impact_color := Color.WHITE
 
 
 func launch(from: Vector3, toward: Vector3, firing_body: CollisionObject3D, shot_damage: float, shot_speed: float, color: Color, radius: float) -> void:
@@ -18,38 +22,25 @@ func launch(from: Vector3, toward: Vector3, firing_body: CollisionObject3D, shot
 	shooter = firing_body
 	damage = shot_damage
 	speed = shot_speed
-	var core := MeshInstance3D.new()
-	var sphere := SphereMesh.new()
-	sphere.radius = radius
-	sphere.height = radius * 2.0
-	core.mesh = sphere
-	core.material_override = _material(color, 3.0)
-	add_child(core)
-	var tail := MeshInstance3D.new()
-	var cylinder := CylinderMesh.new()
-	cylinder.top_radius = radius * 0.35
-	cylinder.bottom_radius = radius * 0.7
-	cylinder.height = radius * 4.0
-	tail.mesh = cylinder
-	tail.position = -direction * radius * 1.8
-	tail.quaternion = Quaternion(Vector3.UP, direction)
-	tail.material_override = _material(color.darkened(0.25), 2.0)
-	add_child(tail)
-	var light := OmniLight3D.new()
-	light.light_color = color
-	light.light_energy = 0.7
-	light.omni_range = 2.0
-	add_child(light)
-
-
-func _material(color: Color, energy: float) -> StandardMaterial3D:
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	material.emission_enabled = true
-	material.emission = color
-	material.emission_energy_multiplier = energy
-	return material
+	_impact_color = color
+	look_at(from + direction, Vector3.UP)
+	var scene := MARKSMAN_SHOT if radius < 0.1 else RAY_SHOT
+	var visual := scene.instantiate() as VFXController
+	visual.autoplay = false
+	visual.one_shot = false
+	visual.scale = Vector3.ONE * (0.24 if radius < 0.1 else 0.32)
+	visual.rotation.y = PI * 0.5
+	visual.position.z = -0.35
+	for child in visual.get_children():
+		if child is MeshInstance3D and child.material_override is ShaderMaterial:
+			child.material_override = child.material_override.duplicate(true)
+	add_child(visual)
+	visual.primary_color = color.lightened(0.35)
+	visual.secondary_color = color
+	visual.tertiary_color = color.darkened(0.3)
+	visual.light_color = color
+	visual.light_energy = 0.8
+	visual.play()
 
 
 func _physics_process(delta: float) -> void:
@@ -71,4 +62,5 @@ func _physics_process(delta: float) -> void:
 		if health != null and body.is_in_group("player"):
 			health.apply_damage(damage)
 			hit_target.emit(body)
+	WeaponEffect.impact(get_parent(), hit.position, _impact_color, 0.22)
 	queue_free()

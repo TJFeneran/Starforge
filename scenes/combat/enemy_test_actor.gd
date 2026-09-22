@@ -40,9 +40,7 @@ var _did_damage := false
 var _cooldown := 0.0
 var _hit_elapsed := 0.0
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var _warning: MeshInstance3D
-var _warning_mesh: CylinderMesh
-var _warning_material: StandardMaterial3D
+var _warning: Node3D
 var _locked_target := Vector3.ZERO
 var _strafe_sign := 1.0
 var _attack_sound: AudioStreamPlayer3D
@@ -205,22 +203,17 @@ func _glow(color: Color, alpha: float) -> StandardMaterial3D:
 func _make_warning() -> void:
 	_clear_warning()
 	if attack_style == "marksman" or attack_style == "ray":
-		_warning = MeshInstance3D.new()
-		_warning_mesh = CylinderMesh.new()
-		_warning_mesh.top_radius = 0.018 if attack_style == "marksman" else 0.045
-		_warning_mesh.bottom_radius = _warning_mesh.top_radius
-		_warning_mesh.radial_segments = 8
-		_warning.mesh = _warning_mesh
-		_warning_material = _glow(Color("63e8dc") if attack_style == "marksman" else Color("c778ff"), 0.55)
-		_warning.material_override = _warning_material
-		add_child(_warning)
+		var warning_color := Color("63e8dc") if attack_style == "marksman" else Color("c778ff")
+		_warning = WeaponEffect.beam(self, _muzzle_position(), _locked_target, warning_color, 0.032 if attack_style == "marksman" else 0.070)
+		_warning.set("pulse_strength", 0.10 if attack_style == "marksman" else 0.22)
+		_warning.set("pulse_frequency", 16.0 if attack_style == "marksman" else 11.0)
 	elif attack_style == "slam":
 		_warning = MeshInstance3D.new()
 		var ring := TorusMesh.new()
 		ring.inner_radius = slam_radius - 0.11
 		ring.outer_radius = slam_radius
-		_warning.mesh = ring
-		_warning.material_override = _glow(Color("ff704f"), 0.9)
+		(_warning as MeshInstance3D).mesh = ring
+		(_warning as MeshInstance3D).material_override = _glow(Color("ff704f"), 0.9)
 		_warning.position.y = 0.07
 		add_child(_warning)
 		var fill := MeshInstance3D.new()
@@ -235,24 +228,18 @@ func _make_warning() -> void:
 
 
 func _update_warning() -> void:
-	if _warning == null or _warning_mesh == null:
+	if _warning == null or attack_style not in ["marksman", "ray"]:
 		return
-	var from := _muzzle_position()
-	var vector := _locked_target - from
-	var length := vector.length()
-	if length < 0.1:
-		return
-	_warning_mesh.height = length
-	_warning.global_position = from + vector * 0.5
-	_warning.global_basis = Basis(Quaternion(Vector3.UP, vector / length))
+	WeaponEffect.place_beam(_warning, _muzzle_position(), _locked_target)
 
 
 func _clear_warning() -> void:
 	if is_instance_valid(_warning):
-		_warning.queue_free()
+		if attack_style in ["marksman", "ray"]:
+			WeaponEffect.close_beam(_warning)
+		else:
+			_warning.queue_free()
 	_warning = null
-	_warning_mesh = null
-	_warning_material = null
 
 
 func _apply_attack_contact(distance_to_player: float) -> void:
@@ -262,6 +249,7 @@ func _apply_attack_contact(distance_to_player: float) -> void:
 		var count := 1 if attack_style == "marksman" else 3
 		var from := _muzzle_position()
 		var straight := (_locked_target - from).normalized()
+		WeaponEffect.muzzle(self, from, straight, color, 0.25 if count == 1 else 0.34, attack_style)
 		for index in count:
 			var spread := float(index - (count - 1) * 0.5) * 0.17
 			var direction := straight.rotated(Vector3.UP, spread)
